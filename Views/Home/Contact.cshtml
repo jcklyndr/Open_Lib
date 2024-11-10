@@ -1,0 +1,133 @@
+﻿@{
+    ViewData["Title"] = "Contact";
+}
+<partial name="/Views/Shared/_Header.cshtml" />
+
+<section class="ftco-section bg-light">
+    <div class="heading-section">
+        <div class="pl-md-5 p-3">
+            <h2 class="mb-2 text-brown centertext">Contact Us</h2>
+        </div>
+    </div>
+    <div class="container">
+        <div class="col-md-12">
+            <div class="wrapper">
+                <div class="row no-gutters">
+                    <div class="col-lg-8 col-md-7 d-flex align-items-stretch">
+                        <div class="contact-wrap w-100 p-md-5 p-4">
+                            <div class="alert alert-success" style="display: none;">Form submitted successfully!</div>
+
+                            <h2 class="font-weight-bold mb-4 text-brown">Let's get started</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum scelerisque pulvinar sem.</p>
+
+                            <h3 class="mb-4 text-brown">Get in touch</h3>
+                            <p>You can send your concern, questions, and thoughts. Thank you!</p>
+                            <hr>
+
+                            <form method="post" id="contactForm" class="contactForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="label" for="name">Full Name</label>
+                                            <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+                                            <span class="text-danger" style="display: none;">Please enter a valid name.</span> <!-- Placeholder for error -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="label" for="email">Email Address</label>
+                                            <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                                            <span class="text-danger" style="display: none;">Please enter a valid email.</span> <!-- Placeholder for error -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="label" for="contact">Contact Number</label>
+                                            <input type="text" class="form-control" name="contact" id="contact" placeholder="Contact Number">
+                                            <span class="text-danger" style="display: none;">Please enter a valid contact number.</span> <!-- Placeholder for error -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="label" for="subject">Subject</label>
+                                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
+                                            <span class="text-danger" style="display: none;">Please enter a valid subject.</span> <!-- Placeholder for error -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="label" for="message">Message</label>
+                                            <textarea name="message" class="form-control" id="message" cols="30" rows="4" placeholder="Input your message"></textarea>
+                                            <span class="text-danger" style="display: none;">Please enter a valid message.</span> <!-- Placeholder for error -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-form">Send Message</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-5 d-flex align-items-stretch todarkbrown">
+                        <div class="info-wrap w-100 p-md-5 p-4">
+                            <h3>Let's get in touch</h3>
+                            <p class="mb-4">We're open for any suggestion or just to have a chat.</p>
+
+                            <div class="dbox w-100 d-flex align-items-start">
+                                <div class="icon d-flex align-items-center justify-content-center">
+                                    <span class="fa fa-map-marker"></span>
+                                </div>
+                                <div class="text pl-3">
+                                    <p><span>Main Address:</span><a href="#"> Newport, Pasay City</a></p>
+                                </div>
+                            </div>
+
+                            <div class="dbox w-100 d-flex align-items-center">
+                                <div class="icon d-flex align-items-center justify-content-center">
+                                    <span class="fa fa-phone"></span>
+                                </div>
+                                <div class="text pl-3">
+                                    <p><span>Phone:</span> <a href="tel://1234567920">09322247d0 or 173-267-8100</a></p>
+                                </div>
+                            </div>
+
+                            <div class="dbox w-100 d-flex align-items-center">
+                                <div class="icon d-flex align-items-center justify-content-center">
+                                    <span class="fa fa-paper-plane"></span>
+                                </div>
+                                <div class="text pl-3">
+                                    <p><span>Email:</span> <a href="mailto:info@yoursite.com">OnlineOpenLibrary</a></p>
+                                </div>
+                            </div>
+
+                            <div class="dbox w-100 d-flex align-items-center">
+                                <div class="icon d-flex align-items-center justify-content-center">
+                                    <span class="fa fa-globe"></span>
+                                </div>
+                                <div class="text pl-3">
+                                    <p><span>Website</span> <a href="#">OnlineOpenLibrary.com</a></p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<!--Footer-->
+<partial name="/Views/Shared/_Footer.cshtml" />

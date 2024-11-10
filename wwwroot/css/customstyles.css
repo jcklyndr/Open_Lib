@@ -1,0 +1,411 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    box-sizing:border-box;
+}
+/*Color use: #794022, #F2E5BF, #FCB900, #193153, whitesmoke */
+
+body {
+    background-color: whitesmoke;
+}
+.main-color {
+    color: #F2E5BF; /*light near whitesmoke*/
+}
+.bgcolor{
+    background-color: #794022;
+}
+.use-font {
+    font-family: 'Montserrat', sans-serif;
+}
+.text-black{
+    color: black;
+}
+.text-white{
+    color: #fff;
+}
+.text-brown{
+    color: #794022;
+}
+.wrap-brown{
+    background-color: #794022;
+}
+.todarkbrown{
+    background-color: #3E2112;
+}
+.weight{
+    font-weight: bold;
+}
+.centertext{
+    text-align: center;
+}
+.spanmain {
+    color: #193153;
+    font-family: "Madimi One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 59px;
+}
+.spansec {
+    color: #FCB900;
+    font-family: "Madimi One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 59px;
+}
+.space{
+    margin-top:15px;
+}
+.bottomspace{
+    margin-bottom: 15px;
+}
+.containerheader {
+    background-color: #C8B1A4;
+}
+nav {
+    display: flex;
+    padding: 0 12px 0 18px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav img {
+    padding-top: 3%;
+    width: 130px;
+}
+.nav-links {
+    flex: 1;
+    text-align: right;
+}
+.nav-links ul, li {
+    list-style: none;
+    display: inline-block;
+    padding: 8px 13px;
+    position: relative;
+}
+.nav-links ul, li, a {
+    color: #794022;
+    text-decoration: none;
+    font-size: 15px;
+    
+}
+.nav-links li:after {
+    content: '';
+    width: 0%;
+    height: 3px;
+    background: #794022;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+}
+.nav-links ul, li:hover:after {
+        width: 100%;
+}
+li a{
+    display: inline-block;
+    text-align: center;
+    padding: 14px 16px;
+    font-weight: bold;
+}
+li a:hover {
+    background-color: #794022;
+    color: whitesmoke;
+    }
+
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.4);
+    min-width: 130px;
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.1);
+    z-index: 1;
+    right: 0;
+}
+.dropdown-content a {
+    color: whitesmoke;
+    padding: 10px 5px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+
+.dropdown-content a:hover {
+     background-color: #794022;
+     color: whitesmoke;
+     font-weight:bold;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.readmorebtn {
+    width: 20%;
+    margin-top: -2%;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #193153;
+    color: #FCB900;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+.readmorebtn:hover {
+    background-color: #FCB900;
+    color: #193153; 
+}
+
+
+ /*style ni form*/
+.form-create {
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+}
+.btn-text-center p{
+    font-size: 15px;
+}
+.btn-login-link {
+    background: none;
+    border: none;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+}
+.btn-login-link:hover{
+    text-decoration: underline;
+    color: rosybrown;
+}
+.btn-admin{
+    background-color: antiquewhite;
+}
+.btn-admin:hover{
+    color: #794022;
+    border: 1px solid #794022;
+    
+}
+.btn-primary-login {
+    background-color: #794022;
+    color: #F2E5BF;
+    
+}
+.btn-primary-login:hover {
+    background-color: #FAEBD7;
+    color: #794022;
+    border:1px solid #794022;
+}
+button {
+    width: 100%;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #193153;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-color: #F2E5BF;
+}
+button:hover {
+    color: #794022;
+}
+
+/* Responsive style ni form */
+@media screen and (max-width: 480px) {
+    .containerform {
+        width: 90%;
+    }
+}
+/*Style for adminside*/
+#wrapper{
+    padding:90px 15px;
+}
+
+.card{
+  margin: 25px;
+  border-radius:0;
+  box-shadow: 0 3px 5px rgba(0,0,0,.1);
+  border-radius: 15px;
+  }
+.card-body .card-title{
+    font-family: Montserrat, sans-serif;
+    font-weight: bold;
+}
+.card-title-custom-mb{
+    margin-bottom: -2px;
+}
+.card-header-custom {
+    padding: 0;
+    margin-bottom: 0;
+    color: inherit;
+    background-color: rgba(83, 62, 45, 0.3);
+    border-bottom: 2px solid #794022;
+    border-start-start-radius: 10px;
+    border-start-end-radius: 10px;
+}
+.row-admin {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 20px 70px 5px 70px;
+    margin: auto;
+    border-radius: 20px;
+    width:70%;
+    justify-content: center;
+    align-items: center;
+}
+.custom-card {
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.custom-card:hover {
+    transform: translateY(-5px); /* Lift effect lang*/
+}
+
+.custom-card .card-body {
+    text-align: center;
+    padding: 20px;
+}
+
+.btn-custom {
+    background-color: #794022;
+    color: #F2E5BF ;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: #FAEBD7;
+    color: #794022;
+    font-weight: bold;
+}
+.customcardcategory {
+    -webkit-box-flex: 0; 
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+.customcategorycontainermain{
+   /* border: 1px solid black; */
+  /*  border-block-start-color: red;  for modification*/
+    margin-top:-100px;
+}
+.customcategorycontainer{
+    /* border: 1px solid black; for modification purposes */
+    padding: 0 0 80px 0;
+}
+.custombookdetails {
+    margin-top:-25px;
+    /*background-image:;*/
+    border: 3px solid brown;
+}
+.bookdetailscontainer{
+    border: 1px solid orange;
+    width: 90%;
+}
+.maincontainerbook {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+.book-description, .book-form {
+    flex: 1;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.book-form {
+    flex: 1;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 500px;
+    width: auto; /*220px*/
+}
+.booksdetail-body-custom{
+    padding: 0 25px 0 20px;
+}
+.maincontainerbook .heading-section {
+    border-radius: 25px 25px 0 0;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.formheading-section{
+   margin: auto; 
+}
+.book-form .ftco-book {
+    border: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+    height: 50px !important;
+    background: rgba(0, 0, 0, 0.05) !important;
+    color: rgba(0, 0, 0, 0.9) !important;
+    font-size: 14px;
+    border-radius: 4px;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+}
+.book-form .form-group {
+    font-size: 10px;
+    color: rgba(0, 0, 0, 0.8) !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    width: 100%;
+    display: block;
+}
+.book-form input {
+    outline: none !important;
+    border: none !important;
+}
+input:focus{
+    outline: none !important;
+    border: none !important;
+}
+.requestbookscontainer {
+    width: 80%;
+
+}
+.requestbookscontainer h1 {
+    font-size: 80px;
+    font-weight: 700;
+    color: #794022;
+    font-family: "Playfair Display", serif;
+    line-height: 1.3;
+    text-shadow: 0px 3px 25px rgba(0, 0, 0, 0.1);
+
+}
+ 
+/*Sa admin side*/
+
+.UpdateAdmin, .AllAdmin, .CreateAdmin, .AllCategoryBooks, .CreateCategory, .AddBooks{
+    width: 80%;
+}
+.UpdateAdmin button, .CreateAdmin button, AllCategoryBooks button, .AddBooks button{
+    width:20%;
+}
+.UpdateAdmin .form-outline input:focus{
+    background-color: antiquewhite;
+    outline: none;
+}
+.mt-custom{
+    margin-top: 70px;
+}

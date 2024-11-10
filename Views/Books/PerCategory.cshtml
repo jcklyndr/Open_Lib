@@ -1,0 +1,58 @@
+﻿<!--atmodel OopProject.Models.BookCategory-->
+
+@{
+    ViewData["Title"] = "Books - Name";
+}
+<partial name="/Views/Shared/_Header.cshtml" />
+<br>
+<section class="ftco-section bg-light ftco-no-pt ftco-no-pb">
+    <div class="container-fluid px-md-0">
+        <div class="row no-gutters"> 
+
+            <!--mag foreach once magbabackend to avoid redundancy of codes-->
+            <div class="col-lg-6">
+                <div class="room-wrap d-md-flex">
+                    <a href="" class="img" style="background-image: url('@Url.Content("~/images/Sampleimg2.png")');"></a>
+                    <div class="half left-arrow d-flex align-items-center">
+                        <div class="text p-4 p-xl-5 text-center">
+                            <p class="star mb-0"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></p>
+
+                            <h3 class="mb-3 weight"><a href="" style="text-decoration: none">Title of the book</a></h3>
+                            <ul class="book-details">
+                                <!--previous class is list-accomodation-->
+                                <li>Genre: <span>Lorem Ipsum aserst meire</span></li>
+                                <li>Author: <span>Lorem Ipsum stega artuys munvasdk</span></li>
+                                <li>Year of Publication: <span>Lorem Ipsum voere adgaet at</span></li>
+                            </ul>
+                            <p class="pt-1"><a class="btn-custom px-3 py-2" asp-controller="Books" asp-action="BookDetails" >Description<span class="icon-long-arrow-right"></span></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="room-wrap d-md-flex">
+                    <a href="" class="img" style="background-image: url('@Url.Content("~/images/Sampleimg2.png")');"></a>
+                    <div class="half left-arrow d-flex align-items-center">
+                        <div class="text p-4 p-xl-5 text-center">
+                            <p class="star mb-0"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></p>
+
+                            <h3 class="mb-3 weight"><a href="" style="text-decoration: none">Title of the book</a></h3>
+                            <ul class="book-details">
+                                <!--previous class is list-accomodation-->
+                                <li>Genre: <span>Lorem Ipsum aserst meire</span></li>
+                                <li>Author: <span>Lorem Ipsum stega artuys munvasdk</span></li>
+                                <li>Year of Publication: <span>Lorem Ipsum voere adgaet at</span></li>
+                            </ul>
+                            <p class="pt-1"><a class="btn-custom px-3 py-2" asp-controller="Books" asp-action="BookDetails">Description<span class="icon-long-arrow-right"></span></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<br>
+
+<partial name="/Views/Shared/_Footer.cshtml" />

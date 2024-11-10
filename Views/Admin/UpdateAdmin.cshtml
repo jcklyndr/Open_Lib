@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewData["Title"] = "UpdateAdmin";
+}
+
+<partial name="/Views/Shared/_HeaderAdmin.cshtml"></partial>
+<div class="row UpdateAdmin mx-auto">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title mb-5 d-inline"> admin->name</h5>
+
+                <form method="POST" action="" enctype="multipart/form-data">
+                    <!-- Name input -->
+                    <div class="form-outline mb-4 mt-4">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" class="form-control" required value="admin->name" />
+                    </div>
+
+                    <!-- Email input -->
+                    <div class="form-outline mb-4 mt-4">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" class="form-control" required value="admin->email" />
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-4 mt-4">
+                        <label for="password">New Password</label>
+                        <input type="password" name="password" id="password" class="form-control" required />
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" name="submit" class="btn btn-custom mb-4 text-center">Update</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿
+    <div class="containerheader">
+        <nav>
+        <h2 class="text-brown use-font weight">Online Open Library</h2>
+        <div class="nav-links" id="navlinkkk">
+            <ul class="">
+                <li class=""><a asp-controller="Home" asp-action="Index" >Home</a></li>
+                <li class=""><a asp-controller="Home" asp-action="About" >About</a></li>
+                <li class=""><a asp-controller="Home" asp-action="Contact" >Contact</a></li>
+
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <li class=""><a asp-controller="Auth" asp-action="UserLogin">Login</a></li>
+                    <li class=""><a asp-controller="Auth" asp-action="UserSignup">Register</a></li>
+                    
+                }
+                else
+                {
+                    <li class="nav-item dropdown">
+                        <a id="" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            @User.Identity.Name
+                        </a>
+                        <div class="dropdown-content" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-controller="User" asp-action="RequestBooks">
+                                My Request
+                            </a>
+                            <a class="dropdown-item" asp-controller="" asp-action="" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                            <form id="logout-form" asp-controller="Home" asp-action="Index" method="post" class="d-none">
+                                @Html.AntiForgeryToken()
+                            </form>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+        </nav>
+    </div>

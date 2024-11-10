@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewData ["Title"] = "BookDetails - Name of the book";
+}
+<partial name="/Views/Shared/_Header.cshtml"/>
+<br>
+<div class="maincontainerbook">
+    <div class="col-md-6 order-md-1 pr-4 ftco-animate book-description">
+        <div class="heading-section">
+            <div class="pl-md-4">
+                <h2 class="text-brown">Title of the book</h2>
+            </div>
+        </div>
+        <div class="text-justify booksdetail-body-custom">
+         
+            <div class="media-body pl-3">
+                <h3 class="heading text-brown">Details about the book</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum scelerisque pulvinar sem. Nam quis dui risus. Donec ullamcorper dolor sed ullamcorper condimentum. Nullam in nulla id erat condimentum egestas ut aliquet lectus.</p>
+            </div>
+
+            <div class="media-body pl-3">
+                <h3 class="heading text-brown">Details about the Author</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum scelerisque pulvinar sem. Nam quis dui risus. Donec ullamcorper dolor sed ullamcorper condimentum. Nullam in nulla id erat condimentum egestas ut aliquet lectus.</p>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="col-md-6 order-md-1 pr-4 ftco-animate book-form">
+        <!--book-form-->
+        <section class="ftco-section ftco-book ftco-no-pt ftco-no-pb  ">
+                        <form action="" method="POST">
+                            <h2 class="formheading-section pl-3 pb-3">Want to Read?</h2>
+                 
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" name="name" class="form-control" placeholder="Name" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" name="email" class="form-control" placeholder="Email" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" name="phone_number" class="form-control" placeholder="Phone Number" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <a asp-controller="Books" asp-action="Success" class="btn btn-custom py-3 px-4">Request</a>
+                                    </div>
+                                </div>
+
+                        </form>
+        </section>
+</div>
+</div>
+
+
+<partial name="/Views/Shared/_Footer.cshtml" />

@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewData["Title"] = "Add Books";
+}
+<partial name="/Views/Shared/_HeaderAdmin.cshtml"></partial>
+<div class="row AddBooks mx-auto">
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-5 d-inline">Add Books</h5>
+    <form method="POST" action="" enctype="multipart/form-data">
+          <!-- Email input -->
+          <div class="form-outline mb-4 mt-4">
+            <input type="text" name="name" id="form2Example1" class="form-control" placeholder="name of the book" required/>
+                    </div>
+          <div class="form-outline mb-4 mt-4">
+            <input type="text" name="name" id="form2Example1" class="form-control" placeholder="publication year" required/>
+           
+          </div>
+
+          <div class="form-outline mb-4 mt-4">
+            <input type="text" name="name" id="form2Example1" class="form-control" placeholder="description" required/>
+           
+          </div>
+
+          <div class="form-outline mb-4 mt-4">
+            <input type="file" name="image" id="form2Example1" class="form-control" />   
+          </div>
+          <div class="form-outline mb-4 mt-4">
+            <input type="text" name="name" id="form2Example1" class="form-control" placeholder="author" required/>
+           
+          </div>
+          <div class="form-outline mb-4 mt-4">
+            <input type="text" name="name" id="form2Example1" class="form-control" placeholder="authordescription" />
+           
+          </div>
+        
+         <select name="Genre_id" class="form-control">
+          <option>Choose Genre</option>
+         <!--foreach-->
+
+          <option value="">category->name</option>
+          
+
+         <!--end of foreach-->
+         </select>
+         <br>
+
+
+          <!-- Submit button -->
+          <button type="submit" name="submit" class="btn btn-custom  mb-4 text-center">Add</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

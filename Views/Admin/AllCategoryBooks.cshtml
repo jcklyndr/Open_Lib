@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewData["Title"] = "All Category of Books";
+}
+<partial name="/Views/Shared/_HeaderAdmin.cshtml"></partial>
+<div class="row AllCategoryBooks mx-auto">
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+@*         @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if(session()->has('update'))
+    <div class="alert alert-success">
+        {{ session()->get('update') }}
+    </div>
+    @endif
+    @if(session('deleted'))
+    <div class="alert alert-success">
+        {{ session('deleted') }}
+    </div>
+@endif *@
+        <h5 class="card-title mb-4 d-inline">Current Category of Books</h5>
+        
+   <a  asp-controller="Admin" asp-action="CreateCategory" class="btn btn-custom mb-4 text-center float-right">Create New Category</a> 
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">name</th>
+              <th scope="col">description</th>
+               <th scope="col">image</th>
+              <th scope="col">delete</th>
+            </tr>
+          </thead>
+          <tbody>
+           <!--foreach-->
+            <tr>
+              <th scope="row">category->id</th>
+              <td>category->name</td>
+              <td>category->description</td>
+              <td>category->image</td>
+                            <td>
+                                <a href="#" class="btn btn-danger text-center"
+                                   onclick="return confirm('Are you sure you want to delete this Category?');">Delete</a>
+                            </td>
+            </tr>
+           <!--end of foreach-->
+          </tbody>
+        </table> 
+      </div>
+    </div>
+  </div>
+</div>

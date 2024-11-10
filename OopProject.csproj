@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <Compile Remove="Views\Shared\_Header.cs" />
+ 
   </ItemGroup>
 
   <ItemGroup>

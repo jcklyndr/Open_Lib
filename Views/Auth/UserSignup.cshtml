@@ -9,55 +9,47 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6">
+
                     <!-- Form starts here -->
-                    <form action="/register" method="POST" class="form-create">
+                    <form  method="POST" action="/Auth/Register" class="form-create">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <div class="error">@error.ErrorMessage</div>
+                        }
                         <h2 class="font-weight-bold mb-3 text-brown">Register</h2>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input id="name" type="text" placeholder="Name" class="form-control" name="name" required>
+                                    <input id="name" type="text" placeholder="Name" class="form-control" name="UserName" required>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input id="email" type="email" placeholder="Email" class="form-control" name="email" required>
+                                    <input id="email" type="email" placeholder="Email" class="form-control" name="Email" required>
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <div class="form-group">
-                                    <input id="password" type="password" placeholder="Password" class="form-control" name="password" required>
-                                </div>
+                            <div class="form-group">
+                                <input id="password" type="password" placeholder="Password" class="form-control" name="Password" required>
+                            </div>
                             </div>
                             <div class="col-md-12">
-                                <div class="form-group">
-                                    <input id="password-confirm" type="password" placeholder="Confirm Password" class="form-control" name="password_confirmation" required>
-                                </div>
+                            <div class="form-group">
+                                <input id="password-confirm" type="password" placeholder="Confirm Password" class="form-control" name="passwordConfirmation" required>
                             </div>
+                            </div>
+
 
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <!-- Submit button -->
-                                    <a asp-controller="Home" asp-action="Index" class="btn btn-primary-login py-3 px-4" id="submitBtn">Register</a>
+                                    <button type="submit" class="btn btn-primary-login py-3 px-4">Register</button>
+
                                 </div>
                             </div>
                         </div>
                     </form>
 
-                    <!-- Script for redirection only -->
-                    <script>
-                        document.getElementById("submitBtn").addEventListener("click", function () {
-                            var password = document.getElementById("password").value;
-                            var confirmPassword = document.getElementById("password-confirm").value;
-
-                            // Check if passwords match
-                            if (password !== confirmPassword) {
-                                alert("Passwords do not match. Please try again.");
-                            } else {
-                                // Redirect after successful match
-                                window.location.href = '@Url.Action("Index", "User")';
-                            }
-                        });
-                    </script>
                     <div class="space"></div>
                     <div class="btn-text-center">
                         <p>Have an account? @Html.ActionLink("Login Here", "UserLogin", "Auth", null, new { @class = "btn-login-link" })</p>

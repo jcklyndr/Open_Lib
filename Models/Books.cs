@@ -11,7 +11,7 @@
         public string Author { get; set; }
         public string? AuthorDescription { get; set; }
 
-        public Book(int bookid, string title, int categoryid, int? publicationyear, string? bookdescription, string? bookimage, string author, string? authordescription)
+/*        public Book(int bookid, string title, int categoryid, int? publicationyear, string? bookdescription, string? bookimage, string author, string? authordescription)
         {
             BookId = bookid;
             Title = title;
@@ -21,6 +21,6 @@
             BookImage = bookimage;
             Author = author;
             AuthorDescription = authordescription;
-        }
+        }*/
     }
 }

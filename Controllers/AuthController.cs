@@ -1,17 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
+
 namespace OopProject.Controllers
 {
     public class AuthController : Controller
     {
+
+        // Registration View
+        public IActionResult UserSignup()
+        {
+            return View();
+        }
+
+        // Login View
         public IActionResult UserLogin()
         {
             return View();
         }
 
-        public IActionResult UserSignup()
+        // Logout Action
+        public IActionResult Logout()
         {
-            return View();
+            // Clear session on logout
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -4,10 +4,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation(); // for runtime
 
-// Add the configuration for appsettings.json
-builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
-
-
 
 var app = builder.Build();
 

@@ -10,12 +10,12 @@
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <!-- Form starts here -->
-                    <form action="/login" method="POST" class="form-create">
+                    <form action="/Auth/Login" method="POST" class="form-create">
                         <h3 class="font-weight-bold mb-3 text-brown">Login</h3>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input id="name" type="text" placeholder="Name" class="form-control" name="name" required>
+                                    <input id="name" type="text" placeholder="Name" class="form-control" name="username" required>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -25,41 +25,12 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input id="password-confirm" type="password" placeholder="Confirm Password" class="form-control" name="password_confirmation" required>
+                                    <button type="submit" class="btn btn-primary-login py-3 px-4">Login</button>
                                 </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <!-- Submit button -->
-                                    <a asp-controller="Home" asp-action="Index" class="btn btn-primary-login py-3 px-4" id="submitBtn">Login</a>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-
-                                <div class="form-group">
-                                    <a asp-controller="Admin" asp-action="AdminLogin" class="btn btn-admin py-3 px-4">Login as Admin</a>
-                                </div>
-
                             </div>
                         </div>
                     </form>
 
-                    <!-- Script for redirection only -->
-                    <script>
-                        document.getElementById("submitBtn").addEventListener("click", function () {
-                            var password = document.getElementById("password").value;
-                            var confirmPassword = document.getElementById("password-confirm").value;
-
-                            // Check if passwords match
-                            if (password !== confirmPassword) {
-                                alert("Passwords do not match. Please try again.");
-                            } else {
-                                // Redirect after successful match
-                                window.location.href = '@Url.Action("Index", "User")';
-                            }
-                        });
-                    </script>
                 </div>
             </div>
         </div>

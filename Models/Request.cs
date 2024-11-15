@@ -2,17 +2,17 @@
 {
     public class Request
     {
-        public int RequestId { get; set; }
-        public int UserId {  get; set; }
-        public int BookId { get; set; }
-        public string Status {  get; set; }
+        public int Id { get; set; }
 
-/*        public Request (int requestId, int userId, int bookId, string status)
-        {
-            RequestId = requestId;
-            UserId = userId;
-            BookId = bookId;
-            Status = status;
-        }*/
+        public string Status { get; set; }  // For example: "Pending", "Approved", "Denied"
+
+        // Foreign keys
+        public int UserId { get; set; }
+        public int BookId { get; set; }
+
+        // Navigation properties
+        public User User { get; set; }
+        public Book Book { get; set; }
     }
+
 }

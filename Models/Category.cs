@@ -2,17 +2,13 @@
 {
     public class Category
     {
-        public int CategoryId { get; set; }
+        public int Id { get; set; }
         public string CategoryName { get; set; }
-        public string CategoryImage {  get; set; }
-        public string CategoryDescription {  get; set; }
+        public string Image { get; set; }
+        public string Description { get; set; }
 
-/*        public Category(int categoryId, string categoryName, string categoryImage, string categoryDescription)
-        {
-            CategoryId = categoryId;
-            CategoryName = categoryName;
-            CategoryImage = categoryImage;
-            CategoryDescription = categoryDescription;
-        }*/
+        // Navigation property for books in this category
+        public ICollection<Book> Books { get; set; }
     }
+
 }

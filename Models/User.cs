@@ -2,10 +2,14 @@
 {
     public class User
     {
-        public int UserId { get; set; } 
-        public string UserName { get; set; }
-        public string Email { get; set; } //unique
-        public string? PhoneNum { get; set; } // nullable, kaya may ?
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Email { get; set; }
+        public string? PhoneNum { get; set; } // ? for optional or in database it is Null
         public string Password { get; set; }
+
+        // Navigation property for requests made by the user
+        public ICollection<Request>? Requests { get; set; }
     }
+
 }

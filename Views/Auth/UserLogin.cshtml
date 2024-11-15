@@ -10,17 +10,23 @@
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <!-- Form starts here -->
-                    <form action="/Auth/Login" method="POST" class="form-create">
+                    <form asp-action="UserLogin" asp-controller="Auth" class="form-create">
+                        @if (TempData["SuccessMessage"] != null)
+                        {
+                            <div class="alert alert-success">
+                                @TempData["SuccessMessage"]
+                            </div>
+                        }
                         <h3 class="font-weight-bold mb-3 text-brown">Login</h3>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input id="name" type="text" placeholder="Name" class="form-control" name="username" required>
+                                    <input id="name" type="text" placeholder="Name" class="form-control" name="Username" required>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input id="password" type="password" placeholder="Password" class="form-control" name="password" required>
+                                    <input id="password" type="password" placeholder="Password" class="form-control" name="Password" required>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -30,6 +36,11 @@
                             </div>
                         </div>
                     </form>
+                    <div class="space"></div>
+                    <div class="btn-text-center">
+                        <p>Don't have an account? @Html.ActionLink("Register Here", "UserSignup", "Auth", null, new { @class = "btn-login-link" })</p>
+                    </div>
+                </div>
 
                 </div>
             </div>

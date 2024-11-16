@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace OopProject.Controllers
 {
     [Authorize] // Ensure that only authenticated users can access these actions
-    public class UserController : HeaderController
+    public class UserController : UserHeaderController
     {
         private readonly IRepository<User> _userRepository;
 

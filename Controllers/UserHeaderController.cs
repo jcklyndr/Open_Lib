@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace OopProject.Controllers
 {
-    public class HeaderController : Controller
+    public class UserHeaderController : Controller
     {
         // This method is executed before any action method in the controller
         public override void OnActionExecuting(ActionExecutingContext context)

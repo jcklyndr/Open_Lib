@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace OopProject.Controllers
 {
-    public class AuthController : HeaderController
+    public class AuthController : UserHeaderController
     {
         private readonly IRepository<User> _userRepository;
 

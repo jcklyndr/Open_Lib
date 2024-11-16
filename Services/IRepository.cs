@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace OopProject.Services
+﻿namespace OopProject.Services
     {
         public interface IRepository<T> where T : class
         {

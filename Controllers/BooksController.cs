@@ -3,7 +3,7 @@ using OopProject.Models;
 
 namespace OopProject.Controllers
 {
-    public class BooksController : HeaderController
+    public class BooksController : UserHeaderController
     {
         public IActionResult PerCategory()
         {

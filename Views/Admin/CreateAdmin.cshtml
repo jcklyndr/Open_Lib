@@ -1,38 +1,52 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "CreateAdmin";
 }
 <partial name="/Views/Shared/_HeaderAdmin.cshtml"></partial>
-
-
 
 <div class="row CreateAdmin mx-auto">
     <div class="col">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title mb-5 d-inline">Create Admins</h5>
-                <form method="POST" action="" enctype="multipart/form-data" id="adminForm">
+                <form method="POST" asp-action="CreateAdmin" asp-controller="Admin" enctype="multipart/form-data" id="adminForm">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                {
+                                    <li>@error.ErrorMessage</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["SuccessMessage"]
+                        </div>
+                    }
+
+                    <div class="form-outline mb-4">
+                        <input type="text"  id="name" class="form-control" placeholder="name" name="AdminName" required />
+                    </div>
+
                     <div class="form-outline mb-4 mt-4">
-                        <input type="email" name="email" id="email" class="form-control" placeholder="email" required />
+                        <input type="email"  id="email" class="form-control" placeholder="email" name="Email" required />
                     </div>
 
                     <div class="form-outline mb-4">
-                        <input type="text" name="name" id="name" class="form-control" placeholder="name" required />
-                    </div>
-
-                    <div class="form-outline mb-4">
-                        <input type="password" name="password" id="password" class="form-control" placeholder="password" required minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}" />
+                        <input type="password" id="password" class="form-control" placeholder="password" name="Password" required minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}" />
                         <small id="passwordHelpBlock" class="form-text text-muted">
                             Your password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.
                         </small>
                     </div>
 
-                    <button type="submit" name="submit" class="btn btn-custom mb-4 text-center">create</button>
+                    <button type="submit" name="submit" class="btn btn-custom mb-4 text-center">Create</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-@section scripts {
     <script src="@Url.Content("~/js/adminformvalidation.js")"></script>
-}

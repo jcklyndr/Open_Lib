@@ -2,8 +2,8 @@
 using OopProject.Models;
 using OopProject.Services;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
+
 
 namespace OopProject.Controllers
 {
@@ -20,7 +20,6 @@ namespace OopProject.Controllers
         {
             return View();
         }
-
 
         // POST: /Auth/AdminSignup or  CreateAdmin
         [HttpPost]
@@ -53,6 +52,71 @@ namespace OopProject.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AdminLogin(string AdminName, string Password)
+        {
+            try
+            {
+                // Debugging log
+                Console.WriteLine($"Received login request for AdminName: {AdminName}");
+
+                // Check if admin exists in the database
+                var admin = (await _adminRepository.GetAllAsync()).FirstOrDefault(u => u.AdminName == AdminName);
+                if (admin == null)
+                {
+                    TempData["DebugMessage"] = "Invalid admin name. Admin not found.";
+                    Console.WriteLine("Admin not found.");
+                    return RedirectToAction("AdminLogin");
+                }
+
+                // Verify password using BCrypt
+                if (!BCrypt.Net.BCrypt.Verify(Password, admin.Password))
+                {
+                    TempData["DebugMessage"] = "Invalid password.";
+                    Console.WriteLine("Invalid password.");
+                    return RedirectToAction("AdminLogin");
+                }
+
+                // Create claims for authentication
+                var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, admin.AdminName),
+            new Claim(ClaimTypes.NameIdentifier, admin.Id.ToString()),
+            new Claim(ClaimTypes.Role, "Admin")
+        };
+
+                var claimsIdentity = new ClaimsIdentity(claims, "AdminScheme");
+                var authProperties = new AuthenticationProperties
+                {
+                    IsPersistent = true
+                };
+
+                // Sign in the admin
+                await HttpContext.SignInAsync("AdminScheme", new ClaimsPrincipal(claimsIdentity), authProperties);
+
+                // Debugging log
+                Console.WriteLine("Admin successfully logged in.");
+
+                // Redirect to Admin Dashboard
+                return RedirectToAction("Index", "Admin");
+            }
+            catch (Exception ex)
+            {
+                TempData["DebugMessage"] = "An error occurred during login. Please try again.";
+                Console.WriteLine($"Error during login: {ex.Message}");
+                Console.WriteLine(ex.StackTrace);
+                return RedirectToAction("AdminLogin");
+            }
+        }
+
+
+        public IActionResult AdminLogout()
+        {
+            // redirect to Logout in Auth and perform the process of logout for Admin role
+            return RedirectToAction("Logout", "Auth", new { role = "Admin" });
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -94,9 +158,9 @@ namespace OopProject.Controllers
             return View();
         }
 
-        public IActionResult AllRequest()
+/*        public IActionResult AllRequest()
         {
             return View();
-        }
+        }*/
     }
 }

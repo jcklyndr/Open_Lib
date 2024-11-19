@@ -16,7 +16,7 @@ namespace OopProject.Controllers
             _userRepository = userRepository;
         }
 
-        // SignUp View for  redirect into UserSignup razor
+        // SignUp View for redirect into UserSignup razor
         public IActionResult UserSignup()
         {
             return View();
@@ -73,18 +73,19 @@ namespace OopProject.Controllers
 
                 // Successful login
                 var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, user.Username),
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
-        };
+                {
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Role, "User")  // Added the User role claim
+                };
 
-                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var claimsIdentity = new ClaimsIdentity(claims, "UserScheme");
                 var authProperties = new AuthenticationProperties
                 {
                     IsPersistent = true
                 };
 
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+                await HttpContext.SignInAsync("UserScheme", new ClaimsPrincipal(claimsIdentity), authProperties);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -96,13 +97,30 @@ namespace OopProject.Controllers
             }
         }
 
-
         // Logout Action
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            TempData["SuccessMessage"] = "You have been logged out.";
-            return RedirectToAction("Index", "Home");
+            // Retrieve role from claims
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            // Sign out the current user based on the scheme
+            if (role == "Admin")
+            {
+                await HttpContext.SignOutAsync("AdminScheme");
+                TempData["SuccessMessage"] = "Admin logged out successfully.";
+                return RedirectToAction("AdminLogin", "Auth");
+            }
+            else if (role == "User")
+            {
+                await HttpContext.SignOutAsync("UserScheme");  // Use the correct scheme for User
+                TempData["SuccessMessage"] = "User logged out successfully.";
+                return RedirectToAction("UserLogin", "Auth");
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Invalid role specified.";
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }

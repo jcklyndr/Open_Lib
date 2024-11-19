@@ -12,40 +12,41 @@
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <!-- Form starts here -->
-                    <form action="/login" method="POST" class="form-create">
+                    <form asp-action="AdminLogin" asp-controller="Admin" class="form-create">
+                        @if (TempData["SuccessMessage"] != null)
+                        {
+                            <div class="alert alert-success">
+                                @TempData["SuccessMessage"]
+                            </div>
+                        }
+
+                        @if (TempData["DebugMessage"] != null)
+                        {
+                            <div class="alert alert-danger">
+                                @TempData["DebugMessage"]
+                            </div>
+                        }
+
                         <h3 class="font-weight-bold mb-3 text-brown">Login Admin</h3>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input id="name" type="text" placeholder="Name" class="form-control" name="name" required>
+                                    <input id="name" type="text" placeholder="Name" class="form-control" name="AdminName" required>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input id="password" type="password" placeholder="Password" class="form-control" name="password" required>
+                                    <input id="password" type="password" placeholder="Password" class="form-control" name="Password" required>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input id="password-confirm" type="password" placeholder="Confirm Password" class="form-control" name="password_confirmation" required>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <!-- Submit button -->
-                                    <button type="button" class="btn btn-primary-login py-3 px-4" id="submitBtn">Login</button>
+                                    <button type="submit" class="btn btn-primary-login py-3 px-4" id="submitBtn">Login</button>
                                 </div>
                             </div>
                         </div>
                     </form>
 
-                    <!-- Script for redirection -->
-                    <script>
-                        document.getElementById("submitBtn").addEventListener("click", function () {
-                    
-                            window.location.href = '@Url.Action("Index", "Admin")';
-                        });
-                    </script>
                 </div>
             </div>
         </div>

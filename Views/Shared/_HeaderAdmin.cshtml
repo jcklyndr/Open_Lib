@@ -1,34 +1,23 @@
-﻿
-    <div class="containerheader">
-        <nav class="pr-custom">
-                <h2 class="text-brown use-font weight">Admin Dashboard</h2>
+﻿<div class="containerheader">
+    <nav class="pr-custom">
+        <h2 class="text-brown use-font weight">Admin Dashboard</h2>
+        <ul>
+            <li class="nav-item">
+                <a href="@Url.Action("Index", "Admin")">Home</a>
+            </li>
 
-
-    <!-- Top Navigation Links -->
-    <ul class="">
-        <li class="nav-item">
-            <a class="" href="@Url.Action("Index", "Admin")">Home</a>
-        </li>
-                <!-- Link for non-authenticated users -->
-        <li class="nav-item">
-            <a class="nav-link" href="@Url.Action("Index", "Home")">Go Back to Website</a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                @User.Identity.Name
-            </a>
-            <div class="dropdown-content" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="@Url.Action("Logout", "Account")" 
-                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    Logout
-                </a>
-                <form id="logout-form" action="@Url.Action("Index", "Home")" method="POST" class="d-none">
-                    @Html.AntiForgeryToken()
-                </form>
-            </div>
-        </li>
-    </ul>
-</nav>
+            @if (User.Identity.IsAuthenticated && ViewData["AdminName"] != null)
+            {
+                <li class="nav-item dropdown">
+                    <a id="usernameDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @ViewData["AdminName"]
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="usernameDropdown">
+                        <a class="dropdown-item" asp-controller="Home" asp-action="Index">Visit the Website</a>
+                        <a class="dropdown-item" asp-controller="Admin" asp-action="AdminLogout">Logout</a>
+                    </div>
+                </li>
+            }
+        </ul>
+    </nav>
 </div>
-
-

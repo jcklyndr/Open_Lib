@@ -19,9 +19,11 @@ namespace OopProject.Controllers
         {
             return View();
         }
+        public IActionResult UserLogout()
+        {
+            // redirect to Logout in Auth and perform the process of logout for User role
+            return RedirectToAction("Logout", "Auth", new { role = "User" });
+        }
 
-
-
-        // Other user-specific actions can be added here
     }
 }

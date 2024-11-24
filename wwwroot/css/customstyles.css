@@ -382,8 +382,19 @@ input:focus{
 }
 .requestbookscontainer {
     width: 80%;
-
+    margin: 15px auto;
+    padding: 20px;
 }
+
+.table-container {
+    max-height: 500px; /* You can adjust this based on your desired max height */
+    overflow-y: auto; /* vertical scrolling if extends to max-height */
+}
+.table {
+    width: 100%;
+}
+
+
 .requestbookscontainer h1 {
     font-size: 80px;
     font-weight: 700;

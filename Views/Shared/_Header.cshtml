@@ -7,6 +7,31 @@
                 <li><a asp-controller="Home" asp-action="About">About</a></li>
                 <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
 
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <!-- Custom dropdown -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">
+                            @ViewData["Username"]
+                        </a>
+                        <!-- Dropdown menu -->
+                        <div class="dropdown-content">
+                            <a class="dropdown-item" asp-controller="User" asp-action="RequestBooks">My Request</a>
+                            <a class="dropdown-item" asp-controller="User" asp-action="UserLogout">Logout</a>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <li><a class="nav-link" asp-controller="Auth" asp-action="UserLogin">Login</a></li>
+                    <li><a class="nav-link" asp-controller="Auth" asp-action="UserSignup">Register</a></li>
+                }
+            </ul>
+        </div>
+    </nav>
+</div>
+
+
 
 @*                 @if (User.Identity.IsAuthenticated)
                 {
@@ -26,24 +51,3 @@
                     <li><a class="nav-link" asp-controller="Auth" asp-action="UserLogin">Login</a></li>
                     <li><a class="nav-link" asp-controller="Auth" asp-action="UserSignup">Register</a></li>
                 } *@
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <li class="nav-item dropdown">
-                        <a id="usernameDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @ViewData["Username"]
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="usernameDropdown">
-                            <a class="dropdown-item" asp-controller="User" asp-action="RequestBooks">My Request</a>
-                            <a class="dropdown-item" asp-controller="User" asp-action="UserLogout">Logout</a>
-                        </div>
-                    </li>
-                }
-                else
-                {
-                    <li><a class="nav-link" asp-controller="Auth" asp-action="UserLogin">Login</a></li>
-                    <li><a class="nav-link" asp-controller="Auth" asp-action="UserSignup">Register</a></li>
-                }
-            </ul>
-        </div>
-    </nav>
-</div>

@@ -8,15 +8,15 @@
 
                 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                 {
-                    <li class="nav-item dropdown">
-                        <a id="adminDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li class="dropdown">
+                        <!-- Custom dropdown -->
+                        <a href="#" class="dropdown-toggle">
                             @ViewData["AdminName"]
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="adminDropdown">
-                            <a class="dropdown-item" asp-controller="Home" asp-action="Index">Visit the Website</a>
-                            <a class="dropdown-item" asp-controller="Admin" asp-action="AdminLogout">Logout</a>
+                        <!-- Dropdown menu -->
+                        <div class="dropdown-content">
+                            <a asp-controller="Admin" asp-action="AdminLogout">Logout</a>
                         </div>
-
                     </li>
                 }
                 else

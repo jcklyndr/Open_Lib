@@ -114,19 +114,24 @@ li a:hover {
 
 li.dropdown {
     display: inline-block;
+    position: relative;  /* Add this line */
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: #C8B1A4;
+    border-radius: 5px;
     min-width: 130px;
     box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.1);
     z-index: 1;
-    right: 0;
+    top: 100%; /* Add this line */
+    left: 0; /* Add this line */
 }
+
 .dropdown-content a {
-    color: whitesmoke;
+    color: #794022;
+    font-weight:bold;
     padding: 10px 5px;
     text-decoration: none;
     display: block;
@@ -134,14 +139,15 @@ li.dropdown {
 }
 
 .dropdown-content a:hover {
-     background-color: #794022;
-     color: whitesmoke;
-     font-weight:bold;
+    background-color: #794022;
+    color: whitesmoke;
+    font-weight: bold;
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
 
 .readmorebtn {
     width: 20%;

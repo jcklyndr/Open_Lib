@@ -1,0 +1,100 @@
+﻿@model OopProject.Models.User
+@{
+    ViewData["Title"] = "Signup User";
+}
+<partial name="/Views/Shared/_Header.cshtml" />
+<
+<body>
+    <!-- need wrap form-->
+    <section class="">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+
+                    <!-- Form -->
+                    <form method="post" asp-action="UserSignup" asp-controller="User" class="form-create" id="signupForm">
+                        <!--display error here when user failed to register and successfully registered-->
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                    {
+                                        <li>@error.ErrorMessage</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+
+                        <h2 class="font-weight-bold mb-3 text-brown">Register</h2>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input id="name" type="text" placeholder="Name" class="form-control" name="Username" required>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input id="email" type="email" placeholder="Email" class="form-control" name="Email" required>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="password" type="password" placeholder="Password" class="form-control" name="Password" required>
+                            </div>
+                            </div>
+                            <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="password-confirm" type="password" placeholder="Confirm Password" class="form-control" name="passwordConfirmation" required>
+                                    <span id="password-error" class="text-danger" style="display: none;">Passwords do not match</span>
+                            </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <!-- Submit button -->
+                                    <button type="submit" class="btn btn-primary-login py-3 px-4">Register</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="space"></div>
+                    <div class="btn-text-center">
+                        <p>Have an account? @Html.ActionLink("Login Here", "UserLogin", "Auth", null, new { @class = "btn-login-link" })</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const password = document.getElementById("password");
+    const passwordConfirm = document.getElementById("password-confirm");
+    const passwordError = document.getElementById("password-error");
+    const form = document.getElementById("signUpForm");
+
+    form.addEventListener("submit", function (event) {
+        // Reset error messages
+        passwordError.style.display = "none";
+
+        // Check if passwords match
+        if (password.value !== passwordConfirm.value) {
+            event.preventDefault(); // Prevent form submission
+            passwordError.style.display = "inline"; // error message
+        }
+
+        // if password and confirmPassword are empty, it will not submit
+        if (password.value === "" || passwordConfirm.value === "") {
+            event.preventDefault(); // Prevent form submission
+            alert("Both password fields must be filled out.");
+        }
+    });
+});
+</script>
+
+
+
+

@@ -108,7 +108,7 @@ namespace OopProject.Controllers
             {
                 await HttpContext.SignOutAsync("AdminScheme");
                 TempData["SuccessMessage"] = "Admin logged out successfully.";
-                return RedirectToAction("AdminLogin", "Auth");
+                return RedirectToAction("AdminLogin", "Admin");
             }
             else if (role == "User")
             {

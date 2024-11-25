@@ -1,34 +1,30 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Security.Claims;
 
 namespace OopProject.Controllers
 {
+    [Authorize(AuthenticationSchemes = "AdminScheme", Roles = "Admin")] //for authentication para di ma-access ng unauthorized
     public class AdminHeaderController : Controller
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             base.OnActionExecuting(context);
 
-            if (User.Identity?.IsAuthenticated == true)
+            Console.WriteLine($"IsAuthenticated: {User.Identity?.IsAuthenticated}, Role: Admin - {User.IsInRole("Admin")}");
+
+            if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
             {
-                // Check if the authenticated user has an "Admin" role
-                if (User.IsInRole("Admin"))
-                {
-                    // Extract the admin name from claims and set it in ViewData
-                    ViewData["AdminName"] = User.FindFirstValue(ClaimTypes.Name) ?? "Admin";
-                }
-                else
-                {
-                    // Redirect non-admin users to an unauthorized page
-                    context.Result = new RedirectToActionResult("Unauthorized", "Home", null);
-                }
+                ViewData["AdminName"] = User.FindFirstValue(ClaimTypes.Name) ?? "Admin";
             }
             else
             {
-                // Redirect unauthenticated users to the AdminLogin page
-                context.Result = new RedirectToActionResult("UserLogin", "Auth", null);
+                Console.WriteLine("Admin not authenticated or not in role.");
             }
         }
     }
+
 }
+
+

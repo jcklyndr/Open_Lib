@@ -7,6 +7,25 @@
                 <li><a asp-controller="Home" asp-action="About">About</a></li>
                 <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
 
+
+@*                 @if (User.Identity.IsAuthenticated)
+                {
+                    <p>Authenticated as: @User.Identity.Name</p>
+                    @if (User.IsInRole("User"))
+                    {
+                        <p>Role: User</p>
+                    }
+                    else
+                    {
+                        <p>Role: Not User</p>
+                    }
+                }
+                else
+                {
+                    <p>Not Authenticated</p>
+                    <li><a class="nav-link" asp-controller="Auth" asp-action="UserLogin">Login</a></li>
+                    <li><a class="nav-link" asp-controller="Auth" asp-action="UserSignup">Register</a></li>
+                } *@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li class="nav-item dropdown">

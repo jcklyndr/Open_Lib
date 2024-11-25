@@ -18,18 +18,23 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 // Add authentication with multiple schemes
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultScheme = "UserScheme"; // Default for unauthenticated requests
+    options.DefaultScheme = "UserScheme";
 })
 .AddCookie("UserScheme", options =>
 {
+    options.Cookie.Name = "UserAuthCookie";
     options.LoginPath = "/Auth/UserLogin";
     options.LogoutPath = "/Auth/Logout";
 })
 .AddCookie("AdminScheme", options =>
 {
-    options.LoginPath = "/Admin/AdminLogin";
-    options.LogoutPath = "/Admin/Logout";
+    options.Cookie.Name = "AdminAuthCookie";
+    options.LoginPath = "/Admin/AdminLogin"; // Redirects to this page for unauthenticated admins
+    options.LogoutPath = "/Admin/AdminLogout";
 });
+
+
+
 
 // Enable sessions (optional)
 builder.Services.AddSession(options =>

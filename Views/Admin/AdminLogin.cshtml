@@ -2,7 +2,7 @@
     ViewData["Title"] = "Login Admin";
 }
 
-<partial name="/Views/Shared/_Header.cshtml" />
+<partial name="/Views/Shared/_HeaderAdmin.cshtml" />
 
 <body>
     <br>
@@ -43,9 +43,16 @@
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary-login py-3 px-4" id="submitBtn">Login</button>
                                 </div>
+                                <div class="form-group">
+                                    <a class="btn btn-secondary" role="button" asp-controller="Home" asp-action="Index">back to website</a>
+                                </div>
                             </div>
                         </div>
                     </form>
+                    @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
+                    {
+                        <p style="color: red">@ViewData["ErrorMessage"]</p>
+                    }
 
                 </div>
             </div>

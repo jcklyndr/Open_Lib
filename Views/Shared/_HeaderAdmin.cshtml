@@ -1,23 +1,29 @@
 ﻿<div class="containerheader">
-    <nav class="pr-custom">
+    <nav>
         <h2 class="text-brown use-font weight">Admin Dashboard</h2>
-        <ul>
-            <li class="nav-item">
-                <a href="@Url.Action("Index", "Admin")">Home</a>
-            </li>
+        <div class="nav-links">
+            <ul>
+                <li><a asp-controller="Admin" asp-action="Index">Home</a></li>
+                <li><a asp-controller="#" asp-action="#">Manage Users</a></li>
 
-            @if (User.Identity.IsAuthenticated && ViewData["AdminName"] != null)
-            {
-                <li class="nav-item dropdown">
-                    <a id="usernameDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        @ViewData["AdminName"]
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="usernameDropdown">
-                        <a class="dropdown-item" asp-controller="Home" asp-action="Index">Visit the Website</a>
-                        <a class="dropdown-item" asp-controller="Admin" asp-action="AdminLogout">Logout</a>
-                    </div>
-                </li>
-            }
-        </ul>
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <li class="nav-item dropdown">
+                        <a id="adminDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @ViewData["AdminName"]
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                            <a class="dropdown-item" asp-controller="Home" asp-action="Index">Visit the Website</a>
+                            <a class="dropdown-item" asp-controller="Admin" asp-action="AdminLogout">Logout</a>
+                        </div>
+
+                    </li>
+                }
+                else
+                {
+                    <li><a asp-controller="Admin" asp-action="AdminLogin">Login</a></li>
+                }
+            </ul>
+        </div>
     </nav>
 </div>

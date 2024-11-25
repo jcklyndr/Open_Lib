@@ -4,6 +4,7 @@ using OopProject.Services;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace OopProject.Controllers
@@ -100,27 +101,160 @@ namespace OopProject.Controllers
             // Redirect to the AdminLogin page after logout
             return RedirectToAction("AdminLogin", "Admin");
         }
-
-
-
-
-
-
-
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            // Retrieve the count of admins from the database
+            var adminCount = (await _adminRepository.GetAllAsync()).Count();
+
+            // Log the admin count for debugging purposes
+            Console.WriteLine($"Admin count: {adminCount}");
+
+            // Pass the count to the view using ViewData
+            ViewData["AdminCount"] = adminCount;
+
             return View();
         }
 
-        public IActionResult AllAdmin()
+        public async Task<IActionResult> AllAdmin()
         {
-            return View();
+            var admins = await _adminRepository.GetAllAsync();
+
+            if (admins == null || !admins.Any())
+            {
+                // Log or debug if data is null or empty
+                Console.WriteLine("No admin data retrieved.");
+            }
+
+            return View(admins);
         }
 
-        public IActionResult UpdateAdmin()
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateAdmin(int Id)
         {
-            return View();
+            var existingAdmin = await _adminRepository.GetByIdAsync(Id); // Fetch admin by ID
+            if (existingAdmin == null)
+            {
+                return NotFound();
+            }
+
+            return View(existingAdmin); // Pass the admin to the view
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateAdmin(Admin admin)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(admin); // Return the form with validation errors
+            }
+
+            var existingAdmin = await _adminRepository.GetByIdAsync(admin.Id);
+            if (existingAdmin == null)
+            {
+                return NotFound();
+            }
+
+            // Update the fields
+            existingAdmin.AdminName = admin.AdminName;
+            existingAdmin.Email = admin.Email;
+
+            // If password is provided, hash it (assuming you hash passwords)
+            if (!string.IsNullOrEmpty(admin.Password))
+            {
+                existingAdmin.Password = BCrypt.Net.BCrypt.HashPassword(admin.Password); ; // Replace with your password hashing method
+            }
+
+            await _adminRepository.UpdateAsync(existingAdmin); // Update the admin in the database
+            TempData["Success"] = "Admin updated successfully!";
+            return RedirectToAction("AllAdmin");
+        }
+
+
+
+        // Handle the Update Form Submission
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateAdmins(Admin admin)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(admin); // Return the form with validation errors
+            }
+
+            var existingAdmin = await _adminRepository.GetByIdAsync(admin.Id);
+            if (existingAdmin == null)
+            {
+                return NotFound();
+            }
+
+            // Update the fields
+            existingAdmin.AdminName = admin.AdminName;
+            existingAdmin.Email = admin.Email;
+
+            // If password is provided, hash it
+            if (!string.IsNullOrEmpty(admin.Password))
+            {
+                existingAdmin.Password = BCrypt.Net.BCrypt.HashPassword(admin.Password); // Hash the new password
+            }
+
+            await _adminRepository.UpdateAsync(existingAdmin); // Update the admin in the database
+
+            // Set success message
+            TempData["SuccessMessage"] = "Admin updated successfully!";  // Success message
+
+            return RedirectToAction("AllAdmin");  // Redirect to another action (like AllAdmin or wherever appropriate)
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteAdmin(int Id)
+        {
+            var admin = await _adminRepository.GetByIdAsync(Id);
+            if (admin == null)
+            {
+                return NotFound();
+            }
+
+            // Return a confirmation view with the admin details (e.g., admin name)
+            return View(admin);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteAdminConfirmed(int Id)
+        {
+            var admin = await _adminRepository.GetByIdAsync(Id);
+            if (admin == null)
+            {
+                // Admin not found
+                TempData["ErrorMessage"] = "Admin not found.";
+                return RedirectToAction("AllAdmin");
+            }
+
+            try
+            {
+                // Use the repository method to delete the admin
+                await _adminRepository.DeleteAsync(Id); // Calls the DeleteAsync method in the Repository
+                TempData["SuccessMessage"] = "Admin deleted successfully!";
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (you can add logging here)
+                TempData["ErrorMessage"] = $"Error deleting admin: {ex.Message}";
+            }
+
+            // Redirect back to the admin list
+            return RedirectToAction("AllAdmin");
+        }
+
+
+
+
+
+
+
+
 
 
         public IActionResult AllCategoryBooks()

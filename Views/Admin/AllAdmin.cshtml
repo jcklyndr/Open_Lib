@@ -1,67 +1,72 @@
-﻿
+﻿@model IEnumerable<OopProject.Models.Admin>
+
 @{
     ViewData["Title"] = "All Admin";
 }
 <partial name="/Views/Shared/_HeaderAdmin.cshtml"></partial>
+
 <div class="row AllAdmin mx-auto">
-  <div class="col">
-    <div class="card">
-      <div class="card-body">
-                @*       @if (TempData["Success"] != null)
-                {
-                <div class="alert alert-success">
-                @TempData["Success"]
-                </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                @{
+                    var successMessage = TempData["SuccessMessage"] as string;
                 }
 
-                @if (TempData["Update"] != null)
+                @if (!string.IsNullOrEmpty(successMessage))
                 {
-                <div class="alert alert-success">
-                @TempData["Update"]
-                </div>
+                    <div class="alert alert-success">
+                        @successMessage
+                    </div>
                 }
+                <h5 class="card-title mb-4 d-inline">Admins</h5>
+                <a asp-controller="Admin" asp-action="CreateAdmin" class="btn btn-custom mb-4 text-center float-right">Create Admins</a>
 
-                @if (TempData["Deleted"] != null)
-                {
-                <div class="alert alert-success">
-                @TempData["Deleted"]
-                </div>
-                }
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">AdminName</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Update</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var admin in Model)
+                        {
+                            <tr>
+                                <th scope="row">@admin.Id</th>
+                                <td>@admin.AdminName</td>
+                                <td>@admin.Email</td>
+                                <td>
+                                    <a asp-controller="Admin"
+                                       asp-action="UpdateAdmin"
+                                       asp-route-id="@admin.Id"
+                                       class="btn btn-warning text-white text-center">
+                                        Update
+                                    </a>
+                                </td>
+                                <td>
+                                    <!-- Form for Deleting Admin -->
+                                    <form method="post" asp-controller="Admin" asp-action="DeleteAdminConfirmed" asp-route-id="@admin.Id" onsubmit="return confirmDelete();">
+                                        <button type="submit" class="btn btn-danger text-center">
+                                            Delete
+                                        </button>
+                                    </form>
 
-        
-        for session after magcommit ng action like updates
-        *@
-        <h5 class="card-title mb-4 d-inline">Admins</h5>
-        <a asp-controller="Admin" asp-action="CreateAdmin" class="btn btn-custom mb-4 txt-center float-right">Create Admins</a>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Update</th>
-              <th scope="col">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!--for each of admins-->
-              <tr>
-                <th scope="row">admin->id</th>
-                <td>admin->name</td>
-                <td>admin->email</td>
-                <td>
-                  <a asp-controller="Admin" asp-action="UpdateAdmin" class="btn btn-warning text-white text-center">Update</a>
-                </td>
-              <td>
-                  <a href="#" class="btn btn-danger text-center"
-                     onclick="return confirm('Are you sure you want to delete this admin?');">Delete</a>
-              </td>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 
-              </tr>
-            <!--end -->
-          </tbody>
-        </table>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
+<script>
+    function confirmDelete() {
+        return confirm('Are you sure you want to delete this admin?');
+    }
+</script>

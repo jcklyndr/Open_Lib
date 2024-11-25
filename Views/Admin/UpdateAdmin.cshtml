@@ -1,4 +1,5 @@
-﻿
+﻿@model OopProject.Models.Admin
+
 @{
     ViewData["Title"] = "UpdateAdmin";
 }
@@ -8,29 +9,42 @@
     <div class="col">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title mb-5 d-inline"> admin->name</h5>
+                @if (Model != null)
+                {
+                    <h5 class="card-title mb-5 d-inline">@Model.AdminName</h5>
+                }
+                else
+                {
+                    <p>No admin data found.</p>
+                }
 
-                <form method="POST" action="" enctype="multipart/form-data">
+                <form method="POST" asp-action="UpdateAdmins" asp-controller="Admin" enctype="multipart/form-data">
+                    <!-- Hidden input for ID -->
+                    <input type="hidden" asp-for="Id" />
+
                     <!-- Name input -->
                     <div class="form-outline mb-4 mt-4">
-                        <label for="name">Name</label>
-                        <input type="text" name="name" id="name" class="form-control" required value="admin->name" />
+                        <label asp-for="AdminName">Name</label>
+                        <input asp-for="AdminName" class="form-control" required />
+                        <span asp-validation-for="AdminName" class="text-danger"></span>
                     </div>
 
                     <!-- Email input -->
                     <div class="form-outline mb-4 mt-4">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email" class="form-control" required value="admin->email" />
+                        <label asp-for="Email">Email</label>
+                        <input asp-for="Email" class="form-control" required />
+                        <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline mb-4 mt-4">
-                        <label for="password">New Password</label>
-                        <input type="password" name="password" id="password" class="form-control" required />
+                        <label asp-for="Password">New Password</label>
+                        <input asp-for="Password" type="password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
                     <!-- Submit button -->
-                    <button type="submit" name="submit" class="btn btn-custom mb-4 text-center">Update</button>
+                    <button type="submit" class="btn btn-custom mb-4 text-center">Update</button>
                 </form>
 
             </div>

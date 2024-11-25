@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewData["Title"] = "All Category of Books";
+}
+<partial name="/Views/Shared/_HeaderAdmin.cshtml"></partial>
+<body>
+<div class="row AllCategoryBooks mx-auto">
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-4 d-inline">Current Category of Books</h5>
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
+   <a  asp-controller="CategoryBooksAdmin" asp-action="CreateCategory" class="btn btn-custom mb-4 text-center float-right">Create New Category</a> 
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+               <th scope="col">Image</th>
+               <th scope="col">Update</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+                    <tbody>
+                        @foreach (var category in Model)
+                        {
+                            <tr>
+                                <th scope="row">@category.Id</th>
+                                <td>@category.CategoryName</td>
+                                <td>@category.Description</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(category.Image))
+                                    {
+                                        <img src="@category.Image" alt="Category Image"/>
+                                    }
+                                    else
+                                    {
+                                        <span>No image</span>
+                                    }
+                                </td>
+                                    <td>
+                                        <a asp-controller="CategoryBooksAdmin" asp-action="UpdateCategoryBooks" asp-route-id="@category.Id" class="btn btn-warning">
+                                            Update
+                                        </a>
+
+                                    </td>
+                                    <td>
+                                        <form method="post" asp-controller="CategoryBooksAdmin" asp-action="DeleteCategoryConfirmed" asp-route-id="@category.Id" class="delete-form">
+                                            <button type="submit" class="btn btn-danger text-center delete-button">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </td>
+                            </tr>
+                        }
+                    </tbody>
+
+        </table> 
+      </div>
+    </div>
+  </div>
+</div>
+<script src="~/js/mainscript.js"></script>
+</body>

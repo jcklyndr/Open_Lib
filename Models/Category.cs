@@ -1,14 +1,11 @@
-﻿namespace OopProject.Models
+﻿namespace OopProject.Models;
+
+public class Category
 {
-    public class Category
-    {
-        public int Id { get; set; }
-        public string CategoryName { get; set; }
-        public string Image { get; set; }
-        public string Description { get; set; }
+    public int Id { get; set; }
+    public string CategoryName { get; set; }
+    public string? Image { get; set; }  // Make Image nullable if not always required
+    public string Description { get; set; }
 
-        // Navigation property for books in this category
-        public ICollection<Book> Books { get; set; }
-    }
-
+    public ICollection<Book> Books { get; set; } = new List<Book>();
 }

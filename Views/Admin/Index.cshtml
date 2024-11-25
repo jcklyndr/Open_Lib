@@ -14,7 +14,7 @@
             </div>
             <div class="card-body">
                 <!-- Display the number of admins in db -->
-                <p class="card-text">Number of admins:<span class="count"> @ViewData["AdminCount"]</span></p>
+                <p class="card-text">Number of admins:<span class="count">@ViewData["AdminCount"]</span></p>
                 <a asp-controller="Admin" asp-action="AllAdmin" class="btn btn-custom">View Admins</a>
             </div>
         </div>
@@ -37,16 +37,19 @@
     <div class="col-md-6 mb-4">
         <div class="card custom-card">
             <div class="card-header-custom">
-            <div class="card-body">
-                <h5 class="card-title card-title-custom-mb">Category</h5>
-                </div>
-                </div>
                 <div class="card-body">
-                <p class="card-text">Number of categories: </p>
-                <a asp-controller="Admin" asp-action="AllCategoryBooks" class="btn btn-custom">View Categories</a>
+                    <h5 class="card-title card-title-custom-mb">Category</h5>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    Number of categories:<span class="count">@ViewData["CategoryCount"]</span>
+                </p>
+                <a asp-controller="CategoryBooksAdmin" asp-action="AllCategoryBooks" class="btn btn-custom">View Categories</a>
             </div>
         </div>
     </div>
+
 
     <div class="col-md-6 mb-4">
         <div class="card custom-card">
@@ -57,7 +60,7 @@
                 </div>
                 <div class="card-body">
                 <p class="card-text">Number of books: </p>
-                <a asp-controller="Admin" asp-action="AllBooks" class="btn btn-custom">View Books</a>
+                <a asp-controller="BooksAdmin" asp-action="AllBooks" class="btn btn-custom">View Books</a>
             </div>
         </div>
     </div>

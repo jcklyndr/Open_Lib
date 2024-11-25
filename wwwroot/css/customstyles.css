@@ -283,6 +283,13 @@ button:hover {
     padding: 20px;
     color: black;
 }
+.custom-card .card-body span{
+    border-block-end:3px double #3E2112;
+    padding:5px 15px;
+    margin:15px;
+    font-size: 20px;
+    font-weight:bold;
+}
 
 .btn-custom {
     background-color: #794022;
@@ -399,7 +406,10 @@ input:focus{
 .table {
     width: 100%;
 }
-
+table td img {
+    width: 100px;
+    height: auto;
+}
 
 .requestbookscontainer h1 {
     font-size: 80px;
@@ -413,11 +423,11 @@ input:focus{
  
 /*Sa admin side*/
 
-.UpdateAdmin, .AllAdmin, .CreateAdmin, .AllCategoryBooks, .CreateCategory, .AddBooks{
+.UpdateAdmin, .AllAdmin, .CreateAdmin, .AllCategoryBooks, .CreateCategory, .UpdateCategoryBooks, .AddBooks{
     width: 80%;
 }
-.UpdateAdmin button, .CreateAdmin button, AllCategoryBooks button, .AddBooks button{
-    width:20%;
+.UpdateAdmin button, .CreateAdmin button, AllCategoryBooks button, .UpdateCategoryBooks button, .AddBooks button {
+        width: 20%;
 }
 .UpdateAdmin .form-outline input:focus{
     background-color: antiquewhite;
@@ -425,8 +435,4 @@ input:focus{
 }
 .mt-custom{
     margin-top: 70px;
-}
-span .count{
-    font-weight: bold;
-    color: black;
 }

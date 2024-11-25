@@ -6,16 +6,17 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace OopProject.Controllers
 {
     public class AdminController : AdminHeaderController
     {
         private readonly IRepository<Admin> _adminRepository;
+        private readonly IRepository<Category> _categoryRepository;
 
-        public AdminController(IRepository<Admin> adminRepository)
+        public AdminController(IRepository<Admin> adminRepository, IRepository<Category> categoryRepository)
         {
             _adminRepository = adminRepository;
+            _categoryRepository = categoryRepository;
         }
         //for redirect sa page 
         public IActionResult CreateAdmin()
@@ -94,14 +95,15 @@ namespace OopProject.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            // Retrieve the count of admins from the database
+            // Retrieve the count of admins
             var adminCount = (await _adminRepository.GetAllAsync()).Count();
 
-            // Log the admin count for debugging purposes
-            Console.WriteLine($"Admin count: {adminCount}");
+            // Retrieve the count of categories
+            var categoryCount = (await _categoryRepository.GetAllAsync()).Count();
 
-            // Pass the count to the view using ViewData
+            // Pass the counts to the view
             ViewData["AdminCount"] = adminCount;
+            ViewData["CategoryCount"] = categoryCount;
 
             return View();
         }
@@ -223,42 +225,9 @@ namespace OopProject.Controllers
         }
 
 
-
-
-
-
-
-
-
-
-        public IActionResult AllCategoryBooks()
+        public IActionResult AllRequest()
         {
             return View();
         }
-
-        public IActionResult CreateCategory()
-        {
-            return View();
-        }
-
-        public IActionResult AllBooks()
-        {
-            return View();
-        }
-
-        public IActionResult CreateBooks()
-        {
-            return View();
-        }
-
-        public IActionResult AddBooks()
-        {
-            return View();
-        }
-
-/*        public IActionResult AllRequest()
-        {
-            return View();
-        }*/
     }
 }

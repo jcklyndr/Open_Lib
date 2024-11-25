@@ -1,23 +1,25 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-    const password = document.getElementById("password");
-    const passwordConfirm = document.getElementById("password-confirm");
-    const passwordError = document.getElementById("password-error");
-    const form = document.getElementById("signUpForm");
+    console.log("JavaScript loaded"); // Debugging line to ensure the script is loaded
 
-    form.addEventListener("submit", function (event) {
-        // Reset error messages
-        passwordError.style.display = "none";
+    // Delete confirmation logic for all delete buttons
+    const deleteButtons = document.querySelectorAll('.delete-button');
 
-        // Check if passwords match
-        if (password.value !== passwordConfirm.value) {
-            event.preventDefault(); // Prevent form submission
-            passwordError.style.display = "inline"; // error message
-        }
+    console.log(deleteButtons); // Check if the delete buttons are being selected
 
-        // if password and confirmPassword are empty, it will not submit
-        if (password.value === "" || passwordConfirm.value === "") {
-            event.preventDefault(); // Prevent form submission
-            alert("Both password fields must be filled out.");
-        }
+    deleteButtons.forEach(function (button) {
+        button.addEventListener("click", function (event) {
+            console.log("Delete button clicked"); // Debugging line
+            // Prevent form submission temporarily
+            event.preventDefault();
+
+            // Show confirmation dialog
+            const isConfirmed = confirm('Are you sure you want to delete this admin?');
+
+            // If the user confirms, submit the form
+            if (isConfirmed) {
+                console.log("Form submitted"); // Debugging line
+                event.target.closest("form").submit();  // Submit the form manually
+            }
+        });
     });
 });

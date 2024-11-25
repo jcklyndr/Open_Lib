@@ -35,31 +35,26 @@ namespace OopProject.Controllers
                     ModelState.AddModelError("Email", "Email is already registered.");
                     return View(admin);
                 }
-
                 // Hash password and save the admin
                 admin.Password = BCrypt.Net.BCrypt.HashPassword(admin.Password);
                 await _adminRepository.AddAsync(admin);
-
                 // Success message
                 TempData["SuccessMessage"] = "Registration successful for this admin.";
                 return RedirectToAction(nameof(CreateAdmin)); // Redirect to the same page to clear the form
             }
-
-            // If ModelState is invalid, redisplay the form with validation messages
             return View(admin);
         }
+
         [AllowAnonymous]
         public IActionResult AdminLogin()
         {
             return View();
         }
-
-
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> AdminLogin(string AdminName, string Password, string? ReturnUrl = null)
         {
-            // Retrieve admin from the database
+            // Retrieve admin from db
             var admin = (await _adminRepository.GetAllAsync())
                 .FirstOrDefault(a => a.AdminName == AdminName);
 
@@ -76,19 +71,15 @@ namespace OopProject.Controllers
         new Claim(ClaimTypes.Role, "Admin")
     };
             var claimsIdentity = new ClaimsIdentity(claims, "AdminScheme");
-
             // Debugging: Log authentication success
             Console.WriteLine($"Authenticated as: {admin.AdminName}, Role: Admin");
-
             // Sign in with AdminScheme
             await HttpContext.SignInAsync("AdminScheme", new ClaimsPrincipal(claimsIdentity));
-
             // Redirect to the original page or admin dashboard
             if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
             {
                 return Redirect(ReturnUrl);
             }
-
             return RedirectToAction("Index", "Admin");
         }
         [HttpGet]
@@ -124,10 +115,8 @@ namespace OopProject.Controllers
                 // Log or debug if data is null or empty
                 Console.WriteLine("No admin data retrieved.");
             }
-
             return View(admins);
         }
-
 
         [HttpGet]
         public async Task<IActionResult> UpdateAdmin(int Id)
@@ -140,39 +129,33 @@ namespace OopProject.Controllers
 
             return View(existingAdmin); // Pass the admin to the view
         }
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateAdmin(Admin admin)
         {
             if (!ModelState.IsValid)
             {
-                return View(admin); // Return the form with validation errors
+                return View(admin); 
             }
-
             var existingAdmin = await _adminRepository.GetByIdAsync(admin.Id);
             if (existingAdmin == null)
             {
                 return NotFound();
             }
-
             // Update the fields
             existingAdmin.AdminName = admin.AdminName;
             existingAdmin.Email = admin.Email;
 
-            // If password is provided, hash it (assuming you hash passwords)
+
             if (!string.IsNullOrEmpty(admin.Password))
             {
-                existingAdmin.Password = BCrypt.Net.BCrypt.HashPassword(admin.Password); ; // Replace with your password hashing method
+                existingAdmin.Password = BCrypt.Net.BCrypt.HashPassword(admin.Password); ;
             }
 
-            await _adminRepository.UpdateAsync(existingAdmin); // Update the admin in the database
+            await _adminRepository.UpdateAsync(existingAdmin); // Update admin 
             TempData["Success"] = "Admin updated successfully!";
             return RedirectToAction("AllAdmin");
         }
-
-
 
         // Handle the Update Form Submission
         [HttpPost]
@@ -181,7 +164,7 @@ namespace OopProject.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(admin); // Return the form with validation errors
+                return View(admin); // Return with validation
             }
 
             var existingAdmin = await _adminRepository.GetByIdAsync(admin.Id);
@@ -190,22 +173,20 @@ namespace OopProject.Controllers
                 return NotFound();
             }
 
-            // Update the fields
+            // Update fields
             existingAdmin.AdminName = admin.AdminName;
             existingAdmin.Email = admin.Email;
 
-            // If password is provided, hash it
             if (!string.IsNullOrEmpty(admin.Password))
             {
-                existingAdmin.Password = BCrypt.Net.BCrypt.HashPassword(admin.Password); // Hash the new password
+                existingAdmin.Password = BCrypt.Net.BCrypt.HashPassword(admin.Password); // Hash new password
             }
 
-            await _adminRepository.UpdateAsync(existingAdmin); // Update the admin in the database
+            await _adminRepository.UpdateAsync(existingAdmin); // Update the admin
 
-            // Set success message
-            TempData["SuccessMessage"] = "Admin updated successfully!";  // Success message
+            TempData["SuccessMessage"] = "Admin updated successfully!";  
 
-            return RedirectToAction("AllAdmin");  // Redirect to another action (like AllAdmin or wherever appropriate)
+            return RedirectToAction("AllAdmin");
         }
 
         [HttpGet]
@@ -216,8 +197,6 @@ namespace OopProject.Controllers
             {
                 return NotFound();
             }
-
-            // Return a confirmation view with the admin details (e.g., admin name)
             return View(admin);
         }
 
@@ -231,20 +210,15 @@ namespace OopProject.Controllers
                 TempData["ErrorMessage"] = "Admin not found.";
                 return RedirectToAction("AllAdmin");
             }
-
             try
             {
-                // Use the repository method to delete the admin
-                await _adminRepository.DeleteAsync(Id); // Calls the DeleteAsync method in the Repository
+                await _adminRepository.DeleteAsync(Id); //DeleteAsync method in the Repository
                 TempData["SuccessMessage"] = "Admin deleted successfully!";
             }
             catch (Exception ex)
             {
-                // Log the exception (you can add logging here)
                 TempData["ErrorMessage"] = $"Error deleting admin: {ex.Message}";
             }
-
-            // Redirect back to the admin list
             return RedirectToAction("AllAdmin");
         }
 

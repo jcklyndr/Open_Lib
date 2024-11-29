@@ -1,13 +1,12 @@
 ﻿<div class="containerheader">
     <nav>
+       @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+        {
         <h2 class="text-brown use-font weight">Admin Dashboard</h2>
         <div class="nav-links">
             <ul>
-                <li><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li><a href="#">Manage Users</a></li>
 
-                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                {
+                <li><a asp-controller="Admin" asp-action="Index">Home</a></li>
                     <li class="dropdown">
                         <!-- Custom dropdown -->
                         <a href="#" class="dropdown-toggle">
@@ -17,13 +16,9 @@
                         <div class="dropdown-content">
                             <a asp-controller="Admin" asp-action="AdminLogout">Logout</a>
                         </div>
-                    </li>
-                }
-                else
-                {
-                    <li><a asp-controller="Admin" asp-action="AdminLogin">Login</a></li>
-                }
+                    </li>         
             </ul>
         </div>
+        }
     </nav>
 </div>

@@ -20,10 +20,18 @@ namespace OopProject.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Book>()
-                .HasOne(b => b.Category)
-                .WithMany(c => c.Books)
-                .HasForeignKey(b => b.CategoryId);
+            modelBuilder.Entity<BookCategory>()
+                .HasKey(bc => new { bc.BookId, bc.CategoryId });
+
+            modelBuilder.Entity<BookCategory>()
+                .HasOne(bc => bc.Book)
+                .WithMany(b => b.BookCategories)
+                .HasForeignKey(bc => bc.BookId);
+
+            modelBuilder.Entity<BookCategory>()
+                .HasOne(bc => bc.Category)
+                .WithMany(c => c.BookCategories)
+                .HasForeignKey(bc => bc.CategoryId);
 
             modelBuilder.Entity<Request>()
                 .HasOne(r => r.User)
@@ -35,5 +43,6 @@ namespace OopProject.Data
                 .WithMany()
                 .HasForeignKey(r => r.BookId);
         }
+
     }
 }

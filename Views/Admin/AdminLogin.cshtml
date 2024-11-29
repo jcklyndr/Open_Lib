@@ -4,8 +4,8 @@
 
 <partial name="/Views/Shared/_HeaderAdmin.cshtml" />
 
-<body>
-    <br>
+<body class="adminbody">
+<div class="break"></div>
     <!-- Need to wrap form -->
     <section>
         <div class="container">
@@ -27,7 +27,7 @@
                             </div>
                         }
 
-                        <h3 class="font-weight-bold mb-3 text-brown">Login Admin</h3>
+                        <h3 class="font-weight-bold mb-3">Login as Admin</h3>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -41,19 +41,14 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary-login py-3 px-4" id="submitBtn">Login</button>
+                                    <button type="submit" class="btn btn-primary-admin py-3 px-4" id="submitBtn">Login</button>
                                 </div>
                                 <div class="form-group">
-                                    <a class="btn btn-secondary" role="button" asp-controller="Home" asp-action="Index">back to website</a>
+                                    <a class="btn btn-no-style" role="button" asp-controller="Home" asp-action="Index">back to website</a>
                                 </div>
                             </div>
                         </div>
                     </form>
-                    @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
-                    {
-                        <p style="color: red">@ViewData["ErrorMessage"]</p>
-                    }
-
                 </div>
             </div>
         </div>

@@ -12,12 +12,34 @@ namespace OopProject.Controllers
     {
         private readonly IRepository<Admin> _adminRepository;
         private readonly IRepository<Category> _categoryRepository;
+        private readonly IRepository<Book> _bookRepository;
 
-        public AdminController(IRepository<Admin> adminRepository, IRepository<Category> categoryRepository)
+        public AdminController(IRepository<Admin> adminRepository, IRepository<Category> categoryRepository, IRepository<Book> bookRepository)
         {
             _adminRepository = adminRepository;
             _categoryRepository = categoryRepository;
+            _bookRepository = bookRepository;
         }
+        public async Task<IActionResult> Index()
+        {
+            // Retrieve the count of admins
+            var adminCount = (await _adminRepository.GetAllAsync()).Count();
+
+            // Retrieve the count of categories
+            var categoryCount = (await _categoryRepository.GetAllAsync()).Count();
+
+            // Retrieve the count of books
+            var bookCount = (await _bookRepository.GetAllAsync()).Count();
+
+            // Pass the counts to the view
+            ViewData["AdminCount"] = adminCount;
+            ViewData["CategoryCount"] = categoryCount;
+            ViewData["BookCount"] = bookCount;
+
+            return View();
+        }
+
+
         //for redirect sa page 
         public IActionResult CreateAdmin()
         {
@@ -92,20 +114,6 @@ namespace OopProject.Controllers
             TempData["SuccessMessage"] = "Admin logged out successfully.";
             // Redirect to the AdminLogin page after logout
             return RedirectToAction("AdminLogin", "Admin");
-        }
-        public async Task<IActionResult> Index()
-        {
-            // Retrieve the count of admins
-            var adminCount = (await _adminRepository.GetAllAsync()).Count();
-
-            // Retrieve the count of categories
-            var categoryCount = (await _categoryRepository.GetAllAsync()).Count();
-
-            // Pass the counts to the view
-            ViewData["AdminCount"] = adminCount;
-            ViewData["CategoryCount"] = categoryCount;
-
-            return View();
         }
 
         public async Task<IActionResult> AllAdmin()

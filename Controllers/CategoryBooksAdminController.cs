@@ -63,7 +63,7 @@ namespace OopProject.Controllers
 
             // Set a success message
             TempData["SuccessMessage"] = "Category created successfully!";
-            return RedirectToAction(nameof(AllCategoryBooks)); // Redirect to the category list or relevant view
+            return RedirectToAction(nameof(AllCategoryBooks));
         }
         [HttpGet]
         public async Task<IActionResult> UpdateCategoryBooks(int Id)

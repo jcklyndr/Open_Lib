@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OopProject.Data;
 
@@ -10,9 +11,11 @@ using OopProject.Data;
 namespace OopProject.Migrations
 {
     [DbContext(typeof(OpenLibDbContext))]
-    partial class OpenLibDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241128123302_RemoveImageFromBook")]
+    partial class RemoveImageFromBook
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,30 +73,17 @@ namespace OopProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<int>("PublicationYear")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Books");
-                });
-
-            modelBuilder.Entity("OopProject.Models.BookCategory", b =>
-                {
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BookId", "CategoryId");
-
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("BookCategory");
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("OopProject.Models.Category", b =>
@@ -175,21 +165,13 @@ namespace OopProject.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("OopProject.Models.BookCategory", b =>
+            modelBuilder.Entity("OopProject.Models.Book", b =>
                 {
-                    b.HasOne("OopProject.Models.Book", "Book")
-                        .WithMany("BookCategories")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("OopProject.Models.Category", "Category")
-                        .WithMany("BookCategories")
+                        .WithMany("Books")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Book");
 
                     b.Navigation("Category");
                 });
@@ -213,14 +195,9 @@ namespace OopProject.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("OopProject.Models.Book", b =>
-                {
-                    b.Navigation("BookCategories");
-                });
-
             modelBuilder.Entity("OopProject.Models.Category", b =>
                 {
-                    b.Navigation("BookCategories");
+                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("OopProject.Models.User", b =>

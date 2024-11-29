@@ -6,7 +6,7 @@
 }
 <partial name="/Views/Shared/_Header.cshtml" />
 <br>
-<div class="hero-wrap js-fullheight" style="margin-top: -25px; background-image: url('@Url.Content("~/images/homepageimg.jpg")');">
+<div class="hero-wrap js-fullheight bodybg">
 
     <div class="overlay"></div>
 
@@ -27,58 +27,29 @@
 <section class="ftco-section ftco-services customcategorycontainermain">
     <div class="container customcategorycontainer">
         <div class="row">
-            <!--dito maglalagay foreach para madisplay mga category ng books-->
-            <div class="col-md-4 d-flex services align-self-stretch px-4 ftco-animate customcardcategory">
-                <div class="d-block services-wrap text-center">
-                    <div class="img" style="background-image: url('@Url.Content("~/images/Sampleimg.png")');"></div>
-                    <div class="media-body py-4 px-3">
-                        <h3 class="heading">Category of books</h3>
-                        <p>Description</p>
-                        <p>Lorem Ipsum qertastravrtaoi werbutaaststioaeotih  rtaoirhtaohgoihroiapw asrtbrbaoirs.</p>
-                        <p><a asp-controller="Books" asp-action="PerCategory" class="btn btn-custom">View Books</a></p>
+            @foreach (var category in ViewBag.Categories as List<Category>)
+            {
+                // Check if category.Image is null or empty, and use a default image if so
+                var imageUrl = string.IsNullOrEmpty(category.Image)
+                ? "/images/Sampleimg.jpg"  // Default image
+                : category.Image;  // Use the path stored in the database (relative to the root)
+
+                <div class="col-md-4 d-flex services align-self-stretch px-4 ftco-animate customcardcategory">
+                    <div class="d-block services-wrap text-center">
+                        <!-- Dynamically set the background image using the determined image URL -->
+                        <div class="img" style="background-image: url('@Url.Content(imageUrl)');"></div>
+                        <div class="media-body py-4 px-3">
+                            <h3 class="heading">@category.CategoryName</h3>  <!-- Dynamically display the category name -->
+                            <p>@category.Description</p>  <!-- Dynamically display the category description -->
+                            <p><a asp-controller="Books" asp-action="PerCategory" asp-route-categoryId="@category.Id" class="btn btn-custom">View Books</a></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!--end ng foreach-->
-            <div class="col-md-4 d-flex services align-self-stretch px-4 ftco-animate customcardcategory">
-                <div class="d-block services-wrap text-center">
-                    <div class="img" style="background-image: url('@Url.Content("~/images/Sampleimg.png")');"></div>
-                    <div class="media-body py-4 px-3">
-                        <h3 class="heading">Category of books</h3>
-                        <p>Description</p>
-                        <p>Lorem Ipsum qertastravrtaoi werbutaaststioaeotih  rtaoirhtaohgoihroiapw asrtbrbaoirs.</p>
-                        <p><a asp-controller="Books" asp-action="PerCategory" class="btn btn-custom">View Books</a></p>
-                    </div>
-                </div>
-            </div>
-
-                        <div class="col-md-4 d-flex services align-self-stretch px-4 ftco-animate customcardcategory">
-                <div class="d-block services-wrap text-center">
-                    <div class="img" style="background-image: url('@Url.Content("~/images/Sampleimg.png")');"></div>
-                    <div class="media-body py-4 px-3">
-                        <h3 class="heading">Category of books</h3>
-                        <p>Description</p>
-                        <p>Lorem Ipsum qertastravrtaoi werbutaaststioaeotih  rtaoirhtaohgoihroiapw asrtbrbaoirs.</p>
-                        <p><a asp-controller="Books" asp-action="PerCategory" class="btn btn-custom">View Books</a></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 d-flex services align-self-stretch px-4 ftco-animate customcardcategory">
-                <div class="d-block services-wrap text-center">
-                    <div class="img" style="background-image: url('@Url.Content("~/images/Sampleimg.png")');"></div>
-                    <div class="media-body py-4 px-3">
-                        <h3 class="heading">Category of books</h3>
-                        <p>Description</p>
-                        <p>Lorem Ipsum qertastravrtaoi werbutaaststioaeotih  rtaoirhtaohgoihroiapw asrtbrbaoirs.</p>
-                        <p><a asp-controller="Books" asp-action="PerCategory" class="btn btn-custom">View Books</a></p>
-                    </div>
-                </div>
-            </div>
+            }
+        </div>
+    </div>
+</section>
 
 
-                  </div>
-                  </div>
-              </section>
 
 <partial name="/Views/Shared/_Footer.cshtml" />

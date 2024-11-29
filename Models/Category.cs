@@ -4,8 +4,10 @@ public class Category
 {
     public int Id { get; set; }
     public string CategoryName { get; set; }
-    public string? Image { get; set; }  // Make Image nullable if not always required
+    public string? Image { get; set; }
     public string Description { get; set; }
 
-    public ICollection<Book> Books { get; set; } = new List<Book>();
+    // This is where you access the many-to-many relationship
+    public ICollection<BookCategory> BookCategories { get; set; } = new List<BookCategory>();
 }
+

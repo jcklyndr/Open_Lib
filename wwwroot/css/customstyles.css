@@ -7,7 +7,7 @@
 /*Color use: #794022, #F2E5BF, #FCB900, #193153, whitesmoke */
 
 body {
-    background-color: whitesmoke;
+    background-color: #D7CCC8;
 }
 .main-color {
     color: #F2E5BF; /*light near whitesmoke*/
@@ -16,8 +16,10 @@ body {
     background-color: #794022;
 }
 .use-font {
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Playfair Display", serif;
+    font-size:35px;
 }
+
 .text-black{
     color: black;
 }
@@ -60,7 +62,15 @@ body {
     margin-bottom: 15px;
 }
 .containerheader {
-    background-color: #C8B1A4;
+    background: linear-gradient(to bottom, #C8B1A4 34%, #D7CCC8 99%);
+    padding-bottom:-10px;
+}
+.bodybg {
+    margin-top: -40px;
+    background-image: url('../images/homepageimg.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
 }
 nav {
     display: flex;
@@ -299,6 +309,7 @@ button:hover {
     font-size: 14px;
     border-radius: 8px;
     transition: background-color 0.3s ease;
+    margin-top: auto;
 }
 
 .btn-custom:hover {
@@ -307,10 +318,14 @@ button:hover {
     font-weight: bold;
 }
 .customcardcategory {
-    -webkit-box-flex: 0; 
+    -webkit-box-flex: 0;
     -ms-flex: 0 0 25%;
     flex: 0 0 25%;
     max-width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 .customcategorycontainermain{
    /* border: 1px solid black; */
@@ -423,10 +438,10 @@ table td img {
  
 /*Sa admin side*/
 
-.UpdateAdmin, .AllAdmin, .CreateAdmin, .AllCategoryBooks, .CreateCategory, .UpdateCategoryBooks, .AddBooks{
+.UpdateAdmin, .AllAdmin, .CreateAdmin, .AllCategoryBooks, .CreateCategory, .UpdateCategoryBooks, .AddBooks,.UpdateBooks{
     width: 80%;
 }
-.UpdateAdmin button, .CreateAdmin button, AllCategoryBooks button, .UpdateCategoryBooks button, .AddBooks button {
+.UpdateAdmin button, .CreateAdmin button, AllCategoryBooks button, .UpdateCategoryBooks button, .AddBooks button, .UpdateBooks button {
         width: 20%;
 }
 .UpdateAdmin .form-outline input:focus{
@@ -435,4 +450,32 @@ table td img {
 }
 .mt-custom{
     margin-top: 70px;
+}
+.adminbody {
+    background-color: #e6ecff;
+}
+.break {
+    padding-top: 10%;
+}
+.btn-primary-admin {
+    background-color: #003399;
+    color: #fff;
+}
+.btn-primary-admin:hover {
+    background-color: #003399;
+    color: #fff;
+    font-weight:normal;
+}
+.btn-secondary-admin {
+    background-color: #4d88ff;
+    color: #fff;
+}
+.btn-no-style{
+    background-color:none;
+    border:none;
+}
+.btn-no-style:hover {
+    background-color: none;
+    border: none;
+    font-weight: 500;
 }

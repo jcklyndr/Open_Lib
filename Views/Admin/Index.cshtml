@@ -23,20 +23,6 @@
     <div class="col-md-6 mb-4">
         <div class="card custom-card">
             <div class="card-header-custom">
-            <div class="card-body">
-                <h5 class="card-title card-title-custom-mb">Book Request</h5>
-                </div>
-                </div>
-                <div class="card-body">
-                <p class="card-text">Number of Request: </p>
-                <a asp-controller="Admin" asp-action="AllRequest" class="btn btn-custom">View Request</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-6 mb-4">
-        <div class="card custom-card">
-            <div class="card-header-custom">
                 <div class="card-body">
                     <h5 class="card-title card-title-custom-mb">Category</h5>
                 </div>
@@ -50,17 +36,30 @@
         </div>
     </div>
 
+    <div class="col-md-6 mb-4">
+        <div class="card custom-card">
+            <div class="card-header-custom">
+                <div class="card-body">
+                    <h5 class="card-title card-title-custom-mb">Books</h5>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Number of books:<span class="count">@ViewData["BookCount"] </p>
+                <a asp-controller="BooksAdmin" asp-action="AllBooks" class="btn btn-custom">View Books</a>
+            </div>
+        </div>
+    </div>
 
     <div class="col-md-6 mb-4">
         <div class="card custom-card">
             <div class="card-header-custom">
             <div class="card-body">
-                <h5 class="card-title card-title-custom-mb">Books</h5>
+                <h5 class="card-title card-title-custom-mb">Book Request</h5>
                 </div>
                 </div>
                 <div class="card-body">
-                <p class="card-text">Number of books: </p>
-                <a asp-controller="BooksAdmin" asp-action="AllBooks" class="btn btn-custom">View Books</a>
+                <p class="card-text">Number of Request: </p>
+                <a asp-controller="Admin" asp-action="AllRequest" class="btn btn-custom">View Request</a>
             </div>
         </div>
     </div>

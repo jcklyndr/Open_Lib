@@ -49,17 +49,19 @@ using OopProject.Models;
         {
             if (typeof(T) == typeof(Book))
             {
+                // Ensure that we eagerly load BookCategories and related Category entities
                 var result = await _context.Set<Book>()
                     .Include(b => b.BookCategories)
                     .ThenInclude(bc => bc.Category)
-                    .Cast<T>()
-                    .ToListAsync();
-
-                return result; // Ensure this is not null
+                    .ToListAsync(); // List<Book> will be returned here
+                return result.Cast<T>().ToList();
             }
 
-            throw new InvalidOperationException("GetAllWithCategoriesAsync is not supported for this type.");
+            throw new InvalidOperationException("GetAllWithCategoriesAsync is only supported for the Book type.");
+
         }
+
+
 
 
     }

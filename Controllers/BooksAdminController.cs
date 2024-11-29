@@ -89,6 +89,88 @@ public class BooksAdminController : AdminHeaderController
 
         return View(books);
     }
+    [HttpGet]
+    public async Task<IActionResult> UpdateBooks(int id)
+    {
+        var book = await _bookRepository.GetByIdAsync(id);
+
+        if (book == null)
+        {
+            TempData["ErrorMessage"] = "Book not found.";
+            return RedirectToAction("AllBooks");
+        }
+
+        // Get the categories associated with the book
+        var selectedCategoryIds = book.BookCategories.Select(bc => bc.CategoryId).ToList();
+
+        // Get all categories for the dropdown
+        var allCategories = await _categoryRepository.GetAllAsync();
+        ViewBag.Categories = new SelectList(allCategories, "Id", "CategoryName", selectedCategoryIds);
+
+        return View(book);
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateBooks(Book updatedBook, IFormFile? image)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(updatedBook); // Return to the form if there are validation errors
+        }
+
+        var book = await _bookRepository.GetByIdAsync(updatedBook.Id);
+        if (book == null)
+        {
+            TempData["ErrorMessage"] = "Book not found.";
+            return RedirectToAction("AllBooks");
+        }
+
+        try
+        {
+            // Update book properties
+            book.BookTitle = updatedBook.BookTitle;
+            book.Author = updatedBook.Author;
+            book.PublicationYear = updatedBook.PublicationYear;
+            book.BookDescription = updatedBook.BookDescription;
+
+            // Update image if a new one is provided
+            if (image != null)
+            {
+                // Delete old image if it exists
+                if (!string.IsNullOrEmpty(book.Image))
+                {
+                    var oldImagePath = Path.Combine("wwwroot", book.Image.TrimStart('/'));
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+
+                // Save the new image
+                var newImagePath = Path.Combine("wwwroot", "images", "books", image.FileName);
+                using (var stream = new FileStream(newImagePath, FileMode.Create))
+                {
+                    await image.CopyToAsync(stream);
+                }
+
+                book.Image = "/images/books/" + image.FileName;
+            }
+
+            // Update the book in the database
+            await _bookRepository.UpdateAsync(book);
+
+            TempData["SuccessMessage"] = "Book updated successfully!";
+        }
+        catch (Exception ex)
+        {
+            TempData["ErrorMessage"] = $"Error updating book: {ex.Message}";
+        }
+
+        return RedirectToAction("AllBooks");
+    }
+
+
 
     [HttpPost]
     public async Task<IActionResult> DeleteBookConfirmed(int id)

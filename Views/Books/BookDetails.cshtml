@@ -1,31 +1,34 @@
-﻿@{
-    ViewData["Title"] = "BookDetails - Name of the book";
+﻿@model OopProject.Models.Book
+
+@{
+    ViewData["Title"] = Model?.BookTitle ?? "Book Details";
 }
+
 <partial name="/Views/Shared/_Header.cshtml" />
+
 <br>
 <div class="maincontainerbook">
     <div class="col-md-6 order-md-1 pr-4 ftco-animate book-description">
         <div class="heading-section">
             <div class="pl-md-4">
-                <h2 class="text-brown">Title of the book</h2>
+                <h2 class="text-brown">@Model.BookTitle</h2>
             </div>
         </div>
         <div class="text-justify booksdetail-body-custom">
-
             <div class="media-body pl-3">
-                <h3 class="heading text-brown">Details about the book</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum scelerisque pulvinar sem. Nam quis dui risus. Donec ullamcorper dolor sed ullamcorper condimentum. Nullam in nulla id erat condimentum egestas ut aliquet lectus.</p>
+                <h3 class="heading text-brown">Description about the book</h3>
+                <p>@Model.BookDescription</p>
             </div>
 
             <div class="media-body pl-3">
                 <h3 class="heading text-brown">Details about the Author</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum scelerisque pulvinar sem. Nam quis dui risus. Donec ullamcorper dolor sed ullamcorper condimentum. Nullam in nulla id erat condimentum egestas ut aliquet lectus.</p>
+                <p>@Model.AuthorDescription</p>
             </div>
         </div>
     </div>
 
     <div class="col-md-6 order-md-1 pr-4 ftco-animate book-form">
-        <!--book-form-->
+        <!-- book-form -->
         <section class="ftco-section ftco-book ftco-no-pt ftco-no-pb">
             <!-- Update form to post to RequestBooks action -->
             <form asp-controller="Books" asp-action="RequestBooks" method="post">

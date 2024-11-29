@@ -24,7 +24,7 @@
                 }
 
                 <h5 class="card-title mb-5 d-inline">Update Book</h5>
-                <form method="POST" asp-action="AddBooks" asp-controller="BooksAdmin" enctype="multipart/form-data">
+                <form method="POST" asp-action="UpdateBooks" asp-controller="BooksAdmin" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="form-group">
@@ -47,7 +47,7 @@
 
                     <div class="form-group">
                         <label for="Image">Image (optional)</label>
-                        <input asp-for="Image" type="file" class="form-control" />
+                        <input type="file" name="image" id="image" class="form-control" />
                     </div>
 
                     <div class="form-group">
@@ -61,15 +61,18 @@
                         <textarea asp-for="AuthorDescription" class="form-control"></textarea>
                         <span asp-validation-for="AuthorDescription" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label for="Categories">Select Categories</label>
-                        <select name="selectedCategoryIds" id="Categories" multiple="multiple" class="form-control">
-                            @foreach (var category in ViewBag.Categories)
-                            {
-                                <option value="@category.Id">@category.CategoryName</option>
-                            }
-                        </select>
-                    </div>
+@*                     <div class="form-group">
+                        @foreach (var category in ViewBag.Categories)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="selectedCategoryIds" value="@category.Id"
+                                @(Model.BookCategories.Select(bc => bc.CategoryId).Contains(category.Id) ? "checked" : "") />
+                                <label class="form-check-label">@category.CategoryName</label>
+                            </div>
+                        }
+
+                    </div> *@
+
 
                     <button type="submit" class="btn btn-primary">Add Book</button>
                 </form>

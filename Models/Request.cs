@@ -4,7 +4,7 @@
     public class Request
     {
         public int Id { get; set; } // Primary Key, auto-incrementing
-        public string Status { get; set; }
+        public RequestStatus Status { get; set; }
 
         public int UserId { get; set; }
         public virtual User User { get; set; } // Navigation property
@@ -16,21 +16,14 @@
         public string Name { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-    }
 
-    /*    public class Request
+        public enum RequestStatus
         {
-            public int Id { get; set; }
-
-            public string Status { get; set; }  // For example: "Pending", "Approved", "Denied"
-
-            // Foreign keys
-            public int UserId { get; set; }
-            public int BookId { get; set; }
-
-            // Navigation properties
-            public User User { get; set; }
-            public Book Book { get; set; }
-        }*/
+            Pending,
+            Processing,
+            BookedSuccessfully,
+            Failed
+        }
+    }
 
 }

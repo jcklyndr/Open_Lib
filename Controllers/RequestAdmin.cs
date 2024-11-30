@@ -22,7 +22,57 @@ namespace OopProject.Controllers
             return View(allRequest);
         }
 
-        // Action to update request status (example)
+        [HttpGet]
+        public async Task<IActionResult> UpdateRequest(int id)
+        {
+            var request = await _requestRepository.GetByIdAsync(id);
+
+            if (request == null)
+            {
+                TempData["ErrorMessage"] = "Request not found.";
+                return RedirectToAction("AllRequest");
+            }
+
+            return View(request); // Pass a single request to the view
+        }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateRequest(int id, string status)
+        {
+            // Retrieve the request from the database
+            var request = await _requestRepository.GetByIdAsync(id);
+            if (request == null)
+            {
+                TempData["ErrorMessage"] = "Request not found.";
+                return RedirectToAction("AllRequest");
+            }
+
+            try
+            {
+                // Parse the incoming status string to the enum value
+                if (Enum.TryParse(typeof(Request.RequestStatus), status, out var parsedStatus))
+                {
+                    request.Status = (Request.RequestStatus)parsedStatus;
+
+                    // Update the request in the repository
+                    await _requestRepository.UpdateAsync(request);
+
+                    TempData["SuccessMessage"] = "Request updated successfully!";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Invalid status selected.";
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Error updating request: {ex.Message}";
+            }
+
+            return RedirectToAction("AllRequest");
+        }
 
 
         [HttpPost]

@@ -4,6 +4,7 @@ using OopProject.Models;
 using OopProject.Services;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using RequestModel = OopProject.Models.Request;
 
 namespace OopProject.Controllers
 {
@@ -76,20 +77,22 @@ namespace OopProject.Controllers
             }
 
             // Create the request object
-            var request = new Request
+            var bookRequest = new Request
             {
                 BookId = book.Id,
                 UserId = user.Id,
-                Status = "Pending",
+                Status = RequestModel.RequestStatus.Pending,
                 Book = book,
                 User = user,
                 Name = name,
                 Email = email,
-                PhoneNumber = phone_number // Ensure phone number is not null
+                PhoneNumber = phone_number
             };
 
+
+
             // Save the request using the repository
-            await _requestRepository.AddAsync(request);
+            await _requestRepository.AddAsync(bookRequest);
 
             TempData["SuccessMessage"] = "Your request has been submitted successfully!";
             return RedirectToAction("Success");

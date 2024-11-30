@@ -52,7 +52,9 @@
                                 <td>@request.Book?.BookTitle</td>
                                 <td>@request.Status</td>
                                 <td>
-                                    <a href="@Url.Action("UpdateStatus", "RequestAdmin", new { id = request.Id })" class="btn btn-primary">Update</a>
+                                        <a asp-controller="RequestAdmin" asp-action="UpdateRequest" asp-route-id="@request.Id" class="btn btn-warning">
+                                            Update
+                                        </a>
                                 </td>
                                 <td>
                                         <form method="post" asp-controller="RequestAdmin" asp-action="DeleteRequestConfirmed" asp-route-id="@request.Id" class="delete-form" onsubmit="return confirmDelete();">

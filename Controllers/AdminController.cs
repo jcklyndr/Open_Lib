@@ -13,29 +13,32 @@ namespace OopProject.Controllers
         private readonly IRepository<Admin> _adminRepository;
         private readonly IRepository<Category> _categoryRepository;
         private readonly IRepository<Book> _bookRepository;
+        private readonly IRepository<Request> _requestRepository;
 
 
-        public AdminController(IRepository<Admin> adminRepository, IRepository<Category> categoryRepository, IRepository<Book> bookRepository)
+        public AdminController(IRepository<Admin> adminRepository, IRepository<Category> categoryRepository,
+            IRepository<Book> bookRepository, IRepository<Request> requestRepository)
         {
             _adminRepository = adminRepository;
             _categoryRepository = categoryRepository;
             _bookRepository = bookRepository;
+            _requestRepository = requestRepository;
         }
         public async Task<IActionResult> Index()
         {
-            // Retrieve the count of admins
+            // Retrieve the count ng admin,category,books and request
             var adminCount = (await _adminRepository.GetAllAsync()).Count();
-
-            // Retrieve the count of categories
             var categoryCount = (await _categoryRepository.GetAllAsync()).Count();
-
-            // Retrieve the count of books
             var bookCount = (await _bookRepository.GetAllAsync()).Count();
+            var requestCount = (await _requestRepository.GetAllAsync()).Count();
+
+
 
             // Pass the counts to the view
             ViewData["AdminCount"] = adminCount;
             ViewData["CategoryCount"] = categoryCount;
             ViewData["BookCount"] = bookCount;
+            ViewData["RequestCount"] = requestCount;
 
             return View();
         }

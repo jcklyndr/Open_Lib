@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using OopProject.Data;
 using OopProject.Services;
+using OopProject.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +13,12 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation(); // For runtime up
 builder.Services.AddDbContext<OpenLibDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
 // Register the generic repository
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IRepository<Request>, RequestRepository>();
+builder.Services.AddScoped<IRequestRepository, RequestRepository>();
+
 
 // Add authentication with multiple schemes
 builder.Services.AddAuthentication(options =>

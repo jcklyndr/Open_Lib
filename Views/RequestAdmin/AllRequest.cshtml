@@ -1,0 +1,74 @@
+﻿@model IEnumerable<OopProject.Models.Request>
+
+@{
+    ViewData["Title"] = "All Requests";
+}
+
+<partial name="/Views/Shared/_HeaderAdmin.cshtml"></partial>
+<body>
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title mb-4 d-inline">All Requests</h5>
+
+                <!-- Display success message if any -->
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone Number</th>
+                            <th scope="col">Genre</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var request in Model)
+                        {
+                            <tr>
+                                <td>@request.Name</td>
+                                <td>@request.Email</td>
+                                <td>@request.PhoneNumber</td>
+                                <td>
+                                    @if (request.Book?.BookCategories?.Any() == true)
+                                    {
+                                        @request.Book.BookCategories.FirstOrDefault()?.Category?.CategoryName
+                                    }
+                                    else
+                                    {
+                                        @:No Category
+                                    }
+                                </td>
+                                <td>@request.Book?.BookTitle</td>
+                                <td>@request.Status</td>
+                                <td>
+                                    <a href="@Url.Action("UpdateStatus", "RequestAdmin", new { id = request.Id })" class="btn btn-primary">Update</a>
+                                </td>
+                                <td>
+                                        <form method="post" asp-controller="RequestAdmin" asp-action="DeleteRequestConfirmed" asp-route-id="@request.Id" class="delete-form" onsubmit="return confirmDelete();">
+                                            <button type="submit" class="btn btn-danger text-center delete-button">
+                                                Delete
+                                            </button>
+                                        </form>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/mainscript.js"></script>
+</body>

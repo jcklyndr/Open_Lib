@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using OopProject.Models;
 using OopProject.Services;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace OopProject.Controllers
 {
@@ -9,10 +11,14 @@ namespace OopProject.Controllers
     public class BooksController : UserHeaderController
     {
         private readonly IRepository<Book> _bookRepository;
+        private readonly IRepository<Request> _requestRepository; // Inject the repository for Request
+        private readonly IRepository<User> _userRepository;
 
-        public BooksController(IRepository<Book> bookRepository)
+        public BooksController(IRepository<Book> bookRepository, IRepository<Request> requestRepository, IRepository<User> userRepository)
         {
             _bookRepository = bookRepository;
+            _requestRepository = requestRepository; // Initialize the repository for Request
+            _userRepository = userRepository;
         }
 
         public async Task<IActionResult> PerCategory(int categoryId)
@@ -42,13 +48,55 @@ namespace OopProject.Controllers
             return View(book);
         }
 
-
         [HttpPost]
-        public IActionResult RequestBooks(string Name, string Email, string PhoneNum)
+        public async Task<IActionResult> RequestBooks(int bookId, string name, string email, string phone_number)
         {
+            // Make sure that phone_number is not null or empty before creating the request
+            if (string.IsNullOrEmpty(phone_number))
+            {
+                TempData["ErrorMessage"] = "Phone number is required.";
+                return RedirectToAction("BookDetails", new { id = bookId });
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                TempData["ErrorMessage"] = "You must be logged in to request a book.";
+                return RedirectToAction("BookDetails", new { id = bookId });
+            }
+
+            var book = await _bookRepository.GetByIdAsync(bookId);
+            var user = await _userRepository.GetByIdAsync(int.Parse(userId));
+
+            if (book == null || user == null)
+            {
+                TempData["ErrorMessage"] = "Invalid book or user.";
+                return RedirectToAction("BookDetails", new { id = bookId });
+            }
+
+            // Create the request object
+            var request = new Request
+            {
+                BookId = book.Id,
+                UserId = user.Id,
+                Status = "Pending",
+                Book = book,
+                User = user,
+                Name = name,
+                Email = email,
+                PhoneNumber = phone_number // Ensure phone number is not null
+            };
+
+            // Save the request using the repository
+            await _requestRepository.AddAsync(request);
+
             TempData["SuccessMessage"] = "Your request has been submitted successfully!";
             return RedirectToAction("Success");
         }
+
+
+
 
         public IActionResult Success()
         {

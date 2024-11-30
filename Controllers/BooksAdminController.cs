@@ -23,6 +23,21 @@ public class BooksAdminController : AdminHeaderController
         _bookCategoryRepository = bookCategoryRepository;
     }
 
+    public async Task<IActionResult> AllBooks()
+    {
+        // Fetch all books with categories
+        var books = await _bookRepository.GetAllWithCategoriesAsync();
+
+        // Check for null and log/debug if necessary
+        if (books == null)
+        {
+            // Optional: Log the issue for further inspection
+            Console.WriteLine("Books fetched from repository are null.");
+            books = new List<Book>(); // Avoid null references by returning an empty list
+        }
+
+        return View(books);
+    }
     public async Task<IActionResult> AddBooks(Book model, IFormFile image, List<int> selectedCategoryIds)
     {
         if (!ModelState.IsValid)
@@ -74,21 +89,6 @@ public class BooksAdminController : AdminHeaderController
         return RedirectToAction("AllBooks");
     }
 
-    public async Task<IActionResult> AllBooks()
-    {
-        // Fetch all books with categories
-        var books = await _bookRepository.GetAllWithCategoriesAsync();
-
-        // Check for null and log/debug if necessary
-        if (books == null)
-        {
-            // Optional: Log the issue for further inspection
-            Console.WriteLine("Books fetched from repository are null.");
-            books = new List<Book>(); // Avoid null references by returning an empty list
-        }
-
-        return View(books);
-    }
     [HttpGet]
     public async Task<IActionResult> UpdateBooks(int id)
     {
@@ -169,9 +169,6 @@ public class BooksAdminController : AdminHeaderController
 
         return RedirectToAction("AllBooks");
     }
-
-
-
     [HttpPost]
     public async Task<IActionResult> DeleteBookConfirmed(int id)
     {

@@ -1,115 +1,49 @@
+@model IEnumerable<OopProject.Models.Request>
+
 @{
     ViewData["Title"] = "My Request";
 }
 <partial name="/Views/Shared/_Header.cshtml"></partial>
+
 <div class="requestbookscontainer js-fullheight mx-auto">
     <div class="container">
         <div class="row mt-5 slider-text justify-content-center" data-scrollax-parent="true">
             <div class="col-md-12 ftco-animate">
-                <h1 class="text-center">My Request</h1>
+                <h1 class="text-center">My Requests</h1>
 
                 <div class="table-container">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">name</th>
-                                <th scope="col">email</th>
-                                <th scope="col">phone number</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone Number</th>
                                 <th scope="col">Category of Book</th>
-                                <th scope="col">Book name</th>
+                                <th scope="col">Book Name</th>
                                 <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">Jackielyn Duero</th>
-                                <td>duerojackie@gmail.com</td>
-                                <td>09112233456</td>
-                                <td>Fiction</td>
-                                <td>Pride and Prejudice</td>
-                                <td>Processing</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Jackielyn Duero</th>
-                                <td>duerojackie@gmail.com</td>
-                                <td>09112233456</td>
-                                <td>Fiction</td>
-                                <td>Pride and Prejudice</td>
-                                <td>Processing</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Jackielyn Duero</th>
-                                <td>duerojackie@gmail.com</td>
-                                <td>09112233456</td>
-                                <td>Fiction</td>
-                                <td>Pride and Prejudice</td>
-                                <td>Processing</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Jackielyn Duero</th>
-                                <td>duerojackie@gmail.com</td>
-                                <td>09112233456</td>
-                                <td>Fiction</td>
-                                <td>Pride and Prejudice</td>
-                                <td>Processing</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Jackielyn Duero</th>
-                                <td>duerojackie@gmail.com</td>
-                                <td>09112233456</td>
-                                <td>Fiction</td>
-                                <td>Pride and Prejudice</td>
-                                <td>Processing</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Jackielyn Duero</th>
-                                <td>duerojackie@gmail.com</td>
-                                <td>09112233456</td>
-                                <td>Fiction</td>
-                                <td>Pride and Prejudice</td>
-                                <td>Processing</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Jackielyn Duero</th>
-                                <td>duerojackie@gmail.com</td>
-                                <td>09112233456</td>
-                                <td>Fiction</td>
-                                <td>Pride and Prejudice</td>
-                                <td>Processing</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Jackielyn Duero</th>
-                                <td>duerojackie@gmail.com</td>
-                                <td>09112233456</td>
-                                <td>Fiction</td>
-                                <td>Pride and Prejudice</td>
-                                <td>Processing</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Jackielyn Duero</th>
-                                <td>duerojackie@gmail.com</td>
-                                <td>09112233456</td>
-                                <td>Fiction</td>
-                                <td>Pride and Prejudice</td>
-                                <td>Processing</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Jackielyn Duero</th>
-                                <td>duerojackie@gmail.com</td>
-                                <td>09112233456</td>
-                                <td>Fiction</td>
-                                <td>Pride and Prejudice</td>
-                                <td>Processing</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Jackielyn Duero</th>
-                                <td>duerojackie@gmail.com</td>
-                                <td>09112233456</td>
-                                <td>Fiction</td>
-                                <td>Pride and Prejudice</td>
-                                <td>Processing</td>
-                            </tr>
-                            <!-- More rows here -->
+                            @foreach (var request in Model)
+                            {
+                                <tr>
+                                    <td>@request.Name</td>
+                                    <td>@request.Email</td>
+                                    <td>@request.PhoneNumber</td>
+                                    <td>
+                                        @if (request.Book?.BookCategories?.Any() == true)
+                                        {
+                                            @request.Book.BookCategories.FirstOrDefault()?.Category?.CategoryName
+                                        }
+                                        else
+                                        {
+                                            @:No Category
+                                                            }
+                                    </td>
+                                    <td>@request.Book?.BookTitle</td>
+                                    <td>@request.Status</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

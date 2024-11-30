@@ -14,6 +14,7 @@ namespace OopProject.Controllers
         private readonly IRepository<Category> _categoryRepository;
         private readonly IRepository<Book> _bookRepository;
 
+
         public AdminController(IRepository<Admin> adminRepository, IRepository<Category> categoryRepository, IRepository<Book> bookRepository)
         {
             _adminRepository = adminRepository;
@@ -230,12 +231,6 @@ namespace OopProject.Controllers
                 TempData["ErrorMessage"] = $"Error deleting admin: {ex.Message}";
             }
             return RedirectToAction("AllAdmin");
-        }
-
-
-        public IActionResult AllRequest()
-        {
-            return View();
         }
     }
 }

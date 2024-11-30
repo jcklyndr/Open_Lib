@@ -34,6 +34,8 @@
             <form asp-controller="Books" asp-action="RequestBooks" method="post">
                 <h2 class="formheading-section pl-3 pb-3">Want to Read?</h2>
 
+                <input type="hidden" name="bookId" value="@Model.Id" /> <!-- Hidden field for book ID -->
+
                 <div class="col-md-12">
                     <div class="form-group">
                         <input type="text" name="name" class="form-control" placeholder="Name" required>
@@ -60,6 +62,7 @@
             </form>
         </section>
     </div>
+</div>
 </div>
 
 <partial name="/Views/Shared/_Footer.cshtml" />

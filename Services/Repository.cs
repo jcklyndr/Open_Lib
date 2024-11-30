@@ -1,5 +1,5 @@
-﻿    using Microsoft.EntityFrameworkCore;
-    using OopProject.Data;  // DbContext namespace, where OpenLibDbContext is located
+﻿using Microsoft.EntityFrameworkCore;
+using OopProject.Data;  // DbContext namespace, where OpenLibDbContext is located
 using OopProject.Models;
 
     namespace OopProject.Services
@@ -58,15 +58,12 @@ using OopProject.Models;
             }
 
             throw new InvalidOperationException("GetAllWithCategoriesAsync is only supported for the Book type.");
-
         }
-
-
-
-
     }
-
-
 }
+
+
+
+
     
 

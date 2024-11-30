@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OopProject.Data;
 
@@ -10,9 +11,11 @@ using OopProject.Data;
 namespace OopProject.Migrations
 {
     [DbContext(typeof(OpenLibDbContext))]
-    partial class OpenLibDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241129143244_modifyRequest")]
+    partial class modifyRequest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

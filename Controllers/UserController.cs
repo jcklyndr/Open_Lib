@@ -1,29 +1,39 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OopProject.Controllers;
 using OopProject.Models;
 using OopProject.Services;
-using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
-namespace OopProject.Controllers
+public class UserController : UserHeaderController
 {
-    [Authorize] //only authenticated users can access these actions
-    public class UserController : UserHeaderController
+    private readonly IRequestRepository _requestRepository;
+
+    public UserController(IRequestRepository requestRepository)
     {
-        private readonly IRepository<User> _userRepository;
+        _requestRepository = requestRepository;
+    }
 
-        public UserController(IRepository<User> userRepository)
+    // Action to display user requests
+    public async Task<IActionResult> RequestBooks()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(userId))
         {
-            _userRepository = userRepository;
+            TempData["ErrorMessage"] = "You must be logged in to view your requests.";
+            return RedirectToAction("Login", "Auth");
         }
 
-        public IActionResult RequestBooks()
-        {
-            return View();
-        }
-        public IActionResult UserLogout()
-        {
-            // redirect to Logout in Auth and perform the process of logout for User role
-            return RedirectToAction("Logout", "Auth", new { role = "User" });
-        }
+        // Fetch all requests with Book and Category details
+        var requests = await _requestRepository.GetAllRequestsWithDetailsAsync();
 
+        // Filter requests by userId
+        var userRequests = requests.Where(r => r.UserId == int.Parse(userId)).ToList();
+
+        return View(userRequests);
+    }
+
+public IActionResult UserLogout()
+    {
+        return RedirectToAction("Logout", "Auth", new { role = "User" });
     }
 }

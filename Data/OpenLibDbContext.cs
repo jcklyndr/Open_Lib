@@ -15,6 +15,7 @@ namespace OopProject.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Request> Requests { get; set; }
+        public DbSet<BookCategory> BookCategory { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

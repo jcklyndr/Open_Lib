@@ -89,6 +89,8 @@ public class BooksAdminController : AdminHeaderController
         return RedirectToAction("AllBooks");
     }
 
+
+
     [HttpGet]
     public async Task<IActionResult> UpdateBooks(int id)
     {
@@ -105,18 +107,19 @@ public class BooksAdminController : AdminHeaderController
 
         // Get all categories for the dropdown
         var allCategories = await _categoryRepository.GetAllAsync();
-        ViewBag.Categories = new SelectList(allCategories, "Id", "CategoryName", selectedCategoryIds);
+        ViewBag.Categories = allCategories;
+
+        // Store selected categories for view binding
+        ViewData["SelectedCategoryIds"] = selectedCategoryIds;
 
         return View(book);
     }
-
-
-    [HttpPost]
-    public async Task<IActionResult> UpdateBooks(Book updatedBook, IFormFile? image)
+   [HttpPost]
+    public async Task<IActionResult> UpdateBooks(Book updatedBook, IFormFile? image, List<int> selectedCategoryIds)
     {
         if (!ModelState.IsValid)
         {
-            return View(updatedBook); // Return to the form if there are validation errors
+            return View(updatedBook);
         }
 
         var book = await _bookRepository.GetByIdAsync(updatedBook.Id);
@@ -133,11 +136,11 @@ public class BooksAdminController : AdminHeaderController
             book.Author = updatedBook.Author;
             book.PublicationYear = updatedBook.PublicationYear;
             book.BookDescription = updatedBook.BookDescription;
+            book.AuthorDescription = updatedBook.AuthorDescription;
 
-            // Update image if a new one is provided
+            // Handle image update (if applicable)
             if (image != null)
             {
-                // Delete old image if it exists
                 if (!string.IsNullOrEmpty(book.Image))
                 {
                     var oldImagePath = Path.Combine("wwwroot", book.Image.TrimStart('/'));
@@ -147,7 +150,6 @@ public class BooksAdminController : AdminHeaderController
                     }
                 }
 
-                // Save the new image
                 var newImagePath = Path.Combine("wwwroot", "images", "books", image.FileName);
                 using (var stream = new FileStream(newImagePath, FileMode.Create))
                 {
@@ -157,7 +159,32 @@ public class BooksAdminController : AdminHeaderController
                 book.Image = "/images/books/" + image.FileName;
             }
 
-            // Update the book in the database
+            var existingCategories = book.BookCategories.ToList();
+            foreach (var category in existingCategories)
+            {
+                await _bookCategoryRepository.DeleteByCompositeKeyAsync(category.BookId, category.CategoryId);
+            }
+            // Debugging: Check if categories are removed
+            var categoriesAfterDelete = book.BookCategories.ToList();
+            Console.WriteLine($"Categories remaining: {categoriesAfterDelete.Count}");
+
+
+
+            if (selectedCategoryIds != null && selectedCategoryIds.Any())
+            {
+                foreach (var categoryId in selectedCategoryIds)
+                {
+                    var bookCategory = new BookCategory
+                    {
+                        BookId = book.Id,
+                        CategoryId = categoryId
+                    };
+                    await _bookCategoryRepository.AddAsync(bookCategory);
+                }
+            }
+
+
+            // Save updated book
             await _bookRepository.UpdateAsync(book);
 
             TempData["SuccessMessage"] = "Book updated successfully!";
@@ -169,6 +196,8 @@ public class BooksAdminController : AdminHeaderController
 
         return RedirectToAction("AllBooks");
     }
+
+
     [HttpPost]
     public async Task<IActionResult> DeleteBookConfirmed(int id)
     {

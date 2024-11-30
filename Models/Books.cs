@@ -7,7 +7,7 @@ namespace OopProject.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Book title is required.")]
+        [Required(ErrorMessage = "Book title is requireddd.")]
         public string BookTitle { get; set; }
 
         [Required(ErrorMessage = "Publication year is required.")]

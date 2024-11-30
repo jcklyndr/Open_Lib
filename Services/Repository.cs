@@ -45,6 +45,7 @@ using OopProject.Models;
                 }
             }
 
+
         public async Task<IEnumerable<T>> GetAllWithCategoriesAsync()
         {
             if (typeof(T) == typeof(Book))
@@ -59,6 +60,18 @@ using OopProject.Models;
 
             throw new InvalidOperationException("GetAllWithCategoriesAsync is only supported for the Book type.");
         }
+
+        public async Task DeleteByCompositeKeyAsync(int bookId, int categoryId)
+        {
+            var bookCategory = await _context.BookCategory
+                                              .FirstOrDefaultAsync(bc => bc.BookId == bookId && bc.CategoryId == categoryId);
+            if (bookCategory != null)
+            {
+                _context.BookCategory.Remove(bookCategory);
+                await _context.SaveChangesAsync();
+            }
+        }
+
     }
 }
 

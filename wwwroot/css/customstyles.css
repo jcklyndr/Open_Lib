@@ -479,10 +479,4 @@ table td img {
     border: none;
     font-weight: 500;
 }
-.img {
-    background-size: cover; /* Ensures the image covers the entire container */
-    background-position: center; /* Ensures the image is centered */
-    background-repeat: no-repeat; /* Prevents the image from repeating */
-    width: 100%; /* Set the container to take up the full width */
-    height: auto;
-}
+

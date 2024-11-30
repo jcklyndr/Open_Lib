@@ -29,18 +29,17 @@
         <div class="row">
             @foreach (var category in ViewBag.Categories as List<Category>)
             {
-                // Check if category.Image is null or empty, and use a default image if so
                 var imageUrl = string.IsNullOrEmpty(category.Image)
                 ? "/images/Sampleimg.jpg"  // Default image
-                : category.Image;  // Use the path stored in the database (relative to the root)
+                : category.Image;  //path stored sa databse
 
                 <div class="col-md-4 d-flex services align-self-stretch px-4 ftco-animate customcardcategory">
                     <div class="d-block services-wrap text-center">
-                        <!-- Dynamically set the background image using the determined image URL -->
+                        
                         <div class="img" style="background-image: url('@Url.Content(imageUrl)');"></div>
                         <div class="media-body py-4 px-3">
-                            <h3 class="heading">@category.CategoryName</h3>  <!-- Dynamically display the category name -->
-                            <p>@category.Description</p>  <!-- Dynamically display the category description -->
+                            <h3 class="heading">@category.CategoryName</h3>  
+                            <p>@category.Description</p>  
                             <p><a asp-controller="Books" asp-action="PerCategory" asp-route-categoryId="@category.Id" class="btn btn-custom">View Books</a></p>
                         </div>
                     </div>

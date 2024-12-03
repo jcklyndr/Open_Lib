@@ -4,12 +4,11 @@
 <partial name="/Views/Shared/_Header.cshtml" />
 <body>
     <br>
-    <!-- need wrap form-->
     <section class="">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <!-- Form starts here -->
+  
                     <form asp-action="UserLogin" asp-controller="User" class="form-create">
                         @if (TempData["SuccessMessage"] != null)
                         {
@@ -34,12 +33,10 @@
                                     <button type="submit" class="btn btn-primary-login py-3 px-4">Login</button>
                                 </div>
                             </div>
-
                                 <div class="col-md-12">
                                 <div class="form-group">
                                     <a asp-controller="Admin" asp-action="AdminLogin" class="btn btn-admin py-3 px-4">Login as Admin</a>
                                 </div>
-
                             </div>
                         </div>
                     </form>
@@ -48,10 +45,8 @@
                         <p>Don't have an account? @Html.ActionLink("Register Here", "UserSignup", "Auth", null, new { @class = "btn-login-link" })</p>
                     </div>
                 </div>
-
                 </div>
             </div>
-
     </section>
 </body>
 

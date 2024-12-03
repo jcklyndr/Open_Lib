@@ -1,8 +1,7 @@
 ﻿// In RequestRepository.cs
-using OopProject.Models; // Make sure this is here
+using OopProject.Models;
 using Microsoft.EntityFrameworkCore;
 using OopProject.Data;
-
 
 namespace OopProject.Services
 {
@@ -14,7 +13,6 @@ namespace OopProject.Services
         {
             _context = context;
         }
-
         // Custom method for fetching requests with Book and Category details
         public async Task<IEnumerable<Request>> GetAllRequestsWithDetailsAsync()
         {

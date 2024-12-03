@@ -1,10 +1,7 @@
 ﻿@model OopProject.Models.Request
-
-
 @{
     ViewData["Title"] = "Update Request";
 }
-
 <partial name="/Views/Shared/_HeaderAdmin.cshtml"></partial>
 <div class="row UpdateCategoryBooks mx-auto">
     <div class="col">
@@ -13,24 +10,18 @@
 
                 <form method="POST" asp-action="UpdateRequest" asp-controller="RequestAdmin">
                     <p>Current Status: <b>@Model.Status.ToString()</b></p>
-
-<select name="status" class="form-control">
-    <option value="" disabled selected>Update Status</option>
-@foreach (var status in Enum.GetValues(typeof(Request.RequestStatus)))
-{
-    <option value="@status">
-        @status
-    </option>
-}
-
-    }
-</select>
-
+                    <select name="status" class="form-control">
+                        <option value="" disabled selected>Update Status</option>
+                    @foreach (var status in Enum.GetValues(typeof(Request.RequestStatus)))
+                    {
+                        <option value="@status">
+                            @status
+                        </option>
+                    }
+                    </select>
                         <br>
-
                     <button type="submit" class="btn btn-custom mb-4 text-center">Update</button>
                 </form>
-
             </div>
         </div>
     </div>

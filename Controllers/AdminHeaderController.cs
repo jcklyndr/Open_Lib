@@ -11,9 +11,7 @@ namespace OopProject.Controllers
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             base.OnActionExecuting(context);
-
             Console.WriteLine($"IsAuthenticated: {User.Identity?.IsAuthenticated}, Role: Admin - {User.IsInRole("Admin")}");
-
             if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
             {
                 ViewData["AdminName"] = User.FindFirstValue(ClaimTypes.Name) ?? "Admin";

@@ -9,17 +9,16 @@ namespace OopProject.Controllers
     {
 
         private readonly IRepository<Category> _categoryRepository;
-
         public HomeController( IRepository<Category> categoryRepository)
         {
             _categoryRepository = categoryRepository;
         }
         public async Task<IActionResult> Index()
         {
-            // Fetch the categories from the database
-            var categories = await _categoryRepository.GetAllAsync(); // Assuming you have a repository for categories
+            // Fetch the categories
+            var categories = await _categoryRepository.GetAllAsync(); 
 
-            // Pass the categories to the view
+            // Pass the categories sa view
             ViewBag.Categories = categories;
 
             return View();

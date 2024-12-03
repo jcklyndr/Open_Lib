@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace OopProject.Models
 {
@@ -7,7 +6,7 @@ namespace OopProject.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Book title is requireddd.")]
+        [Required(ErrorMessage = "Book title is required.")]
         public string BookTitle { get; set; }
 
         [Required(ErrorMessage = "Publication year is required.")]
@@ -16,14 +15,15 @@ namespace OopProject.Models
         [Required(ErrorMessage = "Book description is required.")]
         public string BookDescription { get; set; }
 
+        [Required(ErrorMessage = "Image is required.")]
         public string? Image { get; set; }
 
         [Required(ErrorMessage = "Author name is required.")]
         public string Author { get; set; }
 
+        [Required(ErrorMessage = "Description for author is required.")]
         public string AuthorDescription { get; set; }
 
-        // Remove CategoryId and Category from here
         public ICollection<BookCategory> BookCategories { get; set; } = new List<BookCategory>();
     }
 

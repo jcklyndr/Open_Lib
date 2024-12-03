@@ -1,9 +1,7 @@
 ﻿@model IEnumerable<OopProject.Models.Book>
-
 @{
     ViewData["Title"] = "All Books";
 }
-
 <partial name="/Views/Shared/_HeaderAdmin.cshtml"></partial>
 <body>
 <div class="row">
@@ -74,7 +72,6 @@
 
                                         </td>
                                     <td>
-                                        <!-- Delete Button -->
                                         <form method="post" asp-controller="BooksAdmin" asp-action="DeleteBookConfirmed" asp-route-id="@book.Id" class="delete-form" onsubmit="return confirmDelete();">
                                             <button type="submit" class="btn btn-danger text-center delete-button">
                                                 Delete

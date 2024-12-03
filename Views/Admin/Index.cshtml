@@ -1,9 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Admin Dashboard";
 }
-
 <partial name="/Views/Shared/_HeaderAdmin.cshtml" />
-
 <div class="row-admin mt-custom">
     <div class="col-md-6 mb-4">
         <div class="card custom-card">
@@ -13,7 +11,6 @@
                 </div>
             </div>
             <div class="card-body">
-                <!-- Display the number of admins in db -->
                 <p class="card-text">Number of admins:<span class="count">@ViewData["AdminCount"]</span></p>
                 <a asp-controller="Admin" asp-action="AllAdmin" class="btn btn-custom">View Admins</a>
             </div>
@@ -63,5 +60,4 @@
             </div>
         </div>
     </div>
-
 </div>

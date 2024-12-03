@@ -1,9 +1,7 @@
 ﻿@model OopProject.Models.Book
-
 @{
     ViewBag.Title = "Update Book";
 }
-
 <partial name="/Views/Shared/_HeaderAdmin.cshtml"></partial>
 
 <div class="row UpdateBooks mx-auto">
@@ -22,7 +20,6 @@
                         @TempData["ErrorMessage"]
                     </div>
                 }
-
                 <h5 class="card-title mb-5 d-inline">Update Book</h5>
                 <form method="POST" asp-action="UpdateBooks" asp-controller="BooksAdmin" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -62,22 +59,18 @@
                         <span asp-validation-for="AuthorDescription" class="text-danger"></span>
                     </div>
 
-<div class="form-group">
-    <label for="Categories">Select Category</label>
-    <select name="selectedCategoryIds" id="Categories" class="form-control">
-        <option value="" disabled selected>Select a category</option>
-        @foreach (var category in ViewBag.Categories as List<OopProject.Models.Category>)
-        {
-            <option value="@category.Id">
-                @category.CategoryName
-            </option>
-        }
-    </select>
-</div>
-
-
-
-
+                    <div class="form-group">
+                        <label for="Categories">Select Category</label>
+                        <select name="selectedCategoryIds" id="Categories" class="form-control">
+                            <option value="" disabled selected>Select a category</option>
+                            @foreach (var category in ViewBag.Categories as List<OopProject.Models.Category>)
+                            {
+                                <option value="@category.Id">
+                                    @category.CategoryName
+                                </option>
+                            }
+                        </select>
+                    </div>
 
                     <button type="submit" class="btn btn-primary">Update Book</button>
                 </form>

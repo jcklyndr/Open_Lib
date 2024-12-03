@@ -9,7 +9,6 @@ namespace OopProject.Data
         {
 
         }
-
         public DbSet<User> Users { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Book> Books { get; set; }
@@ -44,6 +43,5 @@ namespace OopProject.Data
                 .WithMany()
                 .HasForeignKey(r => r.BookId);
         }
-
     }
 }

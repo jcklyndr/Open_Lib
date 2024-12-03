@@ -6,7 +6,7 @@
     <div class="col">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title mb-5 d-inline">Add Category</h5>
+                <h5 class="card-title mb-5 d-inline">Add Genre</h5>
                 @if (!ViewData.ModelState.IsValid)
                 {
                     <div class="alert alert-danger">
@@ -19,7 +19,6 @@
                         </ul>
                     </div>
                 }
-
                 <form method="POST" asp-action="CreateCategory" asp-controller="CategoryBooksAdmin" enctype="multipart/form-data">
                     <div class="form-outline mb-4 mt-4">
                         <input type="text" name="CategoryName" id="form2Example1" class="form-control" placeholder="Category Name" required />
@@ -31,7 +30,7 @@
                         <input type="file" name="Image" id="form2Example3" class="form-control" />
                     </div>
                     <br />
-                    <!-- Submit button -->
+
                     <button type="submit" name="submit" class="btn btn-custom mb-4 text-center">Add</button>
                 </form>
             </div>

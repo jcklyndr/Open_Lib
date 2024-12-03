@@ -1,9 +1,8 @@
 ﻿namespace OopProject.Models
 {
-
     public class Request
     {
-        public int Id { get; set; } // Primary Key, auto-incrementing
+        public int Id { get; set; }
         public RequestStatus Status { get; set; }
 
         public int UserId { get; set; }
@@ -11,8 +10,6 @@
 
         public int BookId { get; set; }
         public virtual Book Book { get; set; } // Navigation property
-
-        // Add the properties to store form data
         public string Name { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }

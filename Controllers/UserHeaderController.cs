@@ -9,8 +9,7 @@ namespace OopProject.Controllers
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             base.OnActionExecuting(context);
-
-            // If the user is authenticated, set the username in ViewData
+            // If the user is authenticated, set the username in ViewData or sa header for Users
             if (User.Identity?.IsAuthenticated == true)
             {
                 ViewData["Username"] = User.FindFirstValue(ClaimTypes.Name);

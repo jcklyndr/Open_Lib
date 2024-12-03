@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "All Category of Books";
 }
 <partial name="/Views/Shared/_HeaderAdmin.cshtml"></partial>
@@ -22,13 +21,13 @@
               <th scope="col">#</th>
               <th scope="col">Name</th>
               <th scope="col">Description</th>
-               <th scope="col">Image</th>
-               <th scope="col">Update</th>
+              <th scope="col">Image</th>
+              <th scope="col">Update</th>
               <th scope="col">Delete</th>
             </tr>
           </thead>
-                    <tbody>
-                        @foreach (var category in Model)
+                <tbody>
+                     @foreach (var category in Model)
                         {
                             <tr>
                                 <th scope="row">@category.Id</th>
@@ -59,8 +58,7 @@
                                     </td>
                             </tr>
                         }
-                    </tbody>
-
+                </tbody>
         </table> 
       </div>
     </div>

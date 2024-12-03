@@ -4,7 +4,7 @@ using OopProject.Services;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
+/*using Microsoft.EntityFrameworkCore;*/
 
 namespace OopProject.Controllers
 {
@@ -32,9 +32,7 @@ namespace OopProject.Controllers
             var bookCount = (await _bookRepository.GetAllAsync()).Count();
             var requestCount = (await _requestRepository.GetAllAsync()).Count();
 
-
-
-            // Pass the counts to the view
+            // Pass sa index view
             ViewData["AdminCount"] = adminCount;
             ViewData["CategoryCount"] = categoryCount;
             ViewData["BookCount"] = bookCount;
@@ -42,7 +40,6 @@ namespace OopProject.Controllers
 
             return View();
         }
-
 
         //for redirect sa page 
         public IActionResult CreateAdmin()
@@ -67,7 +64,7 @@ namespace OopProject.Controllers
                 await _adminRepository.AddAsync(admin);
                 // Success message
                 TempData["SuccessMessage"] = "Registration successful for this admin.";
-                return RedirectToAction(nameof(CreateAdmin)); // Redirect to the same page to clear the form
+                return RedirectToAction(nameof(CreateAdmin)); // Redirect same page
             }
             return View(admin);
         }
@@ -102,7 +99,7 @@ namespace OopProject.Controllers
             Console.WriteLine($"Authenticated as: {admin.AdminName}, Role: Admin");
             // Sign in with AdminScheme
             await HttpContext.SignInAsync("AdminScheme", new ClaimsPrincipal(claimsIdentity));
-            // Redirect to the original page or admin dashboard
+            // Redirect sa page
             if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
             {
                 return Redirect(ReturnUrl);
@@ -116,17 +113,15 @@ namespace OopProject.Controllers
             // Sign out from AdminScheme
             await HttpContext.SignOutAsync("AdminScheme");
             TempData["SuccessMessage"] = "Admin logged out successfully.";
-            // Redirect to the AdminLogin page after logout
             return RedirectToAction("AdminLogin", "Admin");
         }
-
         public async Task<IActionResult> AllAdmin()
         {
             var admins = await _adminRepository.GetAllAsync();
 
             if (admins == null || !admins.Any())
             {
-                // Log or debug if data is null or empty
+                // Log if data is null or empty
                 Console.WriteLine("No admin data retrieved.");
             }
             return View(admins);
@@ -135,13 +130,13 @@ namespace OopProject.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateAdmin(int Id)
         {
-            var existingAdmin = await _adminRepository.GetByIdAsync(Id); // Fetch admin by ID
+            var existingAdmin = await _adminRepository.GetByIdAsync(Id); // Fetch admin by Id 
             if (existingAdmin == null)
             {
                 return NotFound();
             }
 
-            return View(existingAdmin); // Pass the admin to the view
+            return View(existingAdmin); // Pass the admin to view
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -156,10 +151,9 @@ namespace OopProject.Controllers
             {
                 return NotFound();
             }
-            // Update the fields
+            // Update fields
             existingAdmin.AdminName = admin.AdminName;
             existingAdmin.Email = admin.Email;
-
 
             if (!string.IsNullOrEmpty(admin.Password))
             {
@@ -171,7 +165,7 @@ namespace OopProject.Controllers
             return RedirectToAction("AllAdmin");
         }
 
-        // Handle the Update Form Submission
+        //Update Form Submission
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateAdmins(Admin admin)
@@ -187,19 +181,15 @@ namespace OopProject.Controllers
                 return NotFound();
             }
 
-            // Update fields
             existingAdmin.AdminName = admin.AdminName;
             existingAdmin.Email = admin.Email;
 
             if (!string.IsNullOrEmpty(admin.Password))
             {
-                existingAdmin.Password = BCrypt.Net.BCrypt.HashPassword(admin.Password); // Hash new password
+                existingAdmin.Password = BCrypt.Net.BCrypt.HashPassword(admin.Password); // Hashing
             }
-
-            await _adminRepository.UpdateAsync(existingAdmin); // Update the admin
-
+            await _adminRepository.UpdateAsync(existingAdmin);
             TempData["SuccessMessage"] = "Admin updated successfully!";  
-
             return RedirectToAction("AllAdmin");
         }
 
@@ -213,14 +203,14 @@ namespace OopProject.Controllers
             }
             return View(admin);
         }
-
+        //Delete admin
         [HttpPost]
         public async Task<IActionResult> DeleteAdminConfirmed(int Id)
         {
             var admin = await _adminRepository.GetByIdAsync(Id);
             if (admin == null)
             {
-                // Admin not found
+                // if admin is not existing
                 TempData["ErrorMessage"] = "Admin not found.";
                 return RedirectToAction("AllAdmin");
             }

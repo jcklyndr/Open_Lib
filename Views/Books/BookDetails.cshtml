@@ -1,11 +1,8 @@
 ﻿@model OopProject.Models.Book
-
 @{
     ViewData["Title"] = Model?.BookTitle ?? "Book Details";
 }
-
 <partial name="/Views/Shared/_Header.cshtml" />
-
 <br>
 <div class="maincontainerbook">
     <div class="col-md-6 order-md-1 pr-4 ftco-animate book-description">
@@ -30,11 +27,10 @@
     <div class="col-md-6 order-md-1 pr-4 ftco-animate book-form">
         <!-- book-form -->
         <section class="ftco-section ftco-book ftco-no-pt ftco-no-pb">
-            <!-- Update form to post to RequestBooks action -->
             <form asp-controller="Books" asp-action="RequestBooks" method="post">
                 <h2 class="formheading-section pl-3 pb-3">Want to Read?</h2>
 
-                <input type="hidden" name="bookId" value="@Model.Id" /> <!-- Hidden field for book ID -->
+                <input type="hidden" name="bookId" value="@Model.Id" />
 
                 <div class="col-md-12">
                     <div class="form-group">
@@ -63,6 +59,4 @@
         </section>
     </div>
 </div>
-</div>
-
 <partial name="/Views/Shared/_Footer.cshtml" />

@@ -12,7 +12,6 @@ using OopProject.Models;
             {
                 _context = context;
             }
-
             public async Task<IEnumerable<T>> GetAllAsync()
             {
                 return await _context.Set<T>().ToListAsync();
@@ -22,19 +21,16 @@ using OopProject.Models;
             {
                 return await _context.Set<T>().FindAsync(Id);
             }
-
             public async Task AddAsync(T entity)
             {
                 await _context.Set<T>().AddAsync(entity);
                 await _context.SaveChangesAsync();
             }
-
             public async Task UpdateAsync(T entity)
             {
                 _context.Set<T>().Update(entity);
                 await _context.SaveChangesAsync();
             }
-
             public async Task DeleteAsync(int Id)
             {
                 var entity = await GetByIdAsync(Id);
@@ -45,33 +41,29 @@ using OopProject.Models;
                 }
             }
 
-
         public async Task<IEnumerable<T>> GetAllWithCategoriesAsync()
         {
             if (typeof(T) == typeof(Book))
             {
-                // Ensure that we eagerly load BookCategories and related Category entities
+                //eagerly load BookCategories and related Category entities
                 var result = await _context.Set<Book>()
                     .Include(b => b.BookCategories)
                     .ThenInclude(bc => bc.Category)
                     .ToListAsync(); // List<Book> will be returned here
                 return result.Cast<T>().ToList();
             }
-
             throw new InvalidOperationException("GetAllWithCategoriesAsync is only supported for the Book type.");
         }
 
         public async Task DeleteByCompositeKeyAsync(int bookId, int categoryId)
         {
-            var bookCategory = await _context.BookCategory
-                                              .FirstOrDefaultAsync(bc => bc.BookId == bookId && bc.CategoryId == categoryId);
+            var bookCategory = await _context.BookCategory.FirstOrDefaultAsync(bc => bc.BookId == bookId && bc.CategoryId == categoryId);
             if (bookCategory != null)
             {
                 _context.BookCategory.Remove(bookCategory);
                 await _context.SaveChangesAsync();
             }
         }
-
     }
 }
 

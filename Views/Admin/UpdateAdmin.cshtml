@@ -1,9 +1,7 @@
 ﻿@model OopProject.Models.Admin
-
 @{
     ViewData["Title"] = "UpdateAdmin";
 }
-
 <partial name="/Views/Shared/_HeaderAdmin.cshtml"></partial>
 <div class="row UpdateAdmin mx-auto">
     <div class="col">
@@ -20,8 +18,7 @@
 
                 <form method="POST" asp-action="UpdateAdmins" asp-controller="Admin" enctype="multipart/form-data">
 
-                    <input type="hidden" asp-for="Id" />
-
+                    <input type="hidden" asp-for="Id"/>
 
                     <div class="form-outline mb-4 mt-4">
                         <label asp-for="AdminName">Name</label>
@@ -29,13 +26,11 @@
                         <span asp-validation-for="AdminName" class="text-danger"></span>
                     </div>
 
- 
                     <div class="form-outline mb-4 mt-4">
                         <label asp-for="Email">Email</label>
                         <input asp-for="Email" class="form-control" required />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
-
 
                     <div class="form-outline mb-4 mt-4">
                         <label asp-for="Password">New Password</label>
@@ -43,10 +38,8 @@
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
-
                     <button type="submit" class="btn btn-custom mb-4 text-center">Update</button>
                 </form>
-
             </div>
         </div>
     </div>

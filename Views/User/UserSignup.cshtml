@@ -5,15 +5,12 @@
 <partial name="/Views/Shared/_Header.cshtml" />
 <
 <body>
-    <!-- need wrap form-->
     <section class="">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6">
 
-                    <!-- Form -->
                     <form method="post" asp-action="UserSignup" asp-controller="User" class="form-create" id="signupForm">
-                        <!--display error here when user failed to register and successfully registered-->
                         @if (!ViewData.ModelState.IsValid)
                         {
                             <div class="alert alert-danger">
@@ -25,7 +22,6 @@
                                 </ul>
                             </div>
                         }
-
                         <h2 class="font-weight-bold mb-3 text-brown">Register</h2>
                         <div class="row">
                             <div class="col-md-12">
@@ -49,12 +45,9 @@
                                     <span id="password-error" class="text-danger" style="display: none;">Passwords do not match</span>
                             </div>
                             </div>
-
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <!-- Submit button -->
                                     <button type="submit" class="btn btn-primary-login py-3 px-4">Register</button>
-
                                 </div>
                             </div>
                         </div>

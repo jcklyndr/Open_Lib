@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<OopProject.Models.Book>
-
 @{
     ViewData["Title"] = "Books by Category";
 }
@@ -13,10 +12,9 @@
             {
                 foreach (var book in Model)
                 {
-                    // Use the image path from the database or fallback to a default image
+                    // Use the image path from the database or a default image
                     var imagePath = string.IsNullOrEmpty(book.Image)
-                    ? Url.Content("~/images/books/default.png")
-                    : book.Image;
+                    ? Url.Content("~/images/books/default.png"): book.Image;
 
                     <div class="col-lg-6">
                         <div class="room-wrap d-md-flex">

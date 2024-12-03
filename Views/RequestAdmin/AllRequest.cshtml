@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "All Requests";
 }
-
 <partial name="/Views/Shared/_HeaderAdmin.cshtml"></partial>
 <body>
 <div class="row">
@@ -12,14 +11,12 @@
             <div class="card-body">
                 <h5 class="card-title mb-4 d-inline">All Requests</h5>
 
-                <!-- Display success message if any -->
                 @if (TempData["SuccessMessage"] != null)
                 {
                     <div class="alert alert-success">
                         @TempData["SuccessMessage"]
                     </div>
                 }
-
                 <table class="table">
                     <thead>
                         <tr>
@@ -63,7 +60,6 @@
                                                 Delete
                                             </button>
                                         </form>
-
                                 </td>
                             </tr>
                         }

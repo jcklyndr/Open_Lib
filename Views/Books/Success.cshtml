@@ -2,7 +2,6 @@
     ViewData["Title"] = "Success";
 }
 <partial name="/Views/Shared/_Header.cshtml"></partial> 
-
     <div class="overlay"></div>
     <section class="ftco-section ftco-book ftco-no-pt ftco-no-pb">
         <div class="container">
@@ -10,13 +9,11 @@
                 <div class="col-md-7 ftco-animate">
                     <h2 class="subheading">You have successfully request for this Book. Please check your email or phone for details as we process your request shortly. Thank you!</h2>
                     <h1 class="mb-4"></h1>
-                  @*   <p><a asp-controller="Home" asp-action="Index" class="btn btn-primary">Go Home</a> *@
                   <p>  <a asp-controller="User" asp-action="RequestBooks" class="btn btn-custom">View Your Request</a> </p>
                 </div>
             </div>
         </div>
     </section>
-
 <partial name="/Views/Shared/_Footer.cshtml" />
 
 

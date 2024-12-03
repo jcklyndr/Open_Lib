@@ -1,17 +1,14 @@
 ﻿@{
     ViewData["Title"] = "Login Admin";
 }
-
 <partial name="/Views/Shared/_HeaderAdmin.cshtml" />
-
 <body class="adminbody">
 <div class="break"></div>
-    <!-- Need to wrap form -->
+
     <section>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <!-- Form starts here -->
                     <form asp-action="AdminLogin" asp-controller="Admin" class="form-create">
                         @if (TempData["SuccessMessage"] != null)
                         {
@@ -19,14 +16,12 @@
                                 @TempData["SuccessMessage"]
                             </div>
                         }
-
                         @if (TempData["DebugMessage"] != null)
                         {
                             <div class="alert alert-danger">
                                 @TempData["DebugMessage"]
                             </div>
                         }
-
                         <h3 class="font-weight-bold mb-3">Login as Admin</h3>
                         <div class="row">
                             <div class="col-md-12">

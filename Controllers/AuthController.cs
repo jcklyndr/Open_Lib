@@ -2,27 +2,25 @@
 using OopProject.Models;
 using OopProject.Services;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
+/*using Microsoft.AspNetCore.Authentication.Cookies;*/
 
 namespace OopProject.Controllers
 {
     public class AuthController : UserHeaderController
     {
         private readonly IRepository<User> _userRepository;
-
         public AuthController(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }
 
-        // SignUp View for redirect into UserSignup razor
+        // SignUp View for Users
         public IActionResult UserSignup()
         {
             return View();
         }
 
-        // POST: /Auth/UserSignup
         [HttpPost]
         public async Task<IActionResult> UserSignup(User user)
         {
@@ -34,8 +32,7 @@ namespace OopProject.Controllers
                     ModelState.AddModelError("Email", "Email is already registered.");
                     return View(user);
                 }
-
-                user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+                user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password); //hashing
                 await _userRepository.AddAsync(user);
 
                 TempData["SuccessMessage"] = "Registration successful! You can now log in.";
@@ -44,14 +41,11 @@ namespace OopProject.Controllers
 
             return View(user);
         }
-
-        // Login View for redirect to UserLogin View
         public IActionResult UserLogin()
         {
             return View();
         }
 
-        // POST: /Auth/UserLogin
         [HttpPost]
         public async Task<IActionResult> UserLogin(string Username, string Password)
         {
@@ -91,26 +85,17 @@ namespace OopProject.Controllers
             }
             catch (Exception ex)
             {
-                // Log error for debugging
+                //debugging
                 Console.WriteLine($"Error during login: {ex.Message}");
                 return View();
             }
         }
-
-        // Logout Action
         public async Task<IActionResult> Logout()
         {
             // Retrieve role from claims
             var role = User.FindFirst(ClaimTypes.Role)?.Value;
 
-            // Sign out the current user based on the scheme
-            if (role == "Admin")
-            {
-                await HttpContext.SignOutAsync("AdminScheme");
-                TempData["SuccessMessage"] = "Admin logged out successfully.";
-                return RedirectToAction("AdminLogin", "Admin");
-            }
-            else if (role == "User")
+            if (role == "User")
             {
                 await HttpContext.SignOutAsync("UserScheme");  // Use the correct scheme for User
                 TempData["SuccessMessage"] = "User logged out successfully.";

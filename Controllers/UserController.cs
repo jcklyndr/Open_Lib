@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OopProject.Controllers;
+using OopProject.Models;
 using OopProject.Services;
 using System.Security.Claims;
+
 public class UserController : UserHeaderController
 {
     private readonly IRequestRepository _requestRepository;
@@ -11,7 +13,8 @@ public class UserController : UserHeaderController
         _requestRepository = requestRepository;
     }
 
-    public async Task<IActionResult> RequestBooks()   //display user requests
+    // Action to display user requests
+    public async Task<IActionResult> RequestBooks()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(userId))
@@ -28,7 +31,8 @@ public class UserController : UserHeaderController
 
         return View(userRequests);
     }
-public IActionResult UserLogout()
+
+    public IActionResult UserLogout()
     {
         return RedirectToAction("Logout", "Auth", new { role = "User" });
     }

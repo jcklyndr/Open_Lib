@@ -7,10 +7,13 @@ namespace OopProject.Controllers
     public class RequestAdminController : AdminHeaderController
     {
         private readonly IRequestRepository _requestRepository;
+
         public RequestAdminController(IRequestRepository requestRepository)
         {
             _requestRepository = requestRepository;
         }
+
+        // Action to display all requests
         public async Task<IActionResult> AllRequest()
         {
             // Fetch all requests with Book and Category details
@@ -30,27 +33,30 @@ namespace OopProject.Controllers
                 return RedirectToAction("AllRequest");
             }
 
-            return View(request); //single request to the view
+            return View(request); // Pass a single request to the view
         }
+
+
 
         [HttpPost]
         public async Task<IActionResult> UpdateRequest(int id, string status)
         {
-            // Retrieve the request
+            // Retrieve the request from the database
             var request = await _requestRepository.GetByIdAsync(id);
             if (request == null)
             {
                 TempData["ErrorMessage"] = "Request not found.";
                 return RedirectToAction("AllRequest");
             }
+
             try
             {
-                // Parse incoming status string to the enum value
+                // Parse the incoming status string to the enum value
                 if (Enum.TryParse(typeof(Request.RequestStatus), status, out var parsedStatus))
                 {
                     request.Status = (Request.RequestStatus)parsedStatus;
 
-                    // Update the request in repository
+                    // Update the request in the repository
                     await _requestRepository.UpdateAsync(request);
 
                     TempData["SuccessMessage"] = "Request updated successfully!";
@@ -68,6 +74,7 @@ namespace OopProject.Controllers
             return RedirectToAction("AllRequest");
         }
 
+
         [HttpPost]
         public async Task<IActionResult> DeleteRequestConfirmed(int id)
         {
@@ -75,12 +82,12 @@ namespace OopProject.Controllers
             if (request == null)
             {
                 TempData["ErrorMessage"] = "Request not found.";
-                return RedirectToAction("AllRequest");
+                return RedirectToAction("AllRequest"); // Redirect to the appropriate view to manage requests
             }
 
             try
             {
-                // Delete the request
+                // Delete the request record
                 await _requestRepository.DeleteAsync(id);
 
                 TempData["SuccessMessage"] = "Request deleted successfully!";
@@ -90,7 +97,7 @@ namespace OopProject.Controllers
                 TempData["ErrorMessage"] = $"Error deleting request: {ex.Message}";
             }
 
-            return RedirectToAction("AllRequest");
+            return RedirectToAction("AllRequest"); // Or to any view you want after deletion
         }
 
 

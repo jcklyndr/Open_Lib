@@ -6,36 +6,41 @@
 <div class="hero-wrap js-fullheight bodybg">
 
     <div class="overlay"></div>
+
     <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
-        
-            <div class="col-md-7 ftco-animate">
-                <h2 class="subheading"><b class="font-size text-white">Welcome to Online Bookstore</b></h2>
-                <h1 class="mb-3 font-size-h1">Find your favorite books!</h1>
-                <p>
-                    <a href="@Url.Action("About", "Home")" class="btn btn-primary">Learn more</a>
-                    <a href="@Url.Action("Contact", "Home")" class="btn btn-secondary">Contact us</a>
-                </p>
-            </div>
+        <!---->
+        <div class="col-md-7 ftco-animate">
+            <h2 class="subheading"><b class="font-size text-white">Welcome to Online Bookstore</b></h2>
+            <h1 class="mb-3 font-size-h1">Find your favorite books!</h1>
+            <p>
+                <a href="@Url.Action("About", "Home")" class="btn btn-primary">Learn more</a>
+                <a href="@Url.Action("Contact", "Home")" class="btn btn-secondary">Contact us</a>
+            </p>
         </div>
+    </div>
 </div>
 
 <section class="ftco-section ftco-services customcategorycontainermain">
-    <div class="container customcategorycontainer">
-        <div class="row">
+    <div class="container">
+        <div class="row mb-1">
             @foreach (var category in ViewBag.Categories as List<Category>)
             {
                 var imageUrl = string.IsNullOrEmpty(category.Image)
                 ? "/images/Sampleimg.jpg"  // Default image
                 : category.Image;  //path stored sa databse
 
-                <div class="col-md-4 d-flex services align-self-stretch px-4 ftco-animate customcardcategory">
-                    <div class="d-block services-wrap text-center">
-                        
+                <div class="col-md-3 d-flex services align-self-stretch px-4 ftco-animate mb-4">
+                    <div class="d-block services-wrap text-center d-flex flex-column h-100">
+
                         <div class="img" style="background-image: url('@Url.Content(imageUrl)');"></div>
-                        <div class="media-body py-4 px-3">
-                            <h3 class="heading">@category.CategoryName</h3>  
-                            <p>@category.Description</p>  
-                            <p><a asp-controller="Books" asp-action="PerCategory" asp-route-categoryId="@category.Id" class="btn btn-custom">View Books</a></p>
+
+                        <div class="media-body py-2 px-4 d-flex flex-column">
+                            <h3 class="heading">@category.CategoryName</h3>
+                            <p class="text-justify">@category.Description</p>
+
+                            <div class="mt-auto">
+                                <p><a asp-controller="Books" asp-action="PerCategory" asp-route-categoryId="@category.Id" class="btn btn-custom">View Books</a></p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -43,4 +48,8 @@
         </div>
     </div>
 </section>
+
+
+
+
 <partial name="/Views/Shared/_Footer.cshtml" />

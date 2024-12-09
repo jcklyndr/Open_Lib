@@ -14,7 +14,7 @@ namespace OopProject.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Request> Requests { get; set; }
-        public DbSet<BookCategory> BookCategory { get; set; }
+        public DbSet<BookCategory> BookCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,12 +26,15 @@ namespace OopProject.Data
             modelBuilder.Entity<BookCategory>()
                 .HasOne(bc => bc.Book)
                 .WithMany(b => b.BookCategories)
-                .HasForeignKey(bc => bc.BookId);
+                .HasForeignKey(bc => bc.BookId)
+                .OnDelete(DeleteBehavior.Cascade);  // Or .SetNull for soft deletes
 
             modelBuilder.Entity<BookCategory>()
                 .HasOne(bc => bc.Category)
                 .WithMany(c => c.BookCategories)
-                .HasForeignKey(bc => bc.CategoryId);
+                .HasForeignKey(bc => bc.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade);  // Or .SetNull for soft deletes
+
 
             modelBuilder.Entity<Request>()
                 .HasOne(r => r.User)

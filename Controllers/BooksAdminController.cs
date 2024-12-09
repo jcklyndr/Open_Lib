@@ -4,6 +4,7 @@ using OopProject.Controllers;
 using OopProject.Models;
 using OopProject.Services;
 using System.Threading.Tasks;
+using System.Net;
 
 
 
@@ -38,12 +39,27 @@ public class BooksAdminController : AdminHeaderController
 
         return View(books);
     }
+    [HttpGet]
+    public async Task<IActionResult> AddBooks()
+    {
+        ViewBag.Categories = await _categoryRepository.GetAllAsync(); // Populate categories
+        return View(new Book());
+    }
+    [HttpPost]
     public async Task<IActionResult> AddBooks(Book model, IFormFile image, List<int> selectedCategoryIds)
     {
         if (!ModelState.IsValid)
         {
             // Return to the form if there are validation errors
             ViewBag.Categories = await _categoryRepository.GetAllAsync();
+            return View(model);
+        }
+
+        // Validate that at least one category is selected
+        if (selectedCategoryIds == null || selectedCategoryIds.Count == 0)
+        {
+            ViewBag.Categories = await _categoryRepository.GetAllAsync();
+            ModelState.AddModelError("", "Please select at least one category.");
             return View(model);
         }
 
@@ -90,11 +106,10 @@ public class BooksAdminController : AdminHeaderController
     }
 
 
-
     [HttpGet]
     public async Task<IActionResult> UpdateBooks(int id)
     {
-        var book = await _bookRepository.GetByIdAsync(id);
+        var book = await _bookRepository.GetByIdWithCategoriesAsync(id); // Fetch the book with categories
 
         if (book == null)
         {
@@ -102,18 +117,19 @@ public class BooksAdminController : AdminHeaderController
             return RedirectToAction("AllBooks");
         }
 
-        // Get the categories associated with the book
-        var selectedCategoryIds = book.BookCategories.Select(bc => bc.CategoryId).ToList();
+        // Fetch all available categories
+        var categories = await _categoryRepository.GetAllAsync();
 
-        // Get all categories for the dropdown
-        var allCategories = await _categoryRepository.GetAllAsync();
-        ViewBag.Categories = allCategories;
+        // Get the current category IDs associated with the book
+        var currentCategoryIds = (book as Book).BookCategories.Select(bc => bc.CategoryId).ToList();
 
-        // Store selected categories for view binding
-        ViewData["SelectedCategoryIds"] = selectedCategoryIds;
+        // Pass categories and current selected category IDs to the view
+        ViewBag.Categories = categories;
+        ViewBag.CurrentCategoryIds = currentCategoryIds;
 
-        return View(book);
+        return View(book);  // Return the book to the view
     }
+
     [HttpPost]
     public async Task<IActionResult> UpdateBooks(Book updatedBook, IFormFile? image, List<int> selectedCategoryIds)
     {
@@ -131,14 +147,14 @@ public class BooksAdminController : AdminHeaderController
 
         try
         {
-            // Update book properties
+            // Step 1: Update Book Details
             book.BookTitle = updatedBook.BookTitle;
             book.Author = updatedBook.Author;
             book.PublicationYear = updatedBook.PublicationYear;
             book.BookDescription = updatedBook.BookDescription;
             book.AuthorDescription = updatedBook.AuthorDescription;
 
-            // Handle image update (if applicable)
+            // Handle image upload
             if (image != null)
             {
                 if (!string.IsNullOrEmpty(book.Image))
@@ -159,44 +175,48 @@ public class BooksAdminController : AdminHeaderController
                 book.Image = "/images/books/" + image.FileName;
             }
 
-            var existingCategories = book.BookCategories.ToList();
-            foreach (var category in existingCategories)
+            // Fetch the current categories for the book
+            var currentCategories = await _bookCategoryRepository.GetByBookIdAsync(updatedBook.Id);
+
+
+            // Process categories to remove (unchecked in UI)
+            foreach (var category in currentCategories)
             {
-                await _bookCategoryRepository.DeleteByCompositeKeyAsync(category.BookId, category.CategoryId);
-            }
-            // Debugging: Check if categories are removed
-            var categoriesAfterDelete = book.BookCategories.ToList();
-            Console.WriteLine($"Categories remaining: {categoriesAfterDelete.Count}");
-
-
-
-            if (selectedCategoryIds != null && selectedCategoryIds.Any())
-            {
-                foreach (var categoryId in selectedCategoryIds)
+                if (!selectedCategoryIds.Contains(category.CategoryId))
                 {
-                    var bookCategory = new BookCategory
+                    // Remove categories that are no longer selected
+                    await _bookCategoryRepository.DeleteByCompositeKeyAsync(category.BookId, category.CategoryId);
+                }
+            }
+
+            // Process categories to add (newly checked in UI)
+            foreach (var selectedCategoryId in selectedCategoryIds)
+            {
+                if (!currentCategories.Any(c => c.CategoryId == selectedCategoryId))
+                {
+                    // Add new categories that are selected but not currently associated
+                    var newCategory = new BookCategory
                     {
-                        BookId = book.Id,
-                        CategoryId = categoryId
+                        BookId = updatedBook.Id,
+                        CategoryId = selectedCategoryId
                     };
-                    await _bookCategoryRepository.AddAsync(bookCategory);
+                    await _bookCategoryRepository.AddAsync(newCategory);
                 }
             }
 
 
-            // Save updated book
+            // Step 3: Save changes
             await _bookRepository.UpdateAsync(book);
 
             TempData["SuccessMessage"] = "Book updated successfully!";
+            return RedirectToAction("AllBooks");
         }
         catch (Exception ex)
         {
-            TempData["ErrorMessage"] = $"Error updating book: {ex.Message}";
+            TempData["ErrorMessage"] = $"An error occurred while updating the book: {ex.Message}";
+            return RedirectToAction("AllBooks");
         }
-
-        return RedirectToAction("AllBooks");
     }
-
 
     [HttpPost]
     public async Task<IActionResult> DeleteBookConfirmed(int id)
@@ -220,7 +240,7 @@ public class BooksAdminController : AdminHeaderController
                 }
             }
 
-            // Delete the book record
+            // Delete the book record along with its related entities
             await _bookRepository.DeleteAsync(id);
 
             TempData["SuccessMessage"] = "Book and its image deleted successfully!";

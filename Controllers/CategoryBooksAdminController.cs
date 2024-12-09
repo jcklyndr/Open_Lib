@@ -8,10 +8,12 @@ namespace OopProject.Controllers
     public class CategoryBooksAdminController : AdminHeaderController
     {
         private readonly IRepository<Category> _categoryRepository;
+        private readonly IRequestRepository _requestRepository;  // Change this to IRequestRepository
 
-        public CategoryBooksAdminController(IRepository<Category> categoryRepository)
+        public CategoryBooksAdminController(IRepository<Category> categoryRepository, IRequestRepository requestRepository)
         {
             _categoryRepository = categoryRepository;
+            _requestRepository = requestRepository;  // Use IRequestRepository
         }
 
         public async Task<IActionResult> AllCategoryBooks()
@@ -135,9 +137,9 @@ namespace OopProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteCategoryConfirmed(int Id)
+        public async Task<IActionResult> DeleteCategoryConfirmed(int id)
         {
-            var category = await _categoryRepository.GetByIdAsync(Id);
+            var category = await _categoryRepository.GetByIdAsync(id);
             if (category == null)
             {
                 TempData["ErrorMessage"] = "Category not found.";
@@ -149,17 +151,17 @@ namespace OopProject.Controllers
                 // Delete the associated image if it exists
                 if (!string.IsNullOrEmpty(category.Image))
                 {
-                    var imagePath = Path.Combine("wwwroot", category.Image.TrimStart('/')); // Convert relative path to physical path
+                    var imagePath = Path.Combine("wwwroot", category.Image.TrimStart('/'));
                     if (System.IO.File.Exists(imagePath))
                     {
                         System.IO.File.Delete(imagePath);
                     }
                 }
 
-                // Delete the category record
-                await _categoryRepository.DeleteAsync(Id);
+                // Use the service to delete the category and unlink from requests
+                await _requestRepository.DeleteCategoryAndUnlinkFromRequestsAsync(id);
 
-                TempData["SuccessMessage"] = "Category and its image deleted successfully!";
+                TempData["SuccessMessage"] = "Category and its associated relationships removed successfully!";
             }
             catch (Exception ex)
             {
@@ -169,4 +171,4 @@ namespace OopProject.Controllers
             return RedirectToAction("AllCategoryBooks");
         }
     }
-}
+    }

@@ -8,42 +8,45 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title mb-4 d-inline">My Requests</h5>
-                    <table class="table">
-                        <thead>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone Number</th>
+                            <th scope="col">Category of Book</th>
+                            <th scope="col">Book Name</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var request in Model)
+                        {
                             <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Phone Number</th>
-                                <th scope="col">Category of Book</th>
-                                <th scope="col">Book Name</th>
-                                <th scope="col">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var request in Model)
-                            {
-                                <tr>
-                                    <td>@request.Name</td>
-                                    <td>@request.Email</td>
-                                    <td>@request.PhoneNumber</td>
-                                    <td>
-                                        @if (request.Book?.BookCategories?.Any() == true)
+                                <td>@request.Name</td>
+                                <td>@request.Email</td>
+                                <td>@request.PhoneNumber</td>
+                                <td>
+                                    @if (request.Book?.BookCategories?.Any() == true)
+                                    {
+                                        @foreach (var category in request.Book.BookCategories)
                                         {
-                                            @request.Book.BookCategories.FirstOrDefault()?.Category?.CategoryName
+                                            <span class="badge badge-primary">@category.Category?.CategoryName</span>
                                         }
-                                        else
-                                        {
-                                            @:No Category
-                                                            }
-                                    </td>
-                                    <td>@request.Book?.BookTitle</td>
-                                    <td>@request.Status</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                                    }
+                                    else
+                                    {
+                                        @:No Category
+                                    }
+                                </td>
+                                <td><span class="badge badge-info">@request.Book?.BookTitle</span></td>
+                                <td><span class="badge badge-success">@request.Status</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+</div>
 <partial name="/Views/Shared/_Footer.cshtml"></partial>

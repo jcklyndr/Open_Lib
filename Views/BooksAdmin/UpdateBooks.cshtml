@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Update Book";
 }
+
 <partial name="/Views/Shared/_HeaderAdmin.cshtml"></partial>
 
 <div class="row UpdateBooks mx-auto">
@@ -59,18 +60,35 @@
                         <span asp-validation-for="AuthorDescription" class="text-danger"></span>
                     </div>
 
-                    <div class="form-group">
-                        <label for="Categories">Select Category</label>
-                        <select name="selectedCategoryIds" id="Categories" class="form-control">
-                            <option value="" disabled selected>Select a category</option>
-                            @foreach (var category in ViewBag.Categories as List<OopProject.Models.Category>)
+                    <!-- Display Current Categories -->
+                    <div>
+                        <strong>Current Categories:</strong>
+                        <ul>
+                            @foreach (var categoryId in ViewBag.CurrentCategoryIds as List<int>)
                             {
-                                <option value="@category.Id">
-                                    @category.CategoryName
-                                </option>
+                                var category = (ViewBag.Categories as List<OopProject.Models.Category>)
+                                ?.FirstOrDefault(c => c.Id == categoryId);
+
+                                if (category != null)
+                                {
+                                    <li>@category.CategoryName</li>
+                                }
                             }
-                        </select>
+                        </ul>
                     </div>
+
+                    <!-- Display Available Categories with Checkboxes -->
+                    <div>
+                        <strong>Select Categories:</strong>
+                        @foreach (var category in ViewBag.Categories)
+                        {
+                            <input type="checkbox" name="selectedCategoryIds" value="@category.Id"
+                            @(ViewBag.CurrentCategoryIds.Contains(category.Id) ? "checked" : "") />
+                            <label>@category.CategoryName</label>
+                        }
+
+                    </div>
+
 
                     <button type="submit" class="btn btn-primary">Update Book</button>
                 </form>

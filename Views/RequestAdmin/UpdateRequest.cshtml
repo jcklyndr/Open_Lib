@@ -10,7 +10,7 @@
 
                 <form method="POST" asp-action="UpdateRequest" asp-controller="RequestAdmin">
                     <p>Current Status: <b>@Model.Status.ToString()</b></p>
-                    <select name="status" class="form-control">
+                    <select name="status" class="form-control" required>
                         <option value="" disabled selected>Update Status</option>
                     @foreach (var status in Enum.GetValues(typeof(Request.RequestStatus)))
                     {

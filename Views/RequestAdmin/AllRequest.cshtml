@@ -38,14 +38,17 @@
                                 <td>@request.Email</td>
                                 <td>@request.PhoneNumber</td>
                                 <td>
-                                    @if (request.Book?.BookCategories?.Any() == true)
-                                    {
-                                        @request.Book.BookCategories.FirstOrDefault()?.Category?.CategoryName
-                                    }
-                                    else
-                                    {
-                                        @:No Category
-                                    }
+                                        @if (request.Book?.BookCategories?.Any() == true)
+                                        {
+                                            @foreach (var category in request.Book.BookCategories)
+                                            {
+                                                <span class="badge badge-primary">@category.Category?.CategoryName</span>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            @:No Category
+                                        }
                                 </td>
                                 <td>@request.Book?.BookTitle</td>
                                 <td>@request.Status</td>

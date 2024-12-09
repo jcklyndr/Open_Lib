@@ -57,17 +57,16 @@
                         <textarea asp-for="AuthorDescription" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="Categories"> Select Category</label>
-
-
-                        <select name="selectedCategoryIds" id="Categories" class="form-control">
-                            <option value="" disabled selected>Select a category</option>
+                        <label for="Categories">Select Categories</label>
+                        <div id="Categories">
                             @foreach (var category in ViewBag.Categories)
                             {
-                                <option value="@category.Id">@category.CategoryName</option>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="selectedCategoryIds" value="@category.Id" id="category_@category.Id">
+                                    <label class="form-check-label" for="category_@category.Id">@category.CategoryName</label>
+                                </div>
                             }
-                        </select>
-
+                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Add Book</button>

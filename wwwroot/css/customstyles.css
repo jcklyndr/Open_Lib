@@ -350,39 +350,50 @@ button:hover {
     gap: 20px;
     padding: 20px;
 }
-.book-description, .book-form {
+.book-description{
     flex: 1;
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .book-form {
     flex: 1;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 500px;
-    width: auto; /*220px*/
+    align-self: center;
+    background-color: none;
+    box-shadow: 0 4px 18px rgba(200,177,164);
+    height: 400px;
+    width: 220px;
 }
 .booksdetail-body-custom{
     padding: 0 25px 0 20px;
+    color:black;
 }
 .maincontainerbook .heading-section {
-    border-radius: 25px 25px 0 0;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-color:rgba(0, 0, 0, 0.1);
 }
 .formheading-section{
-   margin: auto; 
+   margin: auto;
+   color: black;
 }
+.form-control-custom {
+  width:100%;
+  height: 52px !important;
+  background: none;
+  color:  black !important;
+  font-size: 14px;
+  border-radius: 5px;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+    .form-control-custom:focus, .form-control-custom:active {
+        border-color: saddlebrown;
+    }
 .book-form .ftco-book {
     border: transparent !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
     height: 50px !important;
-    background: rgba(0, 0, 0, 0.05) !important;
     color: rgba(0, 0, 0, 0.9) !important;
     font-size: 14px;
-    border-radius: 4px;
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
     -webkit-appearance: none;
@@ -392,21 +403,22 @@ button:hover {
 }
 .book-form .form-group {
     font-size: 10px;
-    color: rgba(0, 0, 0, 0.8) !important;
+    color: rgba(0, 0, 0, 1) !important;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     position: relative;
-    width: 100%;
     display: block;
+    border-bottom: 1px solid black;
 }
 .book-form input {
     outline: none !important;
-    border: none !important;
+    border: none;
+    background: none;
 }
-input:focus{
-    outline: none !important;
-    border: none !important;
+textarea.form-control {
+    resize: vertical;
+    min-height: 100px; /*adjust min height*/
 }
 .requestbookscontainer {
     width: 80%;
@@ -478,5 +490,9 @@ table td img {
     background-color: none;
     border: none;
     font-weight: 500;
+}
+.imageallbooks {
+    width: 50px;
+    height: auto;
 }
 

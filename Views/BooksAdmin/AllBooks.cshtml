@@ -34,10 +34,9 @@
                     <table class="table mt-5">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Category</th>
-                                <th scope="col">Publication year</th>
+                                <th scope="col">Year</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Image</th>
                                 <th scope="col">Author</th>
@@ -50,7 +49,6 @@
                             @foreach (var book in Model)
                             {
                                 <tr>
-                                    <th scope="row">@book.Id</th>
                                     <td>@book.BookTitle</td>
                                     <td>
                                         @foreach (var category in book.BookCategories.Select(bc => bc.Category))
@@ -59,12 +57,12 @@
                                         }
                                     </td>
                                     <td>@book.PublicationYear</td>
-                                    <td>@book.BookDescription</td>
+                                    <td class="text-justify">@book.BookDescription</td>
                                     <td>
-                                        <img src="@book.Image" alt="@book.BookTitle" style="width: 50px; height: auto;" />
+                                        <img src="@book.Image" alt="@book.BookTitle" class="imageallbooks"/>
                                     </td>
                                     <td>@book.Author</td>
-                                    <td>@book.AuthorDescription</td>
+                                    <td class="text-justify">@book.AuthorDescription</td>
                                     <td>
                                         <a asp-controller="BooksAdmin" asp-action="UpdateBooks" asp-route-id="@book.Id" class="btn btn-warning">
                                             Update

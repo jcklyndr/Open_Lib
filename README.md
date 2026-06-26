@@ -1,6 +1,6 @@
 ﻿# 📖 OPEN_LIB SYSTEM
 
-A simple, modern, and vibrant web application built to serve as a centralized hub for free reading material. [cite_start]The core mission of **OPEN_LIB** is to bridge the gap between avid readers and knowledge by allowing users to access, discover, and request or download books (but mostly request) completely free of charge—without paying for anything
+A simple, modern, and vibrant web application built to serve as a centralized hub for free reading material.The core mission of **OPEN_LIB** is to bridge the gap between avid readers and knowledge by allowing users to access, discover, and request or download books (but mostly request) completely free of charge—without paying for anything
 
 **Developer's Note:** This is my very first project developed using the **ASP.NET Core** framework!.It is currently an active work in progress as I continuously update and optimize the system to make it more dynamic and incorporate additional features
 
@@ -18,7 +18,7 @@ A simple, modern, and vibrant web application built to serve as a centralized hu
 ---
 
 ## Technology Stack
-* [cite_start]**Backend Framework:** ASP.NET Core MVC (C# / Razor Engine) 
+* **Backend Framework:** ASP.NET Core MVC (C# / Razor Engine) 
 * **Frontend Ecosystem:** Bootstrap 5 (Responsive Utilities), Font Awesome 6 (Vector Icons Library), AOS (Animate on Scroll Framework) 
 * **Dependency Engine:** Node.js / npm 
 * **Database Management:** Microsoft SQL Server 
@@ -28,7 +28,7 @@ A simple, modern, and vibrant web application built to serve as a centralized hu
 ## 🚀 Getting Started & Configuration
 
 ### 1. Database Connection String
-[cite_start]To link this system with your local Microsoft SQL Server environment, configure the connection block within your root `appsettings.json` file Insert your specific server instance handle into the template below:
+To link this system with your local Microsoft SQL Server environment, configure the connection block within your root `appsettings.json` file Insert your specific server instance handle into the template below:
 
 ```json
 {

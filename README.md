@@ -1,6 +1,6 @@
 ﻿# 📖 OPEN_LIB SYSTEM
 
-A simple, modern, and vibrant web application built to serve as a centralized hub for free reading material. [cite_start]The core mission of **OPEN_LIB** is to bridge the gap between avid readers and knowledge by allowing users to access, discover, and request or download books (but mostly request) completely free of charge—without paying for anything[cite: 446].
+A simple, modern, and vibrant web application built to serve as a centralized hub for free reading material. [cite_start]The core mission of **OPEN_LIB** is to bridge the gap between avid readers and knowledge by allowing users to access, discover, and request or download books (but mostly request) completely free of charge—without paying for anything
 
 **Developer's Note:** This is my very first project developed using the **ASP.NET Core** framework!.It is currently an active work in progress as I continuously update and optimize the system to make it more dynamic and incorporate additional features
 

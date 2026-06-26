@@ -8,9 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\lib\bootstrap\dist\**" />
+    <Compile Remove="wwwroot\lib\dist\**" />
     <Compile Remove="wwwroot\NewFolder\**" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\**" />
+    <Content Remove="wwwroot\lib\dist\**" />
     <Content Remove="wwwroot\NewFolder\**" />
+    <EmbeddedResource Remove="wwwroot\lib\bootstrap\dist\**" />
+    <EmbeddedResource Remove="wwwroot\lib\dist\**" />
     <EmbeddedResource Remove="wwwroot\NewFolder\**" />
+    <None Remove="wwwroot\lib\bootstrap\dist\**" />
+    <None Remove="wwwroot\lib\dist\**" />
     <None Remove="wwwroot\NewFolder\**" />
   </ItemGroup>
 
@@ -37,8 +45,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="8.0.0" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="8.0.3" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="10.5.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\aos\" />
   </ItemGroup>
 
 </Project>

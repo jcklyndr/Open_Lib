@@ -23,7 +23,7 @@ public class UserController : UserHeaderController
             return RedirectToAction("Login", "Auth");
         }
 
-        // Fetch all requests with Book and Category details
+        // Fetch all requests with Book and Categories
         var requests = await _requestRepository.GetAllRequestsWithDetailsAsync();
 
         // Filter requests by userId
@@ -31,7 +31,6 @@ public class UserController : UserHeaderController
 
         return View(userRequests);
     }
-
     public IActionResult UserLogout()
     {
         return RedirectToAction("Logout", "Auth", new { role = "User" });

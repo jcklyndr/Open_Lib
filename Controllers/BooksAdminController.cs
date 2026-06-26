@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Net;
 
 
-
 // Action to display the add book form
 public class BooksAdminController : AdminHeaderController
 {
@@ -32,7 +31,7 @@ public class BooksAdminController : AdminHeaderController
         // Check for null and log/debug if necessary
         if (books == null)
         {
-            // Optional: Log the issue for further inspection
+            // for debug lang, para makita sa console
             Console.WriteLine("Books fetched from repository are null.");
             books = new List<Book>(); // Avoid null references by returning an empty list
         }
@@ -50,7 +49,7 @@ public class BooksAdminController : AdminHeaderController
     {
         if (!ModelState.IsValid)
         {
-            // Return to the form if there are validation errors
+            // Return to form if there are errors,di valid model
             ViewBag.Categories = await _categoryRepository.GetAllAsync();
             return View(model);
         }
@@ -59,7 +58,6 @@ public class BooksAdminController : AdminHeaderController
         if (selectedCategoryIds == null || selectedCategoryIds.Count == 0)
         {
             ViewBag.Categories = await _categoryRepository.GetAllAsync();
-            ModelState.AddModelError("", "Please select at least one category.");
             return View(model);
         }
 
@@ -80,7 +78,7 @@ public class BooksAdminController : AdminHeaderController
             model.Image = "/images/books/" + image.FileName; // Store the relative image path
         }
 
-        // Save the book to the database
+        // Save
         await _bookRepository.AddAsync(model);
 
         // Ensure the book has an Id (it gets assigned after saving the book)
@@ -117,7 +115,7 @@ public class BooksAdminController : AdminHeaderController
             return RedirectToAction("AllBooks");
         }
 
-        // Fetch all available categories
+        // Fetch all
         var categories = await _categoryRepository.GetAllAsync();
 
         // Get the current category IDs associated with the book
@@ -126,7 +124,6 @@ public class BooksAdminController : AdminHeaderController
         // Pass categories and current selected category IDs to the view
         ViewBag.Categories = categories;
         ViewBag.CurrentCategoryIds = currentCategoryIds;
-
         return View(book);  // Return the book to the view
     }
 
@@ -137,14 +134,12 @@ public class BooksAdminController : AdminHeaderController
         {
             return View(updatedBook);
         }
-
         var book = await _bookRepository.GetByIdAsync(updatedBook.Id);
         if (book == null)
         {
             TempData["ErrorMessage"] = "Book not found.";
             return RedirectToAction("AllBooks");
         }
-
         try
         {
             // Step 1: Update Book Details
@@ -179,17 +174,17 @@ public class BooksAdminController : AdminHeaderController
             var currentCategories = await _bookCategoryRepository.GetByBookIdAsync(updatedBook.Id);
 
 
-            // Process categories to remove (unchecked in UI)
+            // Process categories to remove (unchecked sa UI)
             foreach (var category in currentCategories)
             {
                 if (!selectedCategoryIds.Contains(category.CategoryId))
                 {
-                    // Remove categories that are no longer selected
+                    // Remove categories
                     await _bookCategoryRepository.DeleteByCompositeKeyAsync(category.BookId, category.CategoryId);
                 }
             }
 
-            // Process categories to add (newly checked in UI)
+            // Process categories to add (newly checked)
             foreach (var selectedCategoryId in selectedCategoryIds)
             {
                 if (!currentCategories.Any(c => c.CategoryId == selectedCategoryId))
@@ -204,8 +199,7 @@ public class BooksAdminController : AdminHeaderController
                 }
             }
 
-
-            // Step 3: Save changes
+            // Save changes
             await _bookRepository.UpdateAsync(book);
 
             TempData["SuccessMessage"] = "Book updated successfully!";

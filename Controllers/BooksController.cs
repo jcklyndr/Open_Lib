@@ -26,7 +26,7 @@ namespace OopProject.Controllers
         {
             var books = await _bookRepository.GetAllWithCategoriesAsync();
             var booksInCategory = books
-                .OfType<Book>() // Ensures casting from generic repository
+                .OfType<Book>() // casting from generic repository
                 .Where(b => b.BookCategories.Any(bc => bc.CategoryId == categoryId))
                 .ToList();
 
@@ -36,7 +36,7 @@ namespace OopProject.Controllers
 
         public async Task<IActionResult> BookDetails(int id)
         {
-            // Fetch the book details based on the ID
+            // Fetch the book details
             var book = await _bookRepository.GetByIdAsync(id);
 
             if (book == null)
@@ -45,7 +45,7 @@ namespace OopProject.Controllers
                 return RedirectToAction("PerCategory", new { categoryId = ViewBag.CategoryId }); // Redirect back to the category view
             }
 
-            // Pass the book to the view
+            // Pass sa view
             return View(book);
         }
 
@@ -90,16 +90,12 @@ namespace OopProject.Controllers
             };
 
 
-
             // Save the request using the repository
             await _requestRepository.AddAsync(bookRequest);
 
             TempData["SuccessMessage"] = "Your request has been submitted successfully!";
             return RedirectToAction("Success");
         }
-
-
-
 
         public IActionResult Success()
         {

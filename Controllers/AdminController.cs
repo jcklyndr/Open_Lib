@@ -15,7 +15,6 @@ namespace OopProject.Controllers
         private readonly IRepository<Book> _bookRepository;
         private readonly IRepository<Request> _requestRepository;
 
-
         public AdminController(IRepository<Admin> adminRepository, IRepository<Category> categoryRepository,
             IRepository<Book> bookRepository, IRepository<Request> requestRepository)
         {
@@ -32,8 +31,6 @@ namespace OopProject.Controllers
             var bookCount = (await _bookRepository.GetAllAsync()).Count();
             var requestCount = (await _requestRepository.GetAllAsync()).Count();
 
-
-
             // Pass the counts to the view
             ViewData["AdminCount"] = adminCount;
             ViewData["CategoryCount"] = categoryCount;
@@ -42,7 +39,6 @@ namespace OopProject.Controllers
 
             return View();
         }
-
 
         //for redirect sa page 
         public IActionResult CreateAdmin()

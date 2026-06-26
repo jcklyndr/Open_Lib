@@ -8,7 +8,7 @@ namespace OopProject.Controllers
     public class CategoryBooksAdminController : AdminHeaderController
     {
         private readonly IRepository<Category> _categoryRepository;
-        private readonly IRequestRepository _requestRepository;  // Change this to IRequestRepository
+        private readonly IRequestRepository _requestRepository;
 
         public CategoryBooksAdminController(IRepository<Category> categoryRepository, IRequestRepository requestRepository)
         {
@@ -18,7 +18,7 @@ namespace OopProject.Controllers
 
         public async Task<IActionResult> AllCategoryBooks()
         {
-            // Fetch all categories from the repository
+            // Fetch all categories
             var categories = await _categoryRepository.GetAllAsync();
 
             if (categories == null || !categories.Any())
@@ -28,7 +28,6 @@ namespace OopProject.Controllers
             }
             return View(categories);
         }
-
         public IActionResult CreateCategory()
         {
             return View();
@@ -56,14 +55,13 @@ namespace OopProject.Controllers
                     await image.CopyToAsync(stream);
                 }
 
-                // Save the image path in the Category model
+                // Save sa path
                 category.Image = "/images/categories/" + image.FileName;
             }
 
             // Add the category to the database
             await _categoryRepository.AddAsync(category);
 
-            // Set a success message
             TempData["SuccessMessage"] = "Category created successfully!";
             return RedirectToAction(nameof(AllCategoryBooks));
         }
@@ -100,7 +98,7 @@ namespace OopProject.Controllers
                 category.CategoryName = updatedCategory.CategoryName;
                 category.Description = updatedCategory.Description;
 
-                // Update image if a new one is provided
+                // Update image if provided 
                 if (image != null)
                 {
                     // Delete old image if it exists
@@ -112,7 +110,6 @@ namespace OopProject.Controllers
                             System.IO.File.Delete(oldImagePath);
                         }
                     }
-
                     // Save the new image
                     var newImagePath = Path.Combine("wwwroot", "images", "categories", image.FileName);
                     using (var stream = new FileStream(newImagePath, FileMode.Create))
@@ -136,7 +133,7 @@ namespace OopProject.Controllers
             return RedirectToAction("AllCategoryBooks");
         }
 
-        [HttpPost]
+       [HttpPost]
         public async Task<IActionResult> DeleteCategoryConfirmed(int id)
         {
             var category = await _categoryRepository.GetByIdAsync(id);
@@ -145,7 +142,6 @@ namespace OopProject.Controllers
                 TempData["ErrorMessage"] = "Category not found.";
                 return RedirectToAction("AllCategoryBooks");
             }
-
             try
             {
                 // Delete the associated image if it exists
@@ -158,7 +154,7 @@ namespace OopProject.Controllers
                     }
                 }
 
-                // Use the service to delete the category and unlink from requests
+                //delete the category and unlink from requests
                 await _requestRepository.DeleteCategoryAndUnlinkFromRequestsAsync(id);
 
                 TempData["SuccessMessage"] = "Category and its associated relationships removed successfully!";
@@ -171,4 +167,4 @@ namespace OopProject.Controllers
             return RedirectToAction("AllCategoryBooks");
         }
     }
-    }
+}

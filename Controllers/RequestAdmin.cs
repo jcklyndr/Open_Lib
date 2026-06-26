@@ -16,7 +16,7 @@ namespace OopProject.Controllers
         // Action to display all requests
         public async Task<IActionResult> AllRequest()
         {
-            // Fetch all requests with Book and Category details
+            // Fetch all requests with Book
             var allRequest = await _requestRepository.GetAllRequestsWithDetailsAsync();
 
             return View(allRequest);
@@ -33,15 +33,13 @@ namespace OopProject.Controllers
                 return RedirectToAction("AllRequest");
             }
 
-            return View(request); // Pass a single request to the view
+            return View(request); 
         }
-
-
 
         [HttpPost]
         public async Task<IActionResult> UpdateRequest(int id, string status)
         {
-            // Retrieve the request from the database
+            // Retrieve the request
             var request = await _requestRepository.GetByIdAsync(id);
             if (request == null)
             {
@@ -74,7 +72,6 @@ namespace OopProject.Controllers
             return RedirectToAction("AllRequest");
         }
 
-
         [HttpPost]
         public async Task<IActionResult> DeleteRequestConfirmed(int id)
         {
@@ -82,7 +79,7 @@ namespace OopProject.Controllers
             if (request == null)
             {
                 TempData["ErrorMessage"] = "Request not found.";
-                return RedirectToAction("AllRequest"); // Redirect to the appropriate view to manage requests
+                return RedirectToAction("AllRequest"); // Redirect to the allrequest page
             }
 
             try
@@ -97,7 +94,7 @@ namespace OopProject.Controllers
                 TempData["ErrorMessage"] = $"Error deleting request: {ex.Message}";
             }
 
-            return RedirectToAction("AllRequest"); // Or to any view you want after deletion
+            return RedirectToAction("AllRequest");
         }
 
 

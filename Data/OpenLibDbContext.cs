@@ -27,14 +27,13 @@ namespace OopProject.Data
                 .HasOne(bc => bc.Book)
                 .WithMany(b => b.BookCategories)
                 .HasForeignKey(bc => bc.BookId)
-                .OnDelete(DeleteBehavior.Cascade);  // Or .SetNull for soft deletes
+                .OnDelete(DeleteBehavior.Cascade);  // for relationships sa entities. para delete din
 
             modelBuilder.Entity<BookCategory>()
                 .HasOne(bc => bc.Category)
                 .WithMany(c => c.BookCategories)
                 .HasForeignKey(bc => bc.CategoryId)
-                .OnDelete(DeleteBehavior.Cascade);  // Or .SetNull for soft deletes
-
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Request>()
                 .HasOne(r => r.User)

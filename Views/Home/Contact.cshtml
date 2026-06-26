@@ -1,130 +1,130 @@
 ﻿@{
-    ViewData["Title"] = "Contact";
+    ViewData["Title"] = "Contact Us";
 }
 <partial name="/Views/Shared/_Header.cshtml" />
-<section class="ftco-section bg-light">
-    <div class="heading-section">
-        <div class="pl-md-5 p-3">
-            <h2 class="mb-2 text-brown centertext">Contact Us</h2>
+
+<section class="py-5 bg-bubble-light">
+    <div class="container py-4">
+
+        <div class="text-center mb-5" data-aos="fade-up" data-aos-duration="600">
+            <span class="badge bg-info text-dark rounded-pill px-3 py-2 mb-2 fw-bold">Get In Touch</span>
+            <h2 class="display-5 fw-extrabold text-dark">Contact Us</h2>
         </div>
-    </div>
-    <div class="container">
-        <div class="col-md-12">
-            <div class="wrapper">
-                <div class="row no-gutters">
-                    <div class="col-lg-8 col-md-7 d-flex align-items-stretch">
-                        <div class="contact-wrap w-100 p-md-5 p-4">
-                            <div class="alert alert-success" style="display: none;">Form submitted successfully!</div>
 
-                            <h2 class="font-weight-bold mb-4 text-brown">Let's get started</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum scelerisque pulvinar sem.</p>
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-11">
+                <div class="overflow-hidden border-0 shadow-lg rounded-5 bg-white" data-aos="zoom-in" data-aos-duration="800">
+                    <div class="row g-0">
 
-                            <h3 class="mb-4 text-brown">Get in touch</h3>
-                            <p>You can send your concern, questions, and thoughts. Thank you!</p>
-                            <hr>
-                            <form method="post" id="contactForm" class="contactForm">
-                                <div class="row">
+                        <div class="col-md-7 col-lg-8 p-4 p-md-5">
+                            <div class="alert alert-success d-none mb-4 rounded-4 shadow-sm" id="submitAlert">
+                                <i class="fa-solid fa-circle-check me-2"></i> Form submitted successfully!
+                            </div>
+
+                            <h3 class="fw-bold text-dark mb-2">Let's get started</h3>
+                            <p class="text-muted mb-4">Have questions or suggestions about our free reading ecosystem? Send us a message!</p>
+
+                            <form method="post" id="contactForm">
+                                <div class="row g-3">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="label" for="name">Full Name</label>
-                                            <input type="text" class="form-control" name="name" id="name" placeholder="Name">
-                                            <span class="text-danger" style="display: none;">Please enter a valid name.</span> <!-- Placeholder for error -->
+                                            <label class="form-label fw-semibold text-secondary small" for="name">Full Name</label>
+                                            <input type="text" class="form-control rounded-3" name="name" id="name" placeholder="Juan Dela Cruz" required>
+                                            <span class="text-danger small d-none" id="nameError">Please enter a valid name.</span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="label" for="email">Email Address</label>
-                                            <input type="email" class="form-control" name="email" id="email" placeholder="Email">
-                                            <span class="text-danger" style="display: none;">Please enter a valid email.</span> <!-- Placeholder for error -->
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="label" for="contact">Contact Number</label>
-                                            <input type="text" class="form-control" name="contact" id="contact" placeholder="Contact Number">
-                                            <span class="text-danger" style="display: none;">Please enter a valid contact number.</span> <!-- Placeholder for error -->
+                                            <label class="form-label fw-semibold text-secondary small" for="email">Email Address</label>
+                                            <input type="email" class="form-control rounded-3" name="email" id="email" placeholder="juan@example.com" required>
+                                            <span class="text-danger small d-none" id="emailError">Please enter a valid email.</span>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="label" for="subject">Subject</label>
-                                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
-                                            <span class="text-danger" style="display: none;">Please enter a valid subject.</span> <!-- Placeholder for error -->
+                                            <label class="form-label fw-semibold text-secondary small" for="contact">Contact Number</label>
+                                            <input type="text" class="form-control rounded-3" name="contact" id="contact" placeholder="0917XXXXXXX">
+                                            <span class="text-danger small d-none" id="contactError">Please enter a valid contact number.</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label fw-semibold text-secondary small" for="subject">Subject</label>
+                                            <input type="text" class="form-control rounded-3" name="subject" id="subject" placeholder="Book Request / Donation" required>
+                                            <span class="text-danger small d-none" id="subjectError">Please enter a valid subject.</span>
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="label" for="message">Message</label>
-                                            <textarea name="message" class="form-control" id="message" cols="30" rows="4" placeholder="Input your message"></textarea>
-                                            <span class="text-danger" style="display: none;">Please enter a valid message.</span> <!-- Placeholder for error -->
+                                            <label class="form-label fw-semibold text-secondary small" for="message">Message</label>
+                                            <textarea name="message" class="form-control rounded-3" id="message" rows="4" placeholder="Write your thoughts or inquiries here..." required></textarea>
+                                            <span class="text-danger small d-none" id="messageError">Please enter a valid message.</span>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary btn-form">Send Message</button>
-                                        </div>
+                                    <div class="col-md-12 pt-2">
+                                        <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 fw-bold text-white transition-bubble shadow-sm">
+                                            <i class="fa-solid fa-paper-plane me-2"></i> Send Message
+                                        </button>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                    </div>
 
-                    <div class="col-lg-4 col-md-5 d-flex align-items-stretch todarkbrown">
-                        <div class="info-wrap w-100 p-md-5 p-4">
-                            <h3>Let's get in touch</h3>
-                            <p class="mb-4">We're open for any suggestion or just to have a chat.</p>
+                        <div class="col-md-5 col-lg-4 bg-primary p-4 p-md-5 text-white d-flex flex-column justify-content-center">
+                            <h3 class="fw-bold mb-3 text-white">Contact Info</h3>
+                            <p class="text-white-50 small mb-5">We are open for library partnership updates, feedback, or open-source book community contributions.</p>
 
-                            <div class="dbox w-100 d-flex align-items-start">
-                                <div class="icon d-flex align-items-center justify-content-center">
-                                    <span class="fa fa-map-marker"></span>
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="contact-icon-bubble bg-white text-primary me-3 shadow-sm">
+                                    <i class="fa-solid fa-location-dot"></i>
                                 </div>
-                                <div class="text pl-3">
-                                    <p><span>Main Address:</span><a href="#"> Newport, Pasay City</a></p>
+                                <div>
+                                    <span class="d-block fw-bold text-white-50 small">Main Address</span>
+                                    <span class="text-white fs-6">Newport, Pasay City, Philippines</span>
                                 </div>
                             </div>
 
-                            <div class="dbox w-100 d-flex align-items-center">
-                                <div class="icon d-flex align-items-center justify-content-center">
-                                    <span class="fa fa-phone"></span>
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="contact-icon-bubble bg-white text-primary me-3 shadow-sm">
+                                    <i class="fa-solid fa-phone"></i>
                                 </div>
-                                <div class="text pl-3">
-                                    <p><span>Phone:</span> <a href="tel://1234567920">09322247d0 or 173-267-8100</a></p>
-                                </div>
-                            </div>
-
-                            <div class="dbox w-100 d-flex align-items-center">
-                                <div class="icon d-flex align-items-center justify-content-center">
-                                    <span class="fa fa-paper-plane"></span>
-                                </div>
-                                <div class="text pl-3">
-                                    <p><span>Email:</span> <a href="mailto:info@yoursite.com">OnlineOpenLibrary</a></p>
+                                <div>
+                                    <span class="d-block fw-bold text-white-50 small">Phone</span>
+                                    <a href="tel:+639322247000" class="text-white text-decoration-none fs-6">+63 932 224 7000</a>
                                 </div>
                             </div>
 
-                            <div class="dbox w-100 d-flex align-items-center">
-                                <div class="icon d-flex align-items-center justify-content-center">
-                                    <span class="fa fa-globe"></span>
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="contact-icon-bubble bg-white text-primary me-3 shadow-sm">
+                                    <i class="fa-solid fa-envelope"></i>
                                 </div>
-                                <div class="text pl-3">
-                                    <p><span>Website</span> <a href="#">OnlineOpenLibrary.com</a></p>
+                                <div>
+                                    <span class="d-block fw-bold text-white-50 small">Email</span>
+                                    <a href="mailto:support@openlibrary.com" class="text-white text-decoration-none fs-6">support@@openlibrary.com</a>
                                 </div>
                             </div>
 
+                            <div class="d-flex align-items-start">
+                                <div class="contact-icon-bubble bg-white text-primary me-3 shadow-sm">
+                                    <i class="fa-solid fa-globe"></i>
+                                </div>
+                                <div>
+                                    <span class="d-block fw-bold text-white-50 small">Website</span>
+                                    <a href="#" class="text-white text-decoration-none fs-6">openlibrary.com</a>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </section>
 
-
-
-
-
-<!--Footer-->
 <partial name="/Views/Shared/_Footer.cshtml" />

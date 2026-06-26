@@ -1,14 +1,19 @@
 ﻿@model IEnumerable<OopProject.Models.Book>
-
 @{
     ViewData["Title"] = "Books by Category";
 }
-
 <partial name="/Views/Shared/_Header.cshtml" />
-<br>
-<section class="ftco-section bg-light ftco-no-pt ftco-no-pb">
-    <div class="container-fluid px-md-0">
-        <div class="row no-gutters">
+
+<section class="py-5 bg-bubble-light content-spacer">
+    <div class="container py-4">
+
+        <div class="text-center mb-5" data-aos="fade-up" data-aos-duration="600">
+            <span class="badge bg-info text-dark rounded-pill px-3 py-2 mb-2 fw-bold">Collection</span>
+            <h2 class="display-5 fw-extrabold text-dark">Books by Category</h2>
+            <p class="text-muted small">Explore our 100% free digital reading repository</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
             @if (Model != null && Model.Any())
             {
                 foreach (var book in Model)
@@ -17,42 +22,54 @@
                     ? Url.Content("~/images/books/default.png")
                     : book.Image;
 
-                    <div class="col-lg-6">
-                        <div class="room-wrap d-md-flex">
-                            <a href="@Url.Action("BookDetails", "Books", new { id = book.Id })"
-                               class="img"
-                               style="background-image: url('@imagePath');">
-                            </a>
-                            <div class="half left-arrow d-flex align-items-center">
-                                <div class="text p-4 p-xl-5 text-center">
-                                    <p class="star mb-0">
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                    </p>
+                    <div class="col-lg-6" data-aos="fade-up" data-aos-duration="800">
+                        <div class="card border-0 shadow-sm rounded-5 bg-white overflow-hidden h-100 transition-bubble">
+                            <div class="row g-0 h-100">
 
-                                    <h3 class="mb-3 weight">
-                                        <a href="@Url.Action("BookDetails", "Books", new { id = book.Id })"
-                                           style="text-decoration: none">
-                                            @book.BookTitle
-                                        </a>
-                                    </h3>
-                                    <ul class="book-details">
-                                        <li>Genre: <span>@string.Join(", ", book.BookCategories.Select(bc => bc.Category.CategoryName))</span></li>
-                                        <li>Author: <span>@book.Author</span></li>
-                                        <li>Year of Publication: <span>@book.PublicationYear</span></li>
-                                    </ul>
-                                    <p class="pt-1">
-                                        <a class="btn-custom px-3 py-2"
+                                <div class="col-sm-5 position-relative min-h-250">
+                                    <a href="@Url.Action("BookDetails", "Books", new { id = book.Id })" class="d-block h-100 w-100">
+                                        <img src="@imagePath" alt="@book.BookTitle" class="book-cover-split img-fluid w-100 h-100">
+                                    </a>
+                                </div>
+
+                                <div class="col-sm-7 d-flex align-items-center">
+                                    <div class="card-body p-4 text-center text-sm-start">
+
+                                        <div class="text-warning small mb-2">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                        </div>
+
+                                        <h4 class="fw-bold mb-3 tracking-tight">
+                                            <a href="@Url.Action("BookDetails", "Books", new { id = book.Id })" class="text-dark text-decoration-none border-bottom-hover">
+                                                @book.BookTitle
+                                            </a>
+                                        </h4>
+
+                                        <ul class="list-unstyled mb-4 small text-muted lh-lg">
+                                            <li>
+                                                <span class="fw-bold text-secondary">Genre:</span>
+                                                <span class="badge bg-info text-dark rounded-pill px-2 py-1 ms-1">
+                                                    @string.Join(", ", book.BookCategories.Select(bc => bc.Category.CategoryName))
+                                                </span>
+                                            </li>
+                                            <li><span class="fw-bold text-secondary">Author:</span> <span class="text-dark fw-semibold">@book.Author</span></li>
+                                            <li><span class="fw-bold text-secondary">Published:</span> <span class="text-dark fw-semibold">@book.PublicationYear</span></li>
+                                        </ul>
+
+                                        <a class="btn btn-warning rounded-pill px-4 py-2 text-dark fw-bold btn-bubble-action small transition-bubble"
                                            asp-controller="Books"
                                            asp-action="BookDetails"
                                            asp-route-id="@book.Id">
-                                            Description<span class="icon-long-arrow-right"></span>
+                                            View Details <i class="fa-solid fa-arrow-right-long ms-1"></i>
                                         </a>
-                                    </p>
+
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -60,11 +77,18 @@
             }
             else
             {
-                <p class="text-center">No books found for this category.</p>
+                <div class="col-md-8 text-center py-5" data-aos="zoom-in">
+                    <div class="p-5 bg-white rounded-5 shadow-sm border border-light">
+                        <div class="icon-bubble bg-light text-secondary mx-auto mb-3 fs-1">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <h4 class="fw-bold text-dark mb-2">No Books Found</h4>
+                        <p class="text-muted small mb-0">There are currently no titles listed under this category banner.</p>
+                    </div>
+                </div>
             }
-
         </div>
     </div>
 </section>
-<br>
+
 <partial name="/Views/Shared/_Footer.cshtml" />

@@ -1,52 +1,121 @@
 @model IEnumerable<OopProject.Models.Request>
 @{
-    ViewData["Title"] = "My Request";
+    ViewData["Title"] = "My Requests";
 }
-<partial name="/Views/Shared/_Header.cshtml"></partial>
-<div class="row">
-    <div class="col">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title mb-4 d-inline">My Requests</h5>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Phone Number</th>
-                            <th scope="col">Category of Book</th>
-                            <th scope="col">Book Name</th>
-                            <th scope="col">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var request in Model)
-                        {
-                            <tr>
-                                <td>@request.Name</td>
-                                <td>@request.Email</td>
-                                <td>@request.PhoneNumber</td>
-                                <td>
-                                    @if (request.Book?.BookCategories?.Any() == true)
+<partial name="/Views/Shared/_Header.cshtml" />
+
+<section class="py-5 bg-bubble-light content-spacer">
+    <div class="container py-4">
+
+        <div class="text-center mb-5" data-aos="fade-up" data-aos-duration="600">
+            <span class="badge bg-info text-dark rounded-pill px-3 py-2 mb-2 fw-bold">Dashboard</span>
+            <h2 class="display-5 fw-extrabold text-dark">My Requests</h2>
+            <p class="text-muted small">Track and manage your free book digital loan distributions</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-11">
+                @if (Model != null && Model.Any())
+                {
+                    <div class="card border-0 shadow-sm rounded-5 bg-white overflow-hidden p-3 p-md-4" data-aos="zoom-in" data-aos-duration="800">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0 text-center text-sm-start">
+                                <thead class="table-light-bubble">
+                                    <tr class="text-secondary small text-uppercase">
+                                        <th scope="col" class="py-3 ps-4">Name</th>
+                                        <th scope="col" class="py-3">Email</th>
+                                        <th scope="col" class="py-3">Phone Number</th>
+                                        <th scope="col" class="py-3">Category</th>
+                                        <th scope="col" class="py-3">Book Title</th>
+                                        <th scope="col" class="py-3 pe-4 text-center">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="small fw-semibold text-dark">
+                                    @foreach (var request in Model)
                                     {
-                                        @foreach (var category in request.Book.BookCategories)
-                                        {
-                                            <span class="badge badge-primary">@category.Category?.CategoryName</span>
-                                        }
+                                        <tr>
+                                            <td class="py-3 ps-4">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="avatar-bubble-sm bg-primary text-white">
+                                                        <i class="fa-solid fa-user-tag fs-7"></i>
+                                                    </div>
+                                                    <span>@request.Name</span>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 text-muted">@request.Email</td>
+                                            <td class="py-3 text-muted">@request.PhoneNumber</td>
+                                            <td class="py-3">
+                                                @if (request.Book?.BookCategories?.Any() == true)
+                                                {
+                                                    <div class="d-flex flex-wrap gap-1">
+                                                        @foreach (var category in request.Book.BookCategories)
+                                                        {
+                                                            <span class="badge bg-info text-dark rounded-pill px-2 py-1 fs-8 fw-bold">
+                                                                @category.Category?.CategoryName
+                                                            </span>
+                                                        }
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-muted small fw-normal">No Category</span>
+                                                }
+                                            </td>
+                                            <td class="py-3">
+                                                <span class="text-primary border-bottom-hover">
+                                                    <i class="fa-solid fa-book-bookmark me-1 small"></i> @request.Book?.BookTitle
+                                                </span>
+                                            </td>
+                                            <td class="py-3 pe-4 text-center">
+                                                @{
+                                                    // Ginawa nating string muna ang enum bago i-safeguard ng ToLower()
+                                                    var currentStatus = request.Status.ToString().ToLower();
+
+                                                    var statusColor = "bg-warning text-dark"; // Default / Pending
+                                                    var statusIcon = "fa-clock";
+
+                                                    if (currentStatus == "approved" || currentStatus == "success")
+                                                    {
+                                                        statusColor = "bg-success text-white";
+                                                        statusIcon = "fa-circle-check";
+                                                    }
+                                                    else if (currentStatus == "rejected" || currentStatus == "cancelled")
+                                                    {
+                                                        statusColor = "bg-danger text-white";
+                                                        statusIcon = "fa-circle-xmark";
+                                                    }
+                                                }
+                                                <span class="badge @statusColor rounded-pill px-3 py-2 fw-bold d-inline-flex align-items-center gap-1 shadow-sm fs-8">
+                                                    <i class="fa-solid @statusIcon"></i> @request.Status
+                                                </span> 
+                                            </td>
+                                        </tr>
                                     }
-                                    else
-                                    {
-                                        @:No Category
-                                    }
-                                </td>
-                                <td><span class="badge badge-info">@request.Book?.BookTitle</span></td>
-                                <td><span class="badge badge-success">@request.Status</span></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-5" data-aos="zoom-in" data-aos-duration="700">
+                        <div class="p-5 bg-white rounded-5 shadow-sm border border-light max-w-500 mx-auto transition-bubble">
+                            <div class="icon-bubble bg-light text-secondary mx-auto mb-4 fs-1 animate-bounce">
+                                <i class="fa-solid fa-folder-open text-info"></i>
+                            </div>
+                            <h4 class="fw-extrabold text-dark mb-2">No Requests Found</h4>
+                            <p class="text-muted small mb-4 px-3">You haven't requested any books yet. Explore our open library ecosystem catalog to get started completely free of charge!</p>
+                            <a class="btn btn-primary rounded-pill px-4 py-2 fw-bold text-white transition-bubble shadow-sm"
+                               asp-controller="Home" asp-action="Index">
+                                <i class="fa-solid fa-magnifying-glass me-1"></i> Browse Free Books
+                            </a>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
+
     </div>
-</div>
-<partial name="/Views/Shared/_Footer.cshtml"></partial>
+</section>
+
+<partial name="/Views/Shared/_Footer.cshtml" />

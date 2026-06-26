@@ -1,51 +1,83 @@
 ﻿@{
-    ViewData["Title"] = "Login Admin";
+    ViewData["Title"] = "Admin Login";
 }
 <partial name="/Views/Shared/_HeaderAdmin.cshtml" />
-<body class="adminbody">
-<div class="break"></div>
 
-    <section>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <form asp-action="AdminLogin" asp-controller="Admin" class="form-create">
-                        @if (TempData["SuccessMessage"] != null)
-                        {
-                            <div class="alert alert-success">
-                                @TempData["SuccessMessage"]
-                            </div>
-                        }
-                        @if (TempData["DebugMessage"] != null)
-                        {
-                            <div class="alert alert-danger">
-                                @TempData["DebugMessage"]
-                            </div>
-                        }
-                        <h3 class="font-weight-bold mb-3">Login as Admin</h3>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <input id="name" type="text" placeholder="Name" class="form-control" name="AdminName" required>
+<section class="login-glow-wrapper d-flex align-items-center justify-content-center min-vh-100 position-relative overflow-hidden">
+    <div class="bubble-glow-bg position-absolute inset-0 z-0"></div>
+
+    <div class="container position-relative z-1 mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5" data-aos="zoom-in" data-aos-duration="600">
+
+                <div class="card border-0 shadow-lg rounded-5 bg-white p-4 p-sm-5 transition-bubble">
+
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success rounded-4 mb-4 shadow-sm">
+                            <i class="fa-solid fa-circle-check me-2"></i> @TempData["SuccessMessage"]
+                        </div>
+                    }
+                    @if (TempData["DebugMessage"] != null)
+                    {
+                        <div class="alert alert-danger rounded-4 mb-4 shadow-sm">
+                            <i class="fa-solid fa-triangle-exclamation me-2"></i> @TempData["DebugMessage"]
+                        </div>
+                    }
+
+                    <div class="text-center mb-4">
+                        <span class="badge bg-danger text-white rounded-pill px-3 py-2 mb-2 fw-bold">
+                            <i class="fa-solid fa-user-gear me-1"></i> Management
+                        </span>
+                        <h2 class="fw-extrabold text-dark tracking-tight">Admin Portal</h2>
+                        <p class="text-muted small">Secure gateway for Open Library administrators</p>
+                    </div>
+
+                    <form asp-action="AdminLogin" asp-controller="Admin">
+                        <div class="row g-3">
+
+                            <div class="col-12">
+                                <div class="form-group position-relative">
+                                    <label class="form-label fw-semibold text-secondary small" for="name">Admin Username</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-end-0 rounded-start-3 text-secondary">
+                                            <i class="fa-solid fa-user-shield"></i>
+                                        </span>
+                                        <input id="name" type="text" placeholder="Enter administrator name" class="form-control border-start-0 rounded-end-3" name="AdminName" required>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <input id="password" type="password" placeholder="Password" class="form-control" name="Password" required>
+
+                            <div class="col-12">
+                                <div class="form-group position-relative">
+                                    <label class="form-label fw-semibold text-secondary small" for="password">Password</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-end-0 rounded-start-3 text-secondary">
+                                            <i class="fa-solid fa-lock"></i>
+                                        </span>
+                                        <input id="password" type="password" placeholder="Enter admin password" class="form-control border-x-0 toggle-password-input" name="Password" required>
+                                        <button type="button" class="input-group-text bg-light border-start-0 rounded-end-3 text-secondary password-toggle-btn">
+                                            <i class="fa-solid fa-eye text-muted-bubble"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary-admin py-3 px-4" id="submitBtn">Login</button>
-                                </div>
-                                <div class="form-group">
-                                    <a class="btn btn-no-style" role="button" asp-controller="Home" asp-action="Index">back to website</a>
-                                </div>
+
+                            <div class="col-12 pt-3">
+                                <button type="submit" id="submitBtn" class="btn btn-primary w-100 rounded-pill py-3 fw-bold text-white shadow-sm transition-bubble mb-2">
+                                    <i class="fa-solid fa-key me-2"></i> Authenticate
+                                </button>
+
+                                <a class="btn btn-outline-secondary w-100 rounded-pill py-2 fw-semibold text-dark transition-bubble" role="button" asp-controller="Home" asp-action="Index">
+                                    <i class="fa-solid fa-arrow-left me-2"></i> Back to Website
+                                </a>
                             </div>
+
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
-    </section>
-</body>
+    </div>
+</section>

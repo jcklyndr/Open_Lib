@@ -1,92 +1,116 @@
 ﻿@model OopProject.Models.User
 @{
-    ViewData["Title"] = "Signup User";
+    ViewData["Title"] = "Register";
 }
 <partial name="/Views/Shared/_Header.cshtml" />
-<body>
-    <section class="">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <form method="post" asp-action="UserSignup" asp-controller="Auth" class="form-create" id="signupForm">
-                        @if (!ViewData.ModelState.IsValid)
-                        {
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-                                    {
-                                        <li>@error.ErrorMessage</li>
-                                    }
-                                </ul>
-                            </div>
-                        }
-                        <h2 class="font-weight-bold mb-3 text-brown">Register</h2>
-                        <div class="row">
-                            <div class="col-md-12">
+
+<section class="login-glow-wrapper d-flex align-items-center justify-content-center min-vh-100 position-relative overflow-hidden">
+    <div class="bubble-glow-bg position-absolute inset-0 z-0"></div>
+
+    <div class="container position-relative z-1 mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5" data-aos="zoom-in" data-aos-duration="600">
+
+                <div class="card border-0 shadow-lg rounded-5 bg-white p-4 p-sm-5">
+
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger rounded-4 mb-4 shadow-sm">
+                            <ul class="mb-0 ps-3 small">
+                                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                {
+                                    <li>@error.ErrorMessage</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    <div class="text-center mb-4">
+                        <span class="badge bg-info text-dark rounded-pill px-3 py-2 mb-2 fw-bold">Join Us</span>
+                        <h2 class="fw-extrabold text-dark tracking-tight">Create Account</h2>
+                        <p class="text-muted small">Get unlimited access to free books at Open Library</p>
+                    </div>
+
+                    <form method="post" asp-action="UserSignup" asp-controller="Auth" id="signupForm">
+                        <div class="row g-3">
+
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <input id="name" type="text" placeholder="Name" class="form-control" name="Username" required>
+                                    <label class="form-label fw-semibold text-secondary small" for="name">Username</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-end-0 rounded-start-3 text-secondary">
+                                            <i class="fa-solid fa-user"></i>
+                                        </span>
+                                        <input id="name" type="text" placeholder="Choose a username" class="form-control border-start-0 rounded-end-3" name="Username" required>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <input id="email" type="email" placeholder="Email" class="form-control" name="Email" required>
+                                    <label class="form-label fw-semibold text-secondary small" for="email">Email Address</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-end-0 rounded-start-3 text-secondary">
+                                            <i class="fa-solid fa-envelope"></i>
+                                        </span>
+                                        <input id="email" type="email" placeholder="example@email.com" class="form-control border-start-0 rounded-end-3" name="Email" required>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                            <div class="form-group">
-                                <input id="password" type="password" placeholder="Password" class="form-control" name="Password" required>
-                            </div>
-                            </div>
-                            <div class="col-md-12">
-                            <div class="form-group">
-                                <input id="password-confirm" type="password" placeholder="Confirm Password" class="form-control" name="passwordConfirmation" required>
-                                    <span id="password-error" class="text-danger" style="display: none;">Passwords do not match</span>
-                            </div>
-                            </div>
-                            <div class="col-md-12">
+
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <!-- Submit button -->
-                                    <button type="submit" class="btn btn-primary-login py-3 px-4">Register</button>
+                                    <label class="form-label fw-semibold text-secondary small" for="password">Password</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-end-0 rounded-start-3 text-secondary">
+                                            <i class="fa-solid fa-lock"></i>
+                                        </span>
+                                        <input id="password" type="password" placeholder="Create a strong password" class="form-control border-x-0 toggle-password-input" name="Password" required>
+                                        <button type="button" class="input-group-text bg-light border-start-0 rounded-end-3 text-secondary password-toggle-btn">
+                                            <i class="fa-solid fa-eye-slash text-muted-bubble"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label fw-semibold text-secondary small" for="password-confirm">Confirm Password</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-end-0 rounded-start-3 text-secondary">
+                                            <i class="fa-solid fa-shield-heart"></i>
+                                        </span>
+                                        <input id="password-confirm" type="password" placeholder="Repeat your password" class="form-control border-x-0 toggle-password-input" name="passwordConfirmation" required>
+                                        <button type="button" class="input-group-text bg-light border-start-0 rounded-end-3 text-secondary password-toggle-btn">
+                                            <i class="fa-solid fa-eye-slash text-muted-bubble"></i>
+                                        </button>
+                                    </div>
+                                    <span id="password-error" class="text-danger small d-none mt-1">
+                                        <i class="fa-solid fa-triangle-exclamation me-1"></i> Passwords do not match
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 pt-3">
+                                <button type="submit" class="btn btn-primary w-100 rounded-pill py-3 fw-bold text-white shadow-sm transition-bubble">
+                                    <i class="fa-solid fa-user-plus me-2"></i> Register Now
+                                </button>
+                            </div>
+
                         </div>
                     </form>
 
-                    <div class="space"></div>
-                    <div class="btn-text-center">
-                        <p>Have an account? @Html.ActionLink("Login Here", "UserLogin", "Auth", null, new { @class = "btn-login-link" })</p>
+                    <div class="hr-theme-line my-4"></div>
+
+                    <div class="text-center">
+                        <p class="text-muted small mb-0">
+                            Already have an account?
+                            @Html.ActionLink("Login Here", "UserLogin", "Auth", null, new { @class = "text-primary fw-bold text-decoration-none border-bottom border-primary pb-1" })
+                        </p>
                     </div>
+
                 </div>
             </div>
         </div>
-    </section>
-</body>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const password = document.getElementById("password");
-    const passwordConfirm = document.getElementById("password-confirm");
-    const passwordError = document.getElementById("password-error");
-    const form = document.getElementById("signUpForm");
-
-    form.addEventListener("submit", function (event) {
-        // Reset error messages
-        passwordError.style.display = "none";
-
-        // Check if passwords match
-        if (password.value !== passwordConfirm.value) {
-            event.preventDefault(); // Prevent form submission
-            passwordError.style.display = "inline"; // error message
-        }
-
-        // if password and confirmPassword are empty, it will not submit
-        if (password.value === "" || passwordConfirm.value === "") {
-            event.preventDefault(); // Prevent form submission
-            alert("Both password fields must be filled out.");
-        }
-    });
-});
-</script>
-
-
-
-
+    </div>
+</section>

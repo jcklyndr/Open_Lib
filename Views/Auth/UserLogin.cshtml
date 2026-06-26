@@ -1,52 +1,84 @@
 ﻿@{
-    ViewData["Title"] = "Login User";
+    ViewData["Title"] = "Login";
 }
 <partial name="/Views/Shared/_Header.cshtml" />
-<body>
-    <br>
-    <section class="">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <form asp-action="UserLogin" asp-controller="Auth" class="form-create">
-                        @if (TempData["SuccessMessage"] != null)
-                        {
-                            <div class="alert alert-success">
-                                @TempData["SuccessMessage"]
-                            </div>
-                        }
-                        <h3 class="font-weight-bold mb-3 text-brown">Login</h3>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <input id="name" type="text" placeholder="Name" class="form-control" name="Username" required>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <input id="password" type="password" placeholder="Password" class="form-control" name="Password" required>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary-login py-3 px-4">Login</button>
+
+<section class="login-glow-wrapper d-flex align-items-center justify-content-center min-vh-100 position-relative overflow-hidden">
+    <div class="bubble-glow-bg position-absolute inset-0 z-0"></div>
+
+    <div class="container position-relative z-1 mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5" data-aos="zoom-in" data-aos-duration="600">
+
+                <div class="card border-0 shadow-lg rounded-5 bg-white p-4 p-sm-5">
+
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success rounded-4 mb-4 shadow-sm">
+                            <i class="fa-solid fa-circle-check me-2"></i> @TempData["SuccessMessage"]
+                        </div>
+                    }
+
+                    <div class="text-center mb-4">
+                        <span class="badge bg-info text-dark rounded-pill px-3 py-2 mb-2 fw-bold">Welcome Back</span>
+                        <h2 class="fw-extrabold text-dark tracking-tight">Login to Open Library</h2>
+                        <p class="text-muted small">Access your central hub for free digital reading</p>
+                    </div>
+
+                    <form asp-action="UserLogin" asp-controller="Auth">
+                        <div class="row g-3">
+
+                            <div class="col-12">
+                                <div class="form-group position-relative">
+                                    <label class="form-label fw-semibold text-secondary small" for="name">Username</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-end-0 rounded-start-3 text-secondary">
+                                            <i class="fa-solid fa-user"></i>
+                                        </span>
+                                        <input id="name" type="text" placeholder="Enter your username" class="form-control border-start-0 rounded-end-3" name="Username" required>
+                                    </div>
                                 </div>
                             </div>
 
-                                <div class="col-md-12">
-                                <div class="form-group">
-                                    <a asp-controller="Admin" asp-action="AdminLogin" class="btn btn-admin py-3 px-4">Login as Admin</a>
+                            <div class="col-12">
+                                <div class="form-group position-relative">
+                                    <label class="form-label fw-semibold text-secondary small" for="password">Password</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-end-0 rounded-start-3 text-secondary">
+                                            <i class="fa-solid fa-lock"></i>
+                                        </span>
+                                        <input id="password" type="password" placeholder="Enter your password" class="form-control border-x-0 toggle-password-input" name="Password" required>
+                                        <button type="button" class="input-group-text bg-light border-start-0 rounded-end-3 text-secondary password-toggle-btn">
+                                            <i class="fa-solid fa-eye-slash text-muted-bubble"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
+
+                            <div class="col-12 pt-3">
+                                <button type="submit" class="btn btn-primary w-100 rounded-pill py-3 fw-bold text-white shadow-sm transition-bubble mb-2">
+                                    <i class="fa-solid fa-right-to-bracket me-2"></i> Sign In
+                                </button>
+
+                                <a asp-controller="Admin" asp-action="AdminLogin" class="btn btn-outline-secondary w-100 rounded-pill py-2 fw-semibold text-dark">
+                                    <i class="fa-solid fa-user-shield me-2"></i> Login as Admin
+                                </a>
+                            </div>
+
                         </div>
                     </form>
-                    <div class="space"></div>
-                    <div class="btn-text-center">
-                        <p>Don't have an account? @Html.ActionLink("Register Here", "UserSignup", "Auth", null, new { @class = "btn-login-link" })</p>
+
+                    <div class="hr-theme-line my-4"></div>
+
+                    <div class="text-center">
+                        <p class="text-muted small mb-0">
+                            Don't have an account?
+                            @Html.ActionLink("Register Here", "UserSignup", "Auth", null, new { @class = "text-primary fw-bold text-decoration-none border-bottom border-primary pb-1" })
+                        </p>
                     </div>
-                </div>
+
                 </div>
             </div>
-    </section>
-</body>
-
+        </div>
+    </div>
+</section>

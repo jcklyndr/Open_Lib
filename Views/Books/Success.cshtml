@@ -1,19 +1,41 @@
 ﻿@{
-    ViewData["Title"] = "Success";
+    ViewData["Title"] = "Request Successful";
 }
-<partial name="/Views/Shared/_Header.cshtml"></partial> 
-    <div class="overlay"></div>
-    <section class="ftco-section ftco-book ftco-no-pt ftco-no-pb">
-        <div class="container">
-            <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
-                <div class="col-md-7 ftco-animate">
-                    <h2 class="subheading">You have successfully request for this Book. Please check your email or phone for details as we process your request shortly. Thank you!</h2>
-                    <h1 class="mb-4"></h1>
-                  <p>  <a asp-controller="User" asp-action="RequestBooks" class="btn btn-custom">View Your Request</a> </p>
+<partial name="/Views/Shared/_Header.cshtml" />
+
+<section class="py-5 bg-bubble-light content-spacer d-flex align-items-center justify-content-center min-vh-75">
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 text-center" data-aos="zoom-in" data-aos-duration="800">
+
+                <div class="card border-0 shadow-lg rounded-5 bg-white p-5 transition-bubble position-relative overflow-hidden">
+
+                    <div class="success-bubble-particle positional-1 bg-info"></div>
+                    <div class="success-bubble-particle positional-2 bg-warning"></div>
+
+                    <div class="icon-bubble bg-success text-white mx-auto mb-4 fs-1 shadow-sm success-checkmark-bounce">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+
+                    <span class="badge bg-info text-dark rounded-pill px-3 py-2 mb-3 fw-bold">Success</span>
+                    <h2 class="fw-extrabold text-dark tracking-tight mb-3">Request Submitted!</h2>
+
+                    <p class="text-muted leading-relaxed small px-md-4 mb-4">
+                        You have successfully requested this book from <span class="fw-bold text-primary">Open Library</span>. Please check your registered email address or phone inbox for distribution updates as we process your free digital copy loan shortly. Thank you!
+                    </p>
+
+                    <div class="pt-2">
+                        <a asp-controller="User" asp-action="RequestBooks"
+                           class="btn btn-primary rounded-pill px-4 py-3 fw-bold text-white transition-bubble shadow-sm w-100 w-sm-auto d-inline-block">
+                            <i class="fa-solid fa-clock-rotate-left me-2"></i> View Your Requests
+                        </a>
+                    </div>
+
                 </div>
+
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 <partial name="/Views/Shared/_Footer.cshtml" />
-
-

@@ -1,32 +1,61 @@
-﻿<div class="containerheader">
-    <nav>
-        <h2 class="text-brown use-font weight">Online Open Library</h2>
-        <div class="nav-links" id="navlinkkk">
-            <ul>
-                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                <li><a asp-controller="Home" asp-action="About">About</a></li>
-                <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+﻿<div class="fixed-top w-100 px-3 pt-3 container-navbar-fixed" style="z-index: 1030;">
+    <div class="container" data-aos="fade-down" data-aos-duration="800">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border border-2 border-white rounded-pill px-4 py-2 custom-navbar-bubble shadow-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand text-brown fw-extrabold use-font tracking-tight bubble-brand px-3 py-1 rounded-pill" asp-controller="Home" asp-action="Index">
+                        Open Library
+                </a>
 
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <!-- Custom dropdown -->
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle">
-                            @ViewData["Username"]
-                        </a>
-                        <!-- Dropdown menu -->
-                        <div class="dropdown-content">
-                            <a class="dropdown-item" asp-controller="User" asp-action="RequestBooks">My Request</a>
-                            <a class="dropdown-item" asp-controller="User" asp-action="UserLogout">Logout</a>
-                        </div>
-                    </li>
-                }
-                else
-                {
-                    <li><a class="nav-link" asp-controller="Auth" asp-action="UserLogin">Login</a></li>
-                    <li><a class="nav-link" asp-controller="Auth" asp-action="UserSignup">Register</a></li>
-                }
-            </ul>
-        </div>
-    </nav>
+                <button class="navbar-toggler border-0 rounded-circle p-2 bg-light ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navlinkkk" aria-controls="navlinkkk" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navlinkkk">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-1 mt-3 mt-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link nav-bubble-link" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-bubble-link" asp-controller="Home" asp-action="About">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-bubble-link" asp-controller="Home" asp-action="Contact">Contact</a>
+                        </li>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle nav-bubble-link auth-pill px-3" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-user-circle me-1"></i>@ViewData["Username"]
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg p-3 rounded-4 mt-2 dropdown-bubble-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item rounded-pill py-2 px-3 fw-medium" asp-controller="User" asp-action="RequestBooks">
+                                            <i class="fa-solid fa-book-bookmark me-2 text-primary"></i>My Request
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider my-2 border-light"></li>
+                                    <li>
+                                        <a class="dropdown-item rounded-pill py-2 px-3 fw-medium text-danger" asp-controller="User" asp-action="UserLogout">
+                                            <i class="fa-solid fa-sign-out-alt me-2"></i>Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link nav-bubble-link login-pill px-3" asp-controller="Auth" asp-action="UserLogin">Login</a>
+                            </li>
+                            <li class="nav-item ms-lg-1">
+                                <a class="nav-link btn btn-warning text-dark rounded-pill fw-bold px-3 py-2 shadow-sm transition-bubble border-0" asp-controller="Auth" asp-action="UserSignup">Register</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
 </div>
+
